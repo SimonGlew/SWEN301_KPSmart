@@ -2,11 +2,11 @@
 
 1. Login
     - **Client** Sends "Login [username] [password]
-    - **Server** Sends to specific client accept message, along with list of routes and business figures within string
+    - **Server** Sends to specific client accept message, along with list of routes and business figures within string or a login failed request to specific client
 
 2. Logout
     - **Client** sends "Logout [username]"
-    - **Server** sends accept message for GUI to quit
+    - **Server** sends accept message for GUI to go back to login screen
 
 3. Mail Delivery
     - **Client** sends "Mail Delivery [Weight][Volume][Origin][Destination][Priority]"
