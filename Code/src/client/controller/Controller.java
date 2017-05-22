@@ -20,4 +20,41 @@ public class Controller {
 		
 		System.out.printf("Mail delivery event creation requested @ %s\norigin: %s\ndestination: %s\nweight: %f g\nvolume: %f cm^3\n", dateAndTime, origin, dest, weight, volume);
 	}
+	
+	/**
+	 * Requests a customer price update from the server
+	 * @param origin
+	 * @param dest
+	 * @param priority
+	 * @param pricePerGram
+	 * @param pricePerCub
+	 */
+	public void requestCustomerPriceUpdate(String origin, String dest, String priority, double pricePerGram, double pricePerCube) {
+		
+	}
+	
+	/**
+	 * Requests a transport cost update from the server
+	 * @param origin
+	 * @param dest
+	 * @param company
+	 * @param pricePerGram
+	 * @param pricePerCube
+	 * @param day
+	 * @param period
+	 */
+	public void requestTransportCostUpdate(String origin, String dest, String company, String method, double pricePerGram, double pricePerCube, String day, double period, double duration) {
+		
+	}
+	
+	/**
+	 * Requests a transport route to be discontinued from the server
+	 * @param origin
+	 * @param dest
+	 * @param company
+	 * @param method
+	 */
+	public void requestTransportDiscontinued(String origin, String dest, String company, String method) {
+		
+	}
 }
