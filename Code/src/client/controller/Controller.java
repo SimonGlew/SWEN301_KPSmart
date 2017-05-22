@@ -38,10 +38,12 @@ public class Controller {
 	 * @param origin
 	 * @param dest
 	 * @param company
+	 * @param method
 	 * @param pricePerGram
 	 * @param pricePerCube
 	 * @param day
 	 * @param period
+	 * @param duration
 	 */
 	public void requestTransportCostUpdate(String origin, String dest, String company, String method, double pricePerGram, double pricePerCube, String day, double period, double duration) {
 		
