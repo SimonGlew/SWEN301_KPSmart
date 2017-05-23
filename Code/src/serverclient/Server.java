@@ -1,0 +1,169 @@
+package serverclient;
+
+import java.io.File;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+import io.ServerParser;
+
+public class Server {
+	private int port;
+
+	private Map<Integer, String> IDtoUsername;
+	private List<ClientThread> clients;
+
+	private boolean alive;
+	private static int uniqueId;
+
+
+	public Server(int port){
+		this.port = port;
+		this.IDtoUsername = new HashMap<Integer, String>();
+		this.clients = new ArrayList<ClientThread>();
+
+		start();
+	}
+
+	public void start(){
+		alive = true;
+		try{
+			ServerSocket ss = new ServerSocket(this.port);
+			System.out.println("Waiting for clients within port " + this.port);
+
+			while(alive){
+				Socket s = ss.accept();
+				if(!alive)
+					break;
+				ClientThread t = new ClientThread(s);
+				System.out.println("Client accepted " + this.IDtoUsername.get(t.getUserId()) + " and started");
+				this.clients.add(t);
+				t.start();
+			}
+
+			try{
+				ss.close();
+				for(ClientThread t : this.clients){
+					t.close();
+				}
+			}catch(Exception e){
+				System.out.println("Exception: cannot close server down on port " + this.port + ", " + e);
+			}
+		}catch(Exception e){
+			System.out.println("Exception: cannot start server on port " + this.port + ", " + e);
+		}
+	}
+
+	public synchronized void broadcast(Object o, int id){
+		for(int i = clients.size(); --i >= 0;){
+			ClientThread t = clients.get(i);
+
+			if(t.isAlive()){ //TODO: Placeholder for messages with single sendback
+				if(t.getUserId() == id){
+					if(!t.writeToClient(o)){
+						clients.remove(i);
+					}
+				}
+			}else{
+				if(!t.writeToClient(o)){
+					clients.remove(i);
+				}
+			}
+		}
+	}
+
+	public synchronized void remove(int id){
+		for(int i = 0; i < clients.size(); i ++){
+			ClientThread t = clients.get(i);
+			if(t.getUserId() == id){
+				clients.remove(i);
+				return;
+			}
+		}
+	}
+
+	public static void main(String[] args){
+		try{
+			Scanner s = new Scanner(new File("server-config.txt"));
+			int p = s.nextInt();
+
+			s.close();
+			//SETUP MODEL SHIT HERE
+
+			new Server(p);
+		}catch(Exception e){
+			System.out.println("Exception: Reading in config file: " + e);
+		}
+	}
+
+
+	public class ClientThread extends Thread{
+		private Socket s;
+		private ObjectInputStream input;
+		private ObjectOutputStream output;
+		private int id;
+
+		public ClientThread(Socket s){
+			this.s = s;
+			id = uniqueId++;
+
+			try{
+				input = new ObjectInputStream(s.getInputStream());
+				output = new ObjectOutputStream(s.getOutputStream());
+			}catch(Exception e){
+				System.out.println("Exception: Creating client output streams " + e);
+			}
+		}
+
+		public void run(){
+			boolean live = true;
+			while(live){
+				try{
+					Object o = input.readObject();
+					Object o1 = ServerParser.parseClientMessage(o);
+				}catch(Exception e){
+					System.out.println(IDtoUsername.get(id) + "cannot read input stream, " + e);
+				}
+			}
+			IDtoUsername.remove(this.id);
+			remove(this.id);
+		}
+
+		private boolean writeToClient(Object o){
+			if(!s.isConnected())
+				return false;
+
+			try{
+				output.writeObject(o);
+			}catch(Exception e){
+				System.out.println("Exception: Cannot write out from socket" + id + ", " + e);
+			}
+			return true;
+		}
+
+
+		public void close(){
+			try{
+				if(input != null)
+					input.close();
+				if(output != null)
+					output.close();
+				if(s != null)
+					s.close();
+			}catch(Exception e){
+				System.out.println("Exception: cannot close socket " + id + ", " + e);
+			}
+		}
+
+		private int getUserId(){
+			return this.id;
+		}
+	}
+}
+
