@@ -1,0 +1,19 @@
+<Event>
+  <TransportCostUpdate>
+    <Company>FlyWays</Company>
+    <To>Auckland</To>
+    <From>Wellington</From>
+    <Priority>1</Priority>
+    <WeightCost>1.00</WeightCost>
+    <VolumeCost>1.11</VolumeCost>
+    <MaxWeight>5.00</MaxWeight>
+    <MaxVolume>6.00</MaxVolume>
+    <Duration>1.5</Duration>
+    <Frequency>5</Frequency>
+    <Days>
+      <Day>Monday</Day>
+      <Day>Tuesday</Day>
+    </Days>
+  </TransportCostUpdate>
+</Event>
+    
