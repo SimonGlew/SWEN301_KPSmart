@@ -44,7 +44,7 @@ public class Server {
 				Socket s = ss.accept();
 				if(!alive)
 					break;
-				ClientThread t = new ClientThread(s);
+				ClientThread t = new ClientThread(s, this.model);
 				System.out.println("Client accepted " + this.IDtoUsername.get(t.getUserId()) + " and started");
 				this.clients.add(t);
 				t.start();
@@ -63,18 +63,18 @@ public class Server {
 		}
 	}
 
-	public synchronized void broadcast(Object o, int id){
+	public synchronized void broadcast(Packet p, int id){
 		for(int i = clients.size(); --i >= 0;){
 			ClientThread t = clients.get(i);
 
-			if(t.isAlive()){ //TODO: Placeholder for messages with single sendback
+			if(p.getType() == "SINGLE SENDBACK"){ //TODO: Placeholder for messages with single sendback
 				if(t.getUserId() == id){
-					if(!t.writeToClient(o)){
+					if(!t.writeToClient(p)){
 						clients.remove(i);
 					}
 				}
 			}else{
-				if(!t.writeToClient(o)){
+				if(!t.writeToClient(p)){
 					clients.remove(i);
 				}
 			}
@@ -110,9 +110,11 @@ public class Server {
 		private ObjectInputStream input;
 		private ObjectOutputStream output;
 		private int id;
+		private ServerParser parser;
 
-		public ClientThread(Socket s){
+		public ClientThread(Socket s, KpsModel model){
 			this.s = s;
+			this.parser = new ServerParser(model);
 			id = uniqueId++;
 
 			try{
@@ -127,8 +129,8 @@ public class Server {
 			boolean live = true;
 			while(live){
 				try{
-					Object o = input.readObject();
-					Object o1 = ServerParser.parseClientMessage(o);
+					Packet packet = (Packet)input.readObject();
+					this.parser.parseMessage(packet);
 				}catch(Exception e){
 					System.out.println(IDtoUsername.get(id) + "cannot read input stream, " + e);
 				}
