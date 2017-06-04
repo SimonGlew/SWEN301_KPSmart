@@ -21,11 +21,13 @@ public class KpsModel {
 		routeMap.addLocation("Wellington", 0.00, 0.00);
 		routeMap.addLocation("Porirua", 0.00, 0.00);
 		routeMap.addLocation("Karori", 0.00, 0.00, 45);
+		routeMap.addSegment(1, 2);
+		routeMap.addSegment(2, 3);
 	}
 
 	public static void println(String s){
 		Calendar cal = Calendar.getInstance();
-		System.out.printf("[%02d/%02d/%04d %02d:%02d:%02d] %s", cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH),
+		System.out.printf("[%02d/%02d/%04d %02d:%02d:%02d] %s\n", cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH),
 				cal.get(Calendar.YEAR), cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND), s);
 	}
 
