@@ -3,8 +3,11 @@ package model;
 import java.util.Calendar;
 
 import storage.BusinessEvent;
+import storage.CustomerPriceUpdate;
 import storage.KpsDatabase;
+import storage.MailDelivery;
 import storage.TransportCostUpdate;
+import storage.TransportDiscontinued;
 
 /**
  * Created by Jack on 6/3/2017.
@@ -28,6 +31,12 @@ public class KpsModel {
 	private void processEvent(BusinessEvent event){
 		if(event instanceof TransportCostUpdate){
 			processTransportCostUpdate((TransportCostUpdate)event);
+		}else if(event instanceof CustomerPriceUpdate){
+			processCustomerPriceUpdate((CustomerPriceUpdate)event);
+		}else if(event instanceof TransportDiscontinued){
+			processTransportDiscontinued((TransportDiscontinued)event);
+		}else if(event instanceof MailDelivery){
+			processMailDelivery((MailDelivery)event);
 		}
 	}
 
@@ -50,6 +59,18 @@ public class KpsModel {
 		}else{
 			routeMap.updateTransportOption(segmentId, event.getCompany(), event.getPriority(), event.getWeightCost(), event.getVolumeCost(), event.getMaxWeight(), event.getMaxVolume(), event.getFrequency(), event.getDuration(), event.getDays());
 		}
+	}
+
+	private void processCustomerPriceUpdate(CustomerPriceUpdate event){
+
+	}
+
+	private void processTransportDiscontinued(TransportDiscontinued event){
+
+	}
+
+	private void processMailDelivery(MailDelivery event){
+
 	}
 
 
