@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.security.auth.kerberos.KerberosPrincipal;
-
 import io.ServerParser;
 import model.KpsModel;
 
