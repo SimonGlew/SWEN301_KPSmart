@@ -2,6 +2,10 @@ package model;
 
 import java.util.Calendar;
 
+import storage.BusinessEvent;
+import storage.KpsDatabase;
+import storage.TransportCostUpdate;
+
 /**
  * Created by Jack on 6/3/2017.
  */
@@ -11,23 +15,43 @@ public class KpsModel {
 	public enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
 
 	private RouteMap routeMap;
+	private KpsDatabase database;
 
 	public KpsModel(){
 		routeMap = new RouteMap();
-		addTestMapData();
+		database = new KpsDatabase();
+		for(BusinessEvent event: database.getBusinessEvents()){
+			processEvent(event);
+		}
 	}
 
-	private void addTestMapData(){
-		//Dummy Locations
-		routeMap.addLocation("Hastings", 0.00, 0.00);
-		routeMap.addLocation("Wellington", 0.00, 0.00);
-		routeMap.addLocation("Porirua", 0.00, 0.00);
-		routeMap.addLocation("Karori", 0.00, 0.00);
-		routeMap.addSegment(1, 2);
-		routeMap.addSegment(2, 4);
-		routeMap.addTransportOption(1, "CheekyTransport", 1, 1, 1, 1, 1, 1, 1, Day.Monday);
-		routeMap.addTransportOption(2, "CheekyTransport", 1, 1, 1, 1, 1, 1, 1, Day.Monday);
+	private void processEvent(BusinessEvent event){
+		if(event instanceof TransportCostUpdate){
+			processTransportCostUpdate((TransportCostUpdate)event);
+		}
 	}
+
+	private void processTransportCostUpdate(TransportCostUpdate event){
+		int originId = routeMap.getLocationId(event.getFrom());
+		if(originId == -1){
+			originId = routeMap.addLocation(event.getFrom());
+		}
+		int destinationId = routeMap.getLocationId(event.getTo());
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(event.getTo());
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId == -1){
+			segmentId = routeMap.addSegment(originId, destinationId);
+		}
+		int transportOptionId = routeMap.getSegment(segmentId).getTransportOptionId(event.getCompany(), event.getPriority());
+		if(transportOptionId == -1){
+			routeMap.addTransportOption(segmentId, event.getCompany(), event.getPriority(), event.getWeightCost(), event.getVolumeCost(), event.getMaxWeight(), event.getMaxVolume(), event.getFrequency(), event.getDuration(), event.getDays());
+		}else{
+			routeMap.updateTransportOption(segmentId, event.getCompany(), event.getPriority(), event.getWeightCost(), event.getVolumeCost(), event.getMaxWeight(), event.getMaxVolume(), event.getFrequency(), event.getDuration(), event.getDays());
+		}
+	}
+
 
 	public static void println(String s){
 		Calendar cal = Calendar.getInstance();

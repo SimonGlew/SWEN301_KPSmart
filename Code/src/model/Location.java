@@ -8,14 +8,11 @@ import java.util.List;
  */
 public class Location {
     private String name;
-    private double latitude, longitude;
     private int id;
     private List<Segment> segsOut;
 
-    public Location(String name, double latitude, double longitude, int id){
+    public Location(String name, int id){
     	this.name = name;
-    	this.latitude = latitude;
-    	this.longitude = longitude;
     	this.id = id;
     	segsOut = new ArrayList<Segment>();
     }
@@ -26,6 +23,10 @@ public class Location {
 
 	public void addSegOut(Segment s){
 		segsOut.add(s);
+	}
+
+	public List<Segment> getSegsOut(){
+		return segsOut;
 	}
 
 	public Segment getSegToLocation(Location dest){

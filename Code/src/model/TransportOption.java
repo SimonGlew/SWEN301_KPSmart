@@ -14,20 +14,63 @@ public class TransportOption {
 	private int frequency;
 	private double duration;
 	private List<KpsModel.Day> days;
+	private Segment segment;
 
 	public TransportOption(String firm, int priority, double weightCost, double volCost, double maxWeight,
-			double maxVol, int frequency, double duration, Day... days) {
+			double maxVol, int frequency, double duration, Segment segment, List<Day> list) {
 		this.transportFirm = firm;
 		this.priority = priority;
-		this.weightCost = weightCost;
-		this.volCost = volCost;
-		this.maxVol = maxVol;
-		this.maxWeight = maxWeight;
+		this.setWeightCost(weightCost);
+		this.setVolCost(volCost);
+		this.setMaxVol(maxVol);
+		this.setMaxWeight(maxWeight);
 		this.frequency = frequency;
 		this.duration = duration;
-		this.days = new ArrayList<Day>();
-		for(Day day: days){
-			this.days.add(day);
-		}
+		this.segment = segment;
+		this.days = list;
+	}
+
+	public double getMaxWeight() {
+		return maxWeight;
+	}
+
+	public void setMaxWeight(double maxWeight) {
+		this.maxWeight = maxWeight;
+	}
+
+	public double getMaxVol() {
+		return maxVol;
+	}
+
+	public void setMaxVol(double maxVol) {
+		this.maxVol = maxVol;
+	}
+
+	public double getWeightCost() {
+		return weightCost;
+	}
+
+	public void setWeightCost(double weightCost) {
+		this.weightCost = weightCost;
+	}
+
+	public double getVolCost() {
+		return volCost;
+	}
+
+	public void setVolCost(double volCost) {
+		this.volCost = volCost;
+	}
+
+	public Segment getSegment(){
+		return segment;
+	}
+
+	public String getTransportFirm(){
+		return transportFirm;
+	}
+
+	public int getPriority() {
+		return priority;
 	}
 }

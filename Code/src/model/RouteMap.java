@@ -1,7 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
+
 import model.KpsModel.Day;
 
 /**
@@ -17,24 +26,33 @@ public class RouteMap {
 		segments = new HashMap<Integer, Segment>();
 	}
 
-	public int addLocation(String name, double latitude, double longitude) {
+	public int addLocation(String name) {
 		int id = 1;
 		while (locations.containsKey(id)) {
 			id++;
 		}
-		return addLocation(name, latitude, longitude, id);
+		return addLocation(name, id);
 	}
 
-	public int addLocation(String name, double latitude, double longitude, int id) {
+	public int addLocation(String name, int id) {
 		if (locations.containsKey(id)) {
 			KpsModel.println("Failed to add location, id " + id + " already in use.");
 			return -1;
 		} else {
-			locations.put(id, new Location(name, latitude, longitude, id));
+			locations.put(id, new Location(name, id));
 			KpsModel.println(
-					String.format("Added location %s (%.2f, %.2f) with id: %d", name, latitude, longitude, id));
+					String.format("Added location %s with id: %d", name, id));
 			return id;
 		}
+	}
+
+	public int getLocationId(String name){
+		for(Entry<Integer, Location> entry: locations.entrySet()){
+			if(entry.getValue().getName().equalsIgnoreCase(name)){
+				return entry.getKey();
+			}
+		}
+		return -1;
 	}
 
 	public int addSegment(int originId, int destinationId) {
@@ -88,8 +106,90 @@ public class RouteMap {
 	}
 
 	public int addTransportOption(int segId, String firm, int priority, double weightCost, double volCost,
-			double maxWeight, double maxVol, int frequency, int duration, Day... days) {
+			double maxWeight, double maxVol, int frequency, double duration, List<Day> list) {
 		return segments.get(segId).addTransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol, frequency,
-				duration, days);
+				duration, list);
 	}
+
+	public int updateTransportOption(int segId, String firm, int priority, double weightCost, double volCost,
+			double maxWeight, double maxVol, int frequency, double duration, List<Day> list) {
+		return segments.get(segId).updateTransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol, frequency,
+				duration, list);
+	}
+
+	public Route findCheapestRoute(int originId, int destinationId, double weight, double vol) {
+		Location origin = locations.get(originId);
+		Location destination = locations.get(destinationId);
+		Set<Location> visited = new HashSet<Location>();
+		Queue<SearchNode> fringe = new PriorityQueue<SearchNode>(new Comparator<SearchNode>() {
+			@Override
+			public int compare(SearchNode o1, SearchNode o2) {
+				if (o1.costSoFar > o2.costSoFar) {
+					return 1;
+				} else {
+					return -1;
+				}
+			}
+		});
+		fringe.offer(new SearchNode(origin, null, null, 0));
+		Map<Location, PathSegment> pathSegments = new HashMap<Location, PathSegment>();
+		while (!fringe.isEmpty()) {
+			SearchNode node = fringe.poll();
+			if (!visited.contains(node.loc)) {
+				pathSegments.put(node.loc, new PathSegment(node.from, node.option));
+				visited.add(node.loc);
+				if (node.loc == destination) {
+					List<TransportOption> path = new ArrayList<TransportOption>();
+					Location curLoc = destination;
+					while (curLoc != origin) {
+						PathSegment pathseg = pathSegments.get(curLoc);
+						path.add(0, pathseg.option);
+						curLoc = pathseg.from;
+					}
+					Route route = new Route(origin, destination, path, weight, vol);
+					return route;
+				}
+				for (Segment segment : node.loc.getSegsOut()) {
+					if (!visited.contains(segment.getDestination())) {
+						for (TransportOption option : segment.getTransportOptions().values()) {
+							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol())
+								;
+							fringe.offer(new SearchNode(segment.getDestination(), node.loc, option,
+									node.costSoFar + (weight * option.getWeightCost()) + (vol * option.getVolCost())));
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private class SearchNode {
+		Location loc;
+		Location from;
+		TransportOption option;
+		double costSoFar;
+
+		public SearchNode(Location loc, Location from, TransportOption option, double costSoFar) {
+			this.loc = loc;
+			this.costSoFar = costSoFar;
+			this.from = from;
+			this.option = option;
+		}
+	}
+
+	private class PathSegment {
+		Location from;
+		TransportOption option;
+
+		public PathSegment(Location from, TransportOption option) {
+			this.from = from;
+			this.option = option;
+		}
+	}
+
+	public Segment getSegment(int segmentId) {
+		return segments.get(segmentId);
+	}
+
 }

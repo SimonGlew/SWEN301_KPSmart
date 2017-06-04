@@ -68,7 +68,7 @@ public class KpsDatabase {
 		}
 
 	}
-	
+
 	public CustomerPriceUpdate parseCustomerPriceUpdate(Node node){
 		CustomerPriceUpdate customerPriceUpdate = new CustomerPriceUpdate();
 		NodeList childNodes = node.getChildNodes();
@@ -233,6 +233,10 @@ public class KpsDatabase {
 
 	public static void main (String[] args){
 		new KpsDatabase();
+	}
+
+	public List<BusinessEvent> getBusinessEvents() {
+		return businessEvents;
 	}
 
 
