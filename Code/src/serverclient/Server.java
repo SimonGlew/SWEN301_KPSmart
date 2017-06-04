@@ -12,19 +12,22 @@ import java.util.Map;
 import java.util.Scanner;
 
 import io.ServerParser;
+import model.KpsModel;
 
 public class Server {
 	private int port;
 
 	private Map<Integer, String> IDtoUsername;
 	private List<ClientThread> clients;
+	private KpsModel model;
 
 	private boolean alive;
 	private static int uniqueId;
 
 
-	public Server(int port){
+	public Server(int port, KpsModel model){
 		this.port = port;
+		this.model = model;
 		this.IDtoUsername = new HashMap<Integer, String>();
 		this.clients = new ArrayList<ClientThread>();
 
@@ -94,9 +97,8 @@ public class Server {
 			int p = s.nextInt();
 
 			s.close();
-			//SETUP MODEL SHIT HERE
-
-			new Server(p);
+			KpsModel m = new KpsModel();
+			new Server(p, m);
 		}catch(Exception e){
 			System.out.println("Exception: Reading in config file: " + e);
 		}
