@@ -2,7 +2,7 @@ package io;
 
 import serverclient.Packet;
 
-public class ServerParser {
+public class ClientParser {
 
 	public static void parseMessage(Packet p){
 

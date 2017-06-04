@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import io.ServerParser;
+import io.ClientParser;
 
 public class Client {
 	private ObjectInputStream input;
@@ -45,9 +45,9 @@ public class Client {
 		new ServerThread().start();
 	}
 
-	public void sendMessage(){
+	public void sendMessage(Packet p){
 		try{
-			this.output.writeObject(new Object());
+			this.output.writeObject(p);
 		}catch(Exception e){
 			System.out.println("Exception: error writing to server, " + e);
 		}
@@ -79,8 +79,8 @@ public class Client {
 		public void run(){
 			while(true){
 				try{
-					Object o = input.readObject();
-					Object o1 = ServerParser.parseServerMessage(o);
+					Packet packet = (Packet)input.readObject();
+					ClientParser.parseMessage(packet);
 				}catch(Exception e){
 					System.out.println("Exception: error reading from server, " + e);
 				}

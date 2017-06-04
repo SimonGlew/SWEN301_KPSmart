@@ -127,8 +127,8 @@ public class Server {
 			boolean live = true;
 			while(live){
 				try{
-					Object o = input.readObject();
-					Object o1 = ServerParser.parseClientMessage(o);
+					Packet packet = (Packet)input.readObject();
+					ServerParser.parseMessage(packet);
 				}catch(Exception e){
 					System.out.println(IDtoUsername.get(id) + "cannot read input stream, " + e);
 				}

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.ClientStringBuilder;
 import io.Codes;
 
 public class ClientController {
@@ -23,11 +24,14 @@ public class ClientController {
 	 */
 	public void requestMailCreation(String origin, String dest, double weight, double volume, long time) {
 		// TODO:
-		Date date = new Date(time);
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-		String dateAndTime = formatter.format(date);
+//		Date date = new Date(time);
+//		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//		String dateAndTime = formatter.format(date);
+//
+//		System.out.printf("Mail delivery event creation requested @ %s\norigin: %s\ndestination: %s\nweight: %f g\nvolume: %f cm^3\n", dateAndTime, origin, dest, weight, volume);
 
-		System.out.printf("Mail delivery event creation requested @ %s\norigin: %s\ndestination: %s\nweight: %f g\nvolume: %f cm^3\n", dateAndTime, origin, dest, weight, volume);
+		Packet p = new Packet(Codes.Events.MailCreation, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume));
+		this.c.sendMessage(p);
 	}
 
 	/**
@@ -36,10 +40,12 @@ public class ClientController {
 	 * @param dest
 	 * @param priority
 	 * @param pricePerGram
-	 * @param pricePerCub
+	 * @param pricePerCube
+	 *
 	 */
 	public void requestCustomerPriceUpdate(String origin, String dest, String priority, double pricePerGram, double pricePerCube) {
-
+		Packet p = new Packet(Codes.Events.MailCreation, ClientStringBuilder.requestCustomerPriceUpdateString(origin, dest, priority, pricePerGram, pricePerCube));
+		this.c.sendMessage(p);
 	}
 
 	/**
@@ -47,15 +53,16 @@ public class ClientController {
 	 * @param origin
 	 * @param dest
 	 * @param company
-	 * @param method
+	 * @param priority
 	 * @param pricePerGram
 	 * @param pricePerCube
 	 * @param day
 	 * @param period
 	 * @param duration
 	 */
-	public void requestTransportCostUpdate(String origin, String dest, String company, String method, double pricePerGram, double pricePerCube, String day, double period, double duration) {
-
+	public void requestTransportCostUpdate(String origin, String dest, String company, String priority, double pricePerGram, double pricePerCube, String day, double period, double duration) {
+		Packet p = new Packet(Codes.Events.TransportPriceUpdate, ClientStringBuilder.requestTransportCostUpdateString(origin, dest, company, priority, pricePerGram, pricePerCube, day, period, duration));
+		this.c.sendMessage(p);
 	}
 
 	/**
@@ -63,9 +70,10 @@ public class ClientController {
 	 * @param origin
 	 * @param dest
 	 * @param company
-	 * @param method
+	 * @param priority
 	 */
-	public void requestTransportDiscontinued(String origin, String dest, String company, String method) {
-
+	public void requestTransportDiscontinued(String origin, String dest, String company, String priority) {
+		Packet p = new Packet(Codes.Events.TransportDiscontinue, ClientStringBuilder.requestTransportDiscontinuedString(origin, dest, company, priority));
+		this.c.sendMessage(p);
 	}
 }
