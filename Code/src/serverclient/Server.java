@@ -45,7 +45,7 @@ public class Server {
 				if(!alive)
 					break;
 				ClientThread t = new ClientThread(s, this.model);
-				System.out.println("Client accepted " + this.IDtoUsername.get(t.getUserId()) + " and started");
+				System.out.println("Client accepted " + t.getUserId() + " and started");
 				this.clients.add(t);
 				t.start();
 			}
@@ -115,7 +115,7 @@ public class Server {
 		public ClientThread(Socket s, KpsModel model){
 			this.s = s;
 			this.parser = new ServerParser(model);
-			id = uniqueId++;
+			this.id = uniqueId++;
 
 			try{
 				input = new ObjectInputStream(s.getInputStream());
@@ -132,11 +132,14 @@ public class Server {
 					Packet packet = (Packet)input.readObject();
 					this.parser.parseMessage(packet);
 				}catch(Exception e){
-					System.out.println(IDtoUsername.get(id) + "cannot read input stream, " + e);
+					live = false;
+					System.out.println(this.id + "cannot read input stream, " + e);
 				}
 			}
 			IDtoUsername.remove(this.id);
 			remove(this.id);
+			close();
+
 		}
 
 		private boolean writeToClient(Object o){
