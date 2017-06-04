@@ -1,5 +1,6 @@
 package serverclient;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -16,8 +17,8 @@ public class Client {
 	private int port;
 
 	private ClientController controller;
+	private ClientParser parser;
 	private String username;
-
 
 
 	public Client(String ip, int port){
@@ -29,7 +30,7 @@ public class Client {
 
 	public void start(){
 		try{
-			this.s = new Socket(ip, port);
+			this.s = new Socket(this.ip, this.port);
 		}catch(Exception e){
 			System.out.println("Exception: Error connecting to server with ip " + this.ip + " and port " + this.port + ", " + e);
 		}
@@ -42,7 +43,9 @@ public class Client {
 		}
 
 		this.controller = new ClientController(this);
+		this.parser = new ClientParser(this.controller);
 		new ServerThread().start();
+		System.out.println("Connected to " + this.ip + " on port " + this.port);
 	}
 
 	public void sendMessage(Packet p){
@@ -63,7 +66,7 @@ public class Client {
 
 	public static void main(String[] args){
 		try{
-			Scanner s = new Scanner("client-config.txt");
+			Scanner s = new Scanner(new File("client-config.txt"));
 			String host = s.next();
 			int p = s.nextInt();
 
@@ -80,7 +83,7 @@ public class Client {
 			while(true){
 				try{
 					Packet packet = (Packet)input.readObject();
-					ClientParser.parseMessage(packet);
+					parser.parseMessage(packet);
 				}catch(Exception e){
 					System.out.println("Exception: error reading from server, " + e);
 				}
