@@ -44,8 +44,10 @@ public class Client {
 
 		this.controller = new ClientController(this);
 		this.parser = new ClientParser(this.controller);
-		new ServerThread().start();
+
 		System.out.println("Connected to " + this.ip + " on port " + this.port);
+
+		new ServerThread().start();
 	}
 
 	public void sendMessage(Packet p){

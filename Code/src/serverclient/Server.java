@@ -30,8 +30,6 @@ public class Server {
 		this.model = model;
 		this.IDtoUsername = new HashMap<Integer, String>();
 		this.clients = new ArrayList<ClientThread>();
-
-		start();
 	}
 
 	public void start(){
@@ -45,7 +43,7 @@ public class Server {
 				if(!alive)
 					break;
 				ClientThread t = new ClientThread(s, this.model);
-				System.out.println("Client accepted " + this.IDtoUsername.get(t.getUserId()) + " and started");
+				System.out.println("Client accepted " + t.getUserId() + " and started");
 				this.clients.add(t);
 				t.start();
 			}
@@ -98,7 +96,8 @@ public class Server {
 
 			s.close();
 			KpsModel m = new KpsModel();
-			new Server(p, m);
+			Server server = new Server(p, m);
+			server.start();
 		}catch(Exception e){
 			System.out.println("Exception: Reading in config file: " + e);
 		}
@@ -112,31 +111,40 @@ public class Server {
 		private int id;
 		private ServerParser parser;
 
-		public ClientThread(Socket s, KpsModel model){
+		private ClientThread(Socket s, KpsModel model){
 			this.s = s;
 			this.parser = new ServerParser(model);
-			id = uniqueId++;
+			this.id = uniqueId++;
 
 			try{
-				input = new ObjectInputStream(s.getInputStream());
-				output = new ObjectOutputStream(s.getOutputStream());
+				this.output = new ObjectOutputStream(s.getOutputStream());
 			}catch(Exception e){
 				System.out.println("Exception: Creating client output streams " + e);
 			}
+
+			try{
+				this.input = new ObjectInputStream(s.getInputStream());
+			}catch(Exception e){
+				System.out.println("Exception: Creating client input streams " + e);
+			}
+
 		}
 
 		public void run(){
 			boolean live = true;
-			while(live){
+			outer: while(live){
 				try{
-					Packet packet = (Packet)input.readObject();
+					Packet packet = (Packet)this.input.readObject();
 					this.parser.parseMessage(packet);
 				}catch(Exception e){
-					System.out.println(IDtoUsername.get(id) + "cannot read input stream, " + e);
+					live = false;
+					break outer;
 				}
 			}
 			IDtoUsername.remove(this.id);
 			remove(this.id);
+			close();
+
 		}
 
 		private boolean writeToClient(Object o){
@@ -154,12 +162,14 @@ public class Server {
 
 		public void close(){
 			try{
-				if(input != null)
-					input.close();
-				if(output != null)
-					output.close();
-				if(s != null)
-					s.close();
+				if(this.input != null)
+					this.input.close();
+				if(this.output != null)
+					this.output.close();
+				if(this.s != null)
+					this.s.close();
+
+				System.out.println(this.id + " has been disconnected");
 			}catch(Exception e){
 				System.out.println("Exception: cannot close socket " + id + ", " + e);
 			}
