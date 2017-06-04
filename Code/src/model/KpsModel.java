@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 public class KpsModel {
 
+	public enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+
 	private RouteMap routeMap;
 
 	public KpsModel(){
@@ -20,9 +22,11 @@ public class KpsModel {
 		routeMap.addLocation("Hastings", 0.00, 0.00);
 		routeMap.addLocation("Wellington", 0.00, 0.00);
 		routeMap.addLocation("Porirua", 0.00, 0.00);
-		routeMap.addLocation("Karori", 0.00, 0.00, 45);
+		routeMap.addLocation("Karori", 0.00, 0.00);
 		routeMap.addSegment(1, 2);
-		routeMap.addSegment(2, 3);
+		routeMap.addSegment(2, 4);
+		routeMap.addTransportOption(1, "CheekyTransport", 1, 1, 1, 1, 1, 1, 1, Day.Monday);
+		routeMap.addTransportOption(2, "CheekyTransport", 1, 1, 1, 1, 1, 1, 1, Day.Monday);
 	}
 
 	public static void println(String s){
