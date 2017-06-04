@@ -1,6 +1,7 @@
 package storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +24,9 @@ public class KpsDatabase {
 
 	public KpsDatabase(){
 		loadEvents();
+		for(BusinessEvent b: businessEvents){
+			System.out.println(b.toString());
+		}
 	}
 
 	public void loadEvents(){
@@ -45,7 +49,15 @@ public class KpsDatabase {
 					case "TransportCostUpdate":
 						businessEvents.add(parseTransportCostUpdate(node));
 						break;
-
+					case "TransportDiscontinued":
+						businessEvents.add(parseTransportDiscontinued(node));
+						break;
+					case "MailDelivery":
+						businessEvents.add(parseMailDelivery(node));
+						break;
+					case "CustomerPriceUpdate":
+						businessEvents.add(parseCustomerPriceUpdate(node));
+						break;
 					default:
 						break;
 				}
@@ -54,6 +66,86 @@ public class KpsDatabase {
 		catch(Exception e){
 
 		}
+
+	}
+	
+	public CustomerPriceUpdate parseCustomerPriceUpdate(Node node){
+		CustomerPriceUpdate customerPriceUpdate = new CustomerPriceUpdate();
+		NodeList childNodes = node.getChildNodes();
+		for(int i = 0; i < childNodes.getLength(); i++){
+			Node data = childNodes.item(i);
+			switch(data.getNodeName()){
+				case "To":
+					customerPriceUpdate.setTo(data.getTextContent());
+					break;
+				case "From":
+					customerPriceUpdate.setFrom(data.getTextContent());
+					break;
+				case "WeightCost":
+					customerPriceUpdate.setWeightCost(Double.parseDouble(data.getTextContent()));
+					break;
+				case "VolumeCost":
+					customerPriceUpdate.setVolumeCost(Double.parseDouble(data.getTextContent()));
+					break;
+				case "Priority":
+					customerPriceUpdate.setPriority(Integer.parseInt(data.getTextContent()));
+					break;
+			}
+		}
+		return customerPriceUpdate;
+	}
+
+	public MailDelivery parseMailDelivery(Node node){
+		MailDelivery mailDelivery = new MailDelivery();
+		NodeList childNodes = node.getChildNodes();
+		for(int i = 0; i < childNodes.getLength(); i++){
+			Node data = childNodes.item(i);
+			switch(data.getNodeName()){
+				case "Day":
+					mailDelivery.setDay(parseDay(data));
+					break;
+				case "To":
+					mailDelivery.setTo(data.getTextContent());
+					break;
+				case "From":
+					mailDelivery.setFrom(data.getTextContent());
+					break;
+				case "Weight":
+					mailDelivery.setWeight(Double.parseDouble(data.getTextContent()));
+					break;
+				case "Volume":
+					mailDelivery.setVolume(Double.parseDouble(data.getTextContent()));
+					break;
+				case "Priority":
+					mailDelivery.setPriority(Integer.parseInt(data.getTextContent()));
+					break;
+			}
+		}
+		return mailDelivery;
+	}
+
+	public TransportDiscontinued parseTransportDiscontinued(Node node){
+		TransportDiscontinued transportDiscontinued = new TransportDiscontinued();
+		NodeList childNodes = node.getChildNodes();
+		for(int i = 0; i < childNodes.getLength(); i++){
+			Node data = childNodes.item(i);
+			switch(data.getNodeName()){
+				case "Company":
+					transportDiscontinued.setCompany(data.getTextContent());
+					break;
+				case "To":
+					transportDiscontinued.setTo(data.getTextContent());
+					break;
+				case "From":
+					transportDiscontinued.setFrom(data.getTextContent());
+					break;
+				case "Priority":
+					transportDiscontinued.setPriority(Integer.parseInt(data.getTextContent()));
+					break;
+			}
+		}
+
+		return transportDiscontinued;
 
 	}
 
@@ -95,35 +187,7 @@ public class KpsDatabase {
 					transportCostUpdate.setFrequency(Integer.parseInt(data.getTextContent()));
 					break;
 				case "Days":
-					ArrayList<KpsModel.Day> days = new ArrayList<>();
-					NodeList dayNodes = data.getChildNodes();
-					for(int d = 0; d< dayNodes.getLength(); d++){
-						Node dayNode = dayNodes.item(d);
-						switch(dayNode.getTextContent()){
-							case "Monday":
-								days.add(KpsModel.Day.Monday);
-								break;
-							case "Tuesday":
-								days.add(KpsModel.Day.Tuesday);
-								break;
-							case "Wednesday":
-								days.add(KpsModel.Day.Wednesday);
-								break;
-							case "Thursday":
-								days.add(KpsModel.Day.Thursday);
-								break;
-							case "Friday":
-								days.add(KpsModel.Day.Friday);
-								break;
-							case "Saturday":
-								days.add(KpsModel.Day.Saturday);
-								break;
-							case "Sunday":
-								days.add(KpsModel.Day.Sunday);
-								break;
-						}
-					}
-					transportCostUpdate.setDays(days);
+					transportCostUpdate.setDays(parseDaysNode(data));
 					break;
 
 			}
@@ -131,6 +195,37 @@ public class KpsDatabase {
 		}
 
 		return transportCostUpdate;
+	}
+
+	public List<KpsModel.Day> parseDaysNode(Node node){
+		ArrayList<KpsModel.Day> days = new ArrayList<>();
+		NodeList dayNodes = node.getChildNodes();
+
+		for(int d = 0; d< dayNodes.getLength(); d++){
+			days.add(parseDay(dayNodes.item(d)));
+		}
+		return days;
+	}
+
+	public KpsModel.Day parseDay(Node dayNode){
+		switch(dayNode.getTextContent()){
+			case "Monday":
+				return KpsModel.Day.Monday;
+			case "Tuesday":
+				return KpsModel.Day.Tuesday;
+			case "Wednesday":
+				return KpsModel.Day.Wednesday;
+			case "Thursday":
+				return KpsModel.Day.Thursday;
+			case "Friday":
+				return KpsModel.Day.Friday;
+			case "Saturday":
+				return KpsModel.Day.Saturday;
+			case "Sunday":
+				return KpsModel.Day.Sunday;
+			default:
+				return null;
+		}
 	}
 
 
