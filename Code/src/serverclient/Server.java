@@ -113,7 +113,7 @@ public class Server {
 
 		private ClientThread(Socket s, KpsModel model){
 			this.s = s;
-			this.parser = new ServerParser(model);
+			this.parser = new ServerParser(model, this);
 			this.id = uniqueId++;
 
 			try{
