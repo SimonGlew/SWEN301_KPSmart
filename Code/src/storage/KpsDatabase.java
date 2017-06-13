@@ -42,11 +42,13 @@ public class KpsDatabase {
 		writeEvents();
 	}
 
+	public static void main(String[] args) {
+		new KpsDatabase();
+	}
 
 	public ArrayList<BusinessEvent> getBusinessEvents() {
 		return businessEvents;
 	}
-
 
 	public void loadEvents() {
 		businessEvents = new ArrayList<>();
@@ -145,6 +147,15 @@ public class KpsDatabase {
 	public Element createCustomerPriceUpdateElement(CustomerPriceUpdate e, Document dom){
 		Element cpuElement = dom.createElement("CustomerPriceUpdate");
 
+		Element eventIDElement = dom.createElement("EventID");
+		eventIDElement.setTextContent(e.getId()+"");
+
+		Element dateTimeElement = dom.createElement("DateTime");
+		dateTimeElement.setTextContent(e.getDateyymmddhhmmss());
+
+		Element userElement = dom.createElement("Username");
+		userElement.setTextContent(e.getUsername());
+
 		Element toElement = dom.createElement("To");
 		toElement.setTextContent(e.getTo());
 
@@ -160,6 +171,9 @@ public class KpsDatabase {
 		Element volumeCostElement = dom.createElement("VolumeCost");
 		volumeCostElement.setTextContent(e.getVolumeCost() + "");
 
+		cpuElement.appendChild(eventIDElement);
+		cpuElement.appendChild(dateTimeElement);
+		cpuElement.appendChild(userElement);
 		cpuElement.appendChild(toElement);
 		cpuElement.appendChild(fromElement);
 		cpuElement.appendChild(priorityElement);
@@ -170,6 +184,15 @@ public class KpsDatabase {
 
 	public Element createMailDeliveryElement(MailDelivery e, Document dom){
 		Element mdElement = dom.createElement("MailDelivery");
+
+		Element eventIDElement = dom.createElement("EventID");
+		eventIDElement.setTextContent(e.getId()+"");
+
+		Element dateTimeElement = dom.createElement("DateTime");
+		dateTimeElement.setTextContent(e.getDateyymmddhhmmss());
+
+		Element userElement = dom.createElement("Username");
+		userElement.setTextContent(e.getUsername());
 
 		Element dayElement = dom.createElement("Day");
 		dayElement.setTextContent(convertDayToString(e.getDay()));
@@ -189,18 +212,34 @@ public class KpsDatabase {
 		Element priorityElement = dom.createElement("Priority");
 		priorityElement.setTextContent(e.getPriority()+"");
 
+		Element costElement = dom.createElement("Cost");
+		costElement.setTextContent(e.getCost()+"");
+
+		mdElement.appendChild(eventIDElement);
+		mdElement.appendChild(dateTimeElement);
+		mdElement.appendChild(userElement);
 		mdElement.appendChild(dayElement);
 		mdElement.appendChild(toElement);
 		mdElement.appendChild(fromElement);
 		mdElement.appendChild(weightElement);
 		mdElement.appendChild(volumeElement);
 		mdElement.appendChild(priorityElement);
+		mdElement.appendChild(costElement);
 
 		return mdElement;
 	}
 
 	public Element createTransportDiscontinuedElement(TransportDiscontinued e, Document dom){
 		Element tdElement = dom.createElement("TransportDiscontinued");
+
+		Element eventIDElement = dom.createElement("EventID");
+		eventIDElement.setTextContent(e.getId()+"");
+
+		Element dateTimeElement = dom.createElement("DateTime");
+		dateTimeElement.setTextContent(e.getDateyymmddhhmmss());
+
+		Element userElement = dom.createElement("Username");
+		userElement.setTextContent(e.getUsername());
 
 		Element companyElement = dom.createElement("Company");
 		companyElement.setTextContent(e.getCompany());
@@ -214,6 +253,9 @@ public class KpsDatabase {
 		Element priorityElement = dom.createElement("Priority");
 		priorityElement.setTextContent(e.getPriority()+"");
 
+		tdElement.appendChild(eventIDElement);
+		tdElement.appendChild(dateTimeElement);
+		tdElement.appendChild(userElement);
 		tdElement.appendChild(companyElement);
 		tdElement.appendChild(toElement);
 		tdElement.appendChild(fromElement);
@@ -223,6 +265,15 @@ public class KpsDatabase {
 
 	public Element createTransportCostUpdateElement(TransportCostUpdate e, Document dom) {
 		Element tcuElement = dom.createElement("TransportCostUpdate");
+
+		Element eventIDElement = dom.createElement("EventID");
+		eventIDElement.setTextContent(e.getId()+"");
+
+		Element dateTimeElement = dom.createElement("DateTime");
+		dateTimeElement.setTextContent(e.getDateyymmddhhmmss());
+
+		Element userElement = dom.createElement("Username");
+		userElement.setTextContent(e.getUsername());
 
 		Element companyElement = dom.createElement("Company");
 		companyElement.setTextContent(e.getCompany());
@@ -260,6 +311,10 @@ public class KpsDatabase {
 			dayElement.setTextContent(convertDayToString(d));
 			daysElement.appendChild(dayElement);
 		}
+
+		tcuElement.appendChild(eventIDElement);
+		tcuElement.appendChild(dateTimeElement);
+		tcuElement.appendChild(userElement);
 		tcuElement.appendChild(companyElement);
 		tcuElement.appendChild(toElement);
 		tcuElement.appendChild(fromElement);
@@ -282,21 +337,24 @@ public class KpsDatabase {
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			Node data = childNodes.item(i);
 			switch (data.getNodeName()) {
-			case "To":
-				customerPriceUpdate.setTo(data.getTextContent());
-				break;
-			case "From":
-				customerPriceUpdate.setFrom(data.getTextContent());
-				break;
-			case "WeightCost":
-				customerPriceUpdate.setWeightCost(Double.parseDouble(data.getTextContent()));
-				break;
-			case "VolumeCost":
-				customerPriceUpdate.setVolumeCost(Double.parseDouble(data.getTextContent()));
-				break;
-			case "Priority":
-				customerPriceUpdate.setPriority(Integer.parseInt(data.getTextContent()));
-				break;
+				case "DateTime":
+					customerPriceUpdate.setDateyymmddhhmmss(data.getTextContent());
+					break;
+				case "To":
+					customerPriceUpdate.setTo(data.getTextContent());
+					break;
+				case "From":
+					customerPriceUpdate.setFrom(data.getTextContent());
+					break;
+				case "WeightCost":
+					customerPriceUpdate.setWeightCost(Double.parseDouble(data.getTextContent()));
+					break;
+				case "VolumeCost":
+					customerPriceUpdate.setVolumeCost(Double.parseDouble(data.getTextContent()));
+					break;
+				case "Priority":
+					customerPriceUpdate.setPriority(Integer.parseInt(data.getTextContent()));
+					break;
 			}
 		}
 		return customerPriceUpdate;
@@ -454,10 +512,6 @@ public class KpsDatabase {
 			return "Sunday";
 		}
 		return "ERROR";
-	}
-
-	public static void main(String[] args) {
-		new KpsDatabase();
 	}
 
 }

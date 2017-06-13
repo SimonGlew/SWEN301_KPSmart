@@ -5,13 +5,14 @@ import java.util.List;
 import model.KpsModel;
 import model.KpsModel.Day;
 
-public class MailDelivery implements BusinessEvent{
+public class MailDelivery extends BusinessEvent{
 	Day day;
 	String to;
 	String from;
 	double weight;
 	double volume;
 	int priority;
+	double cost;
 
 	public Day getDay() {
 		return day;
@@ -49,6 +50,8 @@ public class MailDelivery implements BusinessEvent{
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+	public double getCost(){return cost;}
+	public void setCost(double cost){this.cost = cost;}
 
 	@Override
 	public String toString() {
