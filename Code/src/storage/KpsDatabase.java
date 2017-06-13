@@ -122,13 +122,28 @@ public class KpsDatabase {
 		}
 
 	}
+	
+	private int nextEventID(){
+		int id = 1;
+		boolean inUse;
+		do{
+			inUse = false;
+			for(BusinessEvent event: businessEvents){
+				if(event.id==id){
+					inUse = true;
+				}
+			}
+			id++;
+		}while(inUse);
+		return id;
+	}
 
-	public boolean addTransportCostUpdate(int eventID, String dateTime, String username, String company, String to, String from,
+	public boolean addTransportCostUpdate(String dateTime, String username, String company, String to, String from,
 										  int priority, double weightCost, double volumeCost, double maxWeight, double maxVolume,
 										  double duration, int frequency, List<Day>days){
 
 		TransportCostUpdate transportCostUpdate = new TransportCostUpdate();
-		transportCostUpdate.setId(eventID);
+		transportCostUpdate.setId(nextEventID());
 		transportCostUpdate.setDateyymmddhhmmss(dateTime);
 		transportCostUpdate.setUsername(username);
 		transportCostUpdate.setCompany(company);
@@ -148,9 +163,9 @@ public class KpsDatabase {
 		return true;
 	}
 
-	public boolean addCustomerPriceUpdate(int eventID, String dateTime, String username, String to, String from, int priority, double weightCost, double volumeCost){
+	public boolean addCustomerPriceUpdate(String dateTime, String username, String to, String from, int priority, double weightCost, double volumeCost){
 		CustomerPriceUpdate customerPriceUpdate = new CustomerPriceUpdate();
-		customerPriceUpdate.setId(eventID);
+		customerPriceUpdate.setId(nextEventID());
 		customerPriceUpdate.setDateyymmddhhmmss(dateTime);
 		customerPriceUpdate.setUsername(username);
 		customerPriceUpdate.setTo(to);
@@ -164,9 +179,9 @@ public class KpsDatabase {
 		return true;
 	}
 
-	public boolean addMailDelivery(int eventID, String dateTime, String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost){
+	public boolean addMailDelivery(String dateTime, String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost){
 		MailDelivery mailDelivery = new MailDelivery();
-		mailDelivery.setId(eventID);
+		mailDelivery.setId(nextEventID());
 		mailDelivery.setDateyymmddhhmmss(dateTime);
 		mailDelivery.setUsername(username);
 		mailDelivery.setDay(day);
@@ -183,10 +198,10 @@ public class KpsDatabase {
 		return true;
 	}
 
-	public boolean  addTransportDiscontinued(int eventID, String dateTime, String username, String company, String to, String from, int priority){
+	public boolean  addTransportDiscontinued(String dateTime, String username, String company, String to, String from, int priority){
 
 		TransportDiscontinued transportDiscontinued = new TransportDiscontinued();
-		transportDiscontinued.setId(eventID);
+		transportDiscontinued.setId(nextEventID());
 		transportDiscontinued.setDateyymmddhhmmss(dateTime);
 		transportDiscontinued.setUsername(username);
 		transportDiscontinued.setCompany(company);

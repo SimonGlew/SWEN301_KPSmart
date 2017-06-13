@@ -47,8 +47,8 @@ public class Segment {
 
 	public int updateTransportOption(String firm, int priority, double weightCost, double volCost, double maxWeight, double maxVol, int frequency, double duration, List<Day> list){
 		int optionId = getTransportOptionId(firm, priority);
-		addTransportOption(optionId, firm, priority, weightCost, volCost, maxWeight, maxVol, frequency, duration, list);
-		KpsModel.println(String.format("Updates transport option for segment %d, for %s with id: %d", this.id, firm, priority, id));
+		options.put(id, new TransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol, frequency, duration, this, list));
+		KpsModel.println(String.format("Updated transport option for segment %d, for %s with id: %d", this.id, firm, priority, id));
 		return optionId;
 	}
 

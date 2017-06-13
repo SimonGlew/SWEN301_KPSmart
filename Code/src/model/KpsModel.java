@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Calendar;
+import java.util.List;
 
 import storage.BusinessEvent;
 import storage.CustomerPriceUpdate;
@@ -115,5 +116,53 @@ public class KpsModel {
 
 	public static void main(String[] args){
 		new KpsModel();
+	}
+
+	public String newTransportPriceUpdate(String origin, String destination, String company, int priority,
+			double pricePerGram, double maxWeight, double pricePerCube, double maxVol, List<Day> days, int frequency, double duration) {
+		int originId = routeMap.getLocationId(origin);
+		if(originId == -1){
+			originId = routeMap.addLocation(origin);
+		}
+		int destinationId = routeMap.getLocationId(destination);
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(destination);
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId == -1){
+			segmentId = routeMap.addSegment(originId, destinationId, DEFAULT_KPS_WEIGHTCOST, DEFAULT_KPS_VOLCOST);
+		}
+		int transportOptionId = routeMap.getSegment(segmentId).getTransportOptionId(company, priority);
+		if(transportOptionId == -1){
+			routeMap.addTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
+		}else{
+			routeMap.updateTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
+		}
+		database.addTransportCostUpdate(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
+		return "Successfuly updated transport route.";
+	}
+	
+	public String getDateTimeNow(){
+		return getDateTime(Calendar.getInstance());
+	}
+	
+	public String getDateTime(Calendar c){
+		//yymmddhhmmss
+		return String.format("%2d%2d%2d%2d%2d%2d", 
+				c.get(Calendar.YEAR)%100,
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH),
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE),
+				c.get(Calendar.SECOND));
+	}
+	
+	public Day parseDay(String s){
+		for(Day day: Day.values()){
+			if(day.toString().equalsIgnoreCase(s)){
+				return day;
+			}
+		}
+		return null;
 	}
 }

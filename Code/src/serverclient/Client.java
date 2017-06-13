@@ -100,7 +100,6 @@ public class Client {
 					break;
 				} catch (ClassNotFoundException e) {
 					System.out.println("Exception: error reading from server Class Not Found, " + e);
-
 				}
 			}
 		}
