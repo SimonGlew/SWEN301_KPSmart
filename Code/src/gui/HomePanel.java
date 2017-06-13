@@ -89,6 +89,7 @@ public class HomePanel extends JPanel {
 		panelCreateEvent.add(lblMailDelivery);
 
 		JButton lblCustomerCostUpdate = new JButton("Customer Price Update");
+		lblCustomerCostUpdate.addActionListener(e -> showPanel("CUSTOMER_PRICE"));
 		panelCreateEvent.add(lblCustomerCostUpdate);
 
 		JButton lblTransportCostUpdate = new JButton("Transport Cost Update");
@@ -181,8 +182,9 @@ public class HomePanel extends JPanel {
 		layoutPanelBody = new CardLayout();
 		panelBody = new JPanel(layoutPanelBody);
 		
-		panelBody.add(new JPanel(), "EMPTY");
+		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
+		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
 		panelBody.add(new TotalRevenuePanel(), "TOTAL_REVENUE");
 	}
 	
