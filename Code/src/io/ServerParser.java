@@ -70,7 +70,6 @@ public class ServerParser {
 		String destination = s[1];
 		String company = s[2];
 		String priority = s[3];
-
 	}
 
 }
