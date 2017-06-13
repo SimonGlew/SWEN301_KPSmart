@@ -33,14 +33,10 @@ public class KpsDatabase {
 
 	static final String LOGFILE = "logfile.xml";
 
-	ArrayList<BusinessEvent> businessEvents;
+	private ArrayList<BusinessEvent> businessEvents;
 
 	public KpsDatabase() {
 		loadEvents();
-		for (BusinessEvent b : businessEvents) {
-			System.out.println(b.toString());
-		}
-		writeEvents();
 	}
 
 	public static void main(String[] args) {
@@ -126,6 +122,83 @@ public class KpsDatabase {
 		}
 
 	}
+
+	public boolean addTransportCostUpdate(int eventID, String dateTime, String username, String company, String to, String from,
+										  int priority, double weightCost, double volumeCost, double maxWeight, double maxVolume,
+										  double duration, int frequency, List<Day>days){
+
+		TransportCostUpdate transportCostUpdate = new TransportCostUpdate();
+		transportCostUpdate.setId(eventID);
+		transportCostUpdate.setDateyymmddhhmmss(dateTime);
+		transportCostUpdate.setUsername(username);
+		transportCostUpdate.setCompany(company);
+		transportCostUpdate.setTo(to);
+		transportCostUpdate.setFrom(from);
+		transportCostUpdate.setPriority(priority);
+		transportCostUpdate.setWeightCost(weightCost);
+		transportCostUpdate.setVolumeCost(volumeCost);
+		transportCostUpdate.setMaxWeight(maxWeight);
+		transportCostUpdate.setMaxVolume(maxVolume);
+		transportCostUpdate.setDuration(duration);
+		transportCostUpdate.setFrequency(frequency);
+		transportCostUpdate.setDays(days);
+		businessEvents.add(transportCostUpdate);
+		writeEvents();
+
+		return true;
+	}
+
+	public boolean addCustomerPriceUpdate(int eventID, String dateTime, String username, String to, String from, int priority, double weightCost, double volumeCost){
+		CustomerPriceUpdate customerPriceUpdate = new CustomerPriceUpdate();
+		customerPriceUpdate.setId(eventID);
+		customerPriceUpdate.setDateyymmddhhmmss(dateTime);
+		customerPriceUpdate.setUsername(username);
+		customerPriceUpdate.setTo(to);
+		customerPriceUpdate.setFrom(from);
+		customerPriceUpdate.setPriority(priority);
+		customerPriceUpdate.setWeightCost(weightCost);
+		customerPriceUpdate.setVolumeCost(volumeCost);
+		businessEvents.add(customerPriceUpdate);
+		writeEvents();
+
+		return true;
+	}
+
+	public boolean addMailDelivery(int eventID, String dateTime, String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost){
+		MailDelivery mailDelivery = new MailDelivery();
+		mailDelivery.setId(eventID);
+		mailDelivery.setDateyymmddhhmmss(dateTime);
+		mailDelivery.setUsername(username);
+		mailDelivery.setDay(day);
+		mailDelivery.setTo(to);
+		mailDelivery.setFrom(from);
+		mailDelivery.setWeight(weight);
+		mailDelivery.setVolume(volume);
+		mailDelivery.setPriority(priority);
+		mailDelivery.setKpsCost(kpsCost);
+		mailDelivery.setRouteCost(routeCost);
+		businessEvents.add(mailDelivery);
+		writeEvents();
+
+		return true;
+	}
+
+	public boolean  addTransportDiscontinued(int eventID, String dateTime, String username, String company, String to, String from, int priority){
+
+		TransportDiscontinued transportDiscontinued = new TransportDiscontinued();
+		transportDiscontinued.setId(eventID);
+		transportDiscontinued.setDateyymmddhhmmss(dateTime);
+		transportDiscontinued.setUsername(username);
+		transportDiscontinued.setCompany(company);
+		transportDiscontinued.setTo(to);
+		transportDiscontinued.setFrom(from);
+		transportDiscontinued.setPriority(priority);
+		businessEvents.add(transportDiscontinued);
+		writeEvents();
+
+		return true;
+	}
+
 
 	public void printDOMToLog(Document dom) {
 		try {
