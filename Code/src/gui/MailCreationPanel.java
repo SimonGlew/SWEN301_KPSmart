@@ -27,7 +27,9 @@ public class MailCreationPanel extends EventCreationPanel {
 	private JLabel weightErrorLabel;
 	private JTextField volumeTextField;
 	private JLabel volumeErrorLabel;
-
+	private JTextField costTextField;
+	private JTextField dayTextField;
+	
 	public MailCreationPanel(ClientController controller) {
 		this.controller = controller;
 		initPanel();
@@ -124,18 +126,70 @@ public class MailCreationPanel extends EventCreationPanel {
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeTextField.setBounds(122, 211, 154, 26);
 		add(volumeTextField);
+		
+		JLabel costLabel = new JLabel("Cost");
+		costLabel.setForeground(Color.DARK_GRAY);
+		costLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		costLabel.setBounds(30, 258, 82, 26);
+		add(costLabel);
+
+		costTextField = new JTextField();
+		costTextField.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+			}
+		});
+		costTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		costTextField.setBounds(122, 258, 154, 26);
+		add(costTextField);
+		
+		JLabel dayLabel = new JLabel("Day");
+		dayLabel.setForeground(Color.DARK_GRAY);
+		dayLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		dayLabel.setBounds(30, 305, 82, 26);
+		add(dayLabel);
+
+		dayTextField = new JTextField();
+		dayTextField.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+			}
+		});
+		dayTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		dayTextField.setBounds(122, 305, 154, 26);
+		add(dayTextField);
 
 		JButton submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		submitButton.setBounds(10, 258, 108, 31);
+		submitButton.setBounds(10, 350, 108, 31);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (isValidNumber(weightTextField.getText()) && isValidNumber(volumeTextField.getText())) {
-					controller.requestMailCreation(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
+							controller.requestMailCreation(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
 							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
 							Double.parseDouble(weightTextField.getText()),
-							Double.parseDouble(volumeTextField.getText()), System.currentTimeMillis());
+							Double.parseDouble(volumeTextField.getText()), 
+							Double.parseDouble(costTextField.getText()),
+							dayTextField.getText());
 				}
 			}
 		});
