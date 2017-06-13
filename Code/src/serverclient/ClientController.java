@@ -95,6 +95,11 @@ public class ClientController {
 		this.c.sendMessage(p);
 	}
 	
+	public void LoginRequest(String username, String password){
+		Packet p = new Packet(Codes.loginDetails, null, ClientStringBuilder.requestLoginDetailsString(username, password));
+		this.c.sendMessage(p);
+	}
+	
 	public void addInLocation(String location){
 		if(!locations.contains(location)){
 			locations.add(location);

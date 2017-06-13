@@ -15,6 +15,10 @@ public class ClientStringBuilder {
 	public static String requestMailCreationRoutesString(String from, String to, String priority, double weight, double volume){
 		return from + " " + to + " " + priority + " " + weight + " " + volume;
 	}
+	
+	public static String requestLoginDetailsString(String username, String password){
+		return username + " " + password;
+	}
 
 	public static String requestCustomerPriceUpdateString(String origin, String destination, String priority, double pricePerGram, double pricePerCube){
 		/*return "{\n"
