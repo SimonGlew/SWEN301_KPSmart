@@ -65,7 +65,7 @@ public class ClientController {
 	 *
 	 */
 	public void requestCustomerPriceUpdate(String origin, String dest, String priority, double pricePerGram, double pricePerCube) {
-		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestCustomerPriceUpdateString(origin, dest, priority, pricePerGram, pricePerCube));
+		Packet p = new Packet(Codes.CustomerPriceUpdate, null, ClientStringBuilder.requestCustomerPriceUpdateString(origin, dest, priority, pricePerGram, pricePerCube));
 		this.c.sendMessage(p);
 	}
 
@@ -118,4 +118,6 @@ public class ClientController {
 	public static void main(String[] args){
 		new ClientController();
 	}
+
+
 }

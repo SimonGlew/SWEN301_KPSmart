@@ -20,12 +20,32 @@ public class RouteMap {
 
 	private Map<Integer, Location> locations;
 	private Map<Integer, Segment> segments;
-
+	
 	public RouteMap() {
 		locations = new HashMap<Integer, Location>();
 		segments = new HashMap<Integer, Segment>();
 	}
-
+	
+	public List<String> getAllLocations(){
+		List<String> allLocations = new ArrayList<String>();
+		for(Location loc: locations.values()){
+			allLocations.add(loc.getName());
+		}
+		return allLocations;
+	}
+	
+	public List<String> getAllCompanies(){
+		List<String> allCompanies = new ArrayList<String>();
+		for(Segment seg: segments.values()){
+			for(TransportOption option: seg.getTransportOptions().values()){
+				if(!allCompanies.contains(option.getTransportFirm())){
+					allCompanies.add(option.getTransportFirm());
+				}
+			}
+		}
+		return allCompanies;
+	}
+	
 	public int addLocation(String name) {
 		int id = 1;
 		while (locations.containsKey(id)) {
@@ -55,15 +75,15 @@ public class RouteMap {
 		return -1;
 	}
 
-	public int addSegment(int originId, int destinationId, double weightCost, double volCost) {
+	public int addSegment(int originId, int destinationId) {
 		int id = 1;
 		while (segments.containsKey(id)) {
 			id++;
 		}
-		return addSegment(id, originId, destinationId, weightCost, volCost);
+		return addSegment(id, originId, destinationId);
 	}
 
-	public int addSegment(int id, int originId, int destinationId, double weightCost, double volCost) {
+	public int addSegment(int id, int originId, int destinationId) {
 		if (segments.containsKey(id)) {
 			KpsModel.println(String.format("Error: Cannot add segment as id %d is already in use.", id));
 			return -1;
@@ -84,7 +104,7 @@ public class RouteMap {
 					"Error: Cannot add segment as destination location with id %d does not exist.", destinationId));
 			return -1;
 		}
-		segments.put(id, new Segment(id, locations.get(originId), locations.get(destinationId), weightCost, volCost));
+		segments.put(id, new Segment(id, locations.get(originId), locations.get(destinationId)));
 		locations.get(originId).addSegOut(segments.get(id));
 		KpsModel.println(String.format("Added segment from %s to %s with id: %d", locations.get(originId).getName(),
 				locations.get(destinationId).getName(), id));
@@ -192,12 +212,14 @@ public class RouteMap {
 		return segments.get(segmentId);
 	}
 
-	public void updateSegmentPrice(int segmentId, double weightCost, double volCost) {
-		segments.get(segmentId).setPrice(weightCost, volCost);
+	public void updateSegmentPrice(int segmentId, int priority, double weightCost, double volCost) {
+		segments.get(segmentId).setPrice(priority, weightCost, volCost);
 	}
 
 	public void discontinueTransportOption(int segmentId, String company, int priority) {
 		segments.get(segmentId).discontinueRoute(company, priority);
+		KpsModel.println(String.format("Discontinued transport route from %s to %s with company %s and priority %d", 
+				segments.get(segmentId).getOrigin().getName(), segments.get(segmentId).getDestination().getName(), company, priority));
 	}
 
 }

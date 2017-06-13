@@ -13,18 +13,22 @@ import model.KpsModel.Day;
  */
 public class Segment {
 	private int id;
-	private double weightCost;
-	private double volCost;
+	private Map<Integer, Double> weightCosts;
+	private Map<Integer, Double> volCosts;
 	private Location origin, destination;
 	private Map<Integer, TransportOption> options;
 
-	public Segment(int id, Location origin, Location destination, double weightCost, double volCost){
+	public Segment(int id, Location origin, Location destination){
 		this.id = id;
 		this.origin = origin;
 		this.destination = destination;
-		this.weightCost = weightCost;
-		this.volCost = volCost;
 		options = new HashMap<Integer, TransportOption>();
+		weightCosts = new HashMap<Integer, Double>();
+		volCosts = new HashMap<Integer, Double>();
+		for(int i = 1; i <= 4; i++){
+			weightCosts.put(i, 1d);
+			volCosts.put(i, 1d);
+		}
 	}
 
 	public Location getOrigin() {
@@ -47,8 +51,8 @@ public class Segment {
 
 	public int updateTransportOption(String firm, int priority, double weightCost, double volCost, double maxWeight, double maxVol, int frequency, double duration, List<Day> list){
 		int optionId = getTransportOptionId(firm, priority);
-		addTransportOption(optionId, firm, priority, weightCost, volCost, maxWeight, maxVol, frequency, duration, list);
-		KpsModel.println(String.format("Updates transport option for segment %d, for %s with id: %d", this.id, firm, priority, id));
+		options.put(id, new TransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol, frequency, duration, this, list));
+		KpsModel.println(String.format("Updated transport option for segment %d, for %s with id: %d", this.id, firm, priority, id));
 		return optionId;
 	}
 
@@ -73,9 +77,9 @@ public class Segment {
 		return -1;
 	}
 
-	public void setPrice(double weightCost, double volCost) {
-		this.weightCost = weightCost;
-		this.volCost = volCost;
+	public void setPrice(int priority, double weightCost, double volCost) {
+		weightCosts.put(priority, weightCost);
+		volCosts.put(priority, volCost);
 	}
 
 	public void discontinueRoute(String transportFirm, int priority) {

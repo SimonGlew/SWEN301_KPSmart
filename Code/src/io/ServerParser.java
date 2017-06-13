@@ -4,9 +4,11 @@ import serverclient.Packet;
 import serverclient.Server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.Codes;
 import model.KpsModel;
+import model.KpsModel.Day;
 import model.Location;
 
 public class ServerParser {
@@ -77,30 +79,38 @@ public class ServerParser {
 
 	public void parseTransportPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
-
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
-		String priority = s[3];
+		//TODO: PARSE ACTUAL PRIORITIES TO NUMBERS
+		int priority = 1;
 		double pricePerGram = Double.parseDouble(s[4]);
 		double pricePerCube = Double.parseDouble(s[5]);
-		String day = s[6];
-		double period = Double.parseDouble(s[6]);
-		double duration = Double.parseDouble(s[7]);
-
+		List<Day> days = new ArrayList<Day>();
+		String[] dayArray = s[6].split("\\s+");
+		for(String day: dayArray){
+			days.add(model.parseDay(day));
+		}
+		//TODO: Should this be an int or double? Model is set up for ints, this is probably wrong
+		int frequency = (int)Double.parseDouble(s[7]);
+		double duration = Double.parseDouble(s[8]);
+		//TODO: RECEIVE MAXVOL AND MAXWEIGHT FROM CLIENT
+		double maxWeight = 1000;
+		double maxVol = 1000;
+		String message = model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
+		//TODO: Return message to client
 	}
-
-	
 
 	public void parseCustomerPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
-
 		String origin = s[0];
 		String destination = s[1];
-		String priority = s[2];
+		//TODO: PARSE ACTUAL PRIORITIES TO NUMBERS
+		int priority = 1;
 		double pricePerGram = Double.parseDouble(s[3]);
 		double pricePerCube = Double.parseDouble(s[4]);
-
+		model.newCustomerPriceUpdate(origin, destination, priority, pricePerGram, pricePerCube);
+		//TODO: Return message to client
 	}
 
 	public void parseTransportDiscontinue(Packet p){
@@ -109,7 +119,10 @@ public class ServerParser {
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
-		String priority = s[3];
+		//TODO: PARSE ACTUAL PRIORITY TO NUMBER
+		int priority = 1;
+		String message = model.newTransportDiscontinue(origin, destination, company, priority);
+		//TODO: Return message to client
 	}
 	
 	public void broadcastValidLogin(){
@@ -149,6 +162,4 @@ public class ServerParser {
 	public void broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime){
 		this.server.broadcast(new Packet(Codes.ServerMailDeliveryRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryString(cheapestCost, cheapestTime, fastestCost, fastestTime)), this.clientId);
 	}
-	
-	
 }
