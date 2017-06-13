@@ -33,6 +33,7 @@ public class Client {
 			this.s = new Socket(this.ip, this.port);
 		}catch(Exception e){
 			System.out.println("Exception: Error connecting to server with ip " + this.ip + " and port " + this.port + ", " + e);
+			return;
 		}
 
 		try{
