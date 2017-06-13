@@ -21,6 +21,14 @@ public class ClientParser {
 			//Invalid Login
 		}else if(p.getType().equals(Codes.loginValid)){
 			//Valid Login
+		}else if(p.getType().equals(Codes.ConfirmationMailDelivery)){
+			//Mail delivery was a success
+		}else if(p.getType().equals(Codes.ConfirmationCustomerPriceUpdate)){
+			//Customer price update was a success
+		}else if(p.getType().equals(Codes.DiscontinueRouteValid)){
+			//Discontinued Route Valid
+		}else if(p.getType().equals(Codes.DiscontinueRouteInvalid)){
+			//Discontinued Route invalid
 		}
 	}
 	
