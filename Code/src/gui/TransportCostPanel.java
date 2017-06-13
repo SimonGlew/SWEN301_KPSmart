@@ -29,6 +29,8 @@ public class TransportCostPanel extends EventCreationPanel{
 	private JTextField volumeTextField;
 	private JTextField periodTextField;
 	private JTextField durationTextField;
+	private JTextField maxWeightTextField;
+	private JTextField maxVolumeTextField;
 
 	public TransportCostPanel(ClientController controller) {
 		this.controller = controller;
@@ -138,6 +140,28 @@ public class TransportCostPanel extends EventCreationPanel{
 		durationTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		durationTextField.setBounds(150, 397, 170, 26);
 		add(durationTextField);
+		
+		JLabel maxWeightLabel = new JLabel("Max Weight");
+		maxWeightLabel.setForeground(Color.DARK_GRAY);
+		maxWeightLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		maxWeightLabel.setBounds(350, 69, 130, 26);
+		add(maxWeightLabel);
+
+		maxWeightTextField = new JTextField();
+		maxWeightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		maxWeightTextField.setBounds(450, 69, 170, 26);
+		add(maxWeightTextField);
+		
+		JLabel maxVolumeLabel = new JLabel("Max Volume");
+		maxVolumeLabel.setForeground(Color.DARK_GRAY);
+		maxVolumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		maxVolumeLabel.setBounds(350, 120, 130, 26);
+		add(maxVolumeLabel);
+
+		maxVolumeTextField = new JTextField();
+		maxVolumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		maxVolumeTextField.setBounds(450, 120, 170, 26);
+		add(maxVolumeTextField);
 
 		JLabel daysLabel = new JLabel("Days");
 		daysLabel.setForeground(Color.DARK_GRAY);
