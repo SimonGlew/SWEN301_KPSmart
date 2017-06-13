@@ -22,6 +22,8 @@ public class ServerParser {
 			parseEvent(p);
 		}else if(p.getType().equals(Codes.ClientGetRoutesMailDelivery)){
 			parseClientGetRoutesMailDelivery(p);
+		}else if(p.getType().equals(Codes.loginDetails)){
+			parseClientLoginDetails(p);
 		}
 	}
 	
@@ -35,6 +37,13 @@ public class ServerParser {
 		}else if(p.getType().equals(Codes.TransportDiscontinue)){
 			parseTransportDiscontinue(p);
 		}
+	}
+	
+	public void parseClientLoginDetails(Packet p){
+		String[] information = p.getInformation().split("//s+");
+		
+		String username = information[0];
+		String password = information[1];
 	}
 	
 	public void parseClientGetRoutesMailDelivery(Packet p){
@@ -94,6 +103,14 @@ public class ServerParser {
 		String destination = s[1];
 		String company = s[2];
 		String priority = s[3];
+	}
+	
+	public void broadcastValidLogin(){
+		this.server.broadcast(new Packet(Codes.loginValid, Codes.BroadcastSingle, null), this.clientId);
+	}
+	
+	public void broadcastInvalidLogin(){
+		this.server.broadcast(new Packet(Codes.loginInvalid, Codes.BroadcastSingle, null), this.clientId);
 	}
 	
 	public void broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){

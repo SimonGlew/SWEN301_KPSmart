@@ -17,6 +17,10 @@ public class ClientParser {
 			parseMailDeliveryRoutes(p);
 		}else if(p.getType().equals(Codes.ServerNewRoute)){
 			parseServerNewRoute(p);
+		}else if(p.getType().equals(Codes.loginInvalid)){
+			//Invalid Login
+		}else if(p.getType().equals(Codes.loginValid)){
+			//Valid Login
 		}
 	}
 	
