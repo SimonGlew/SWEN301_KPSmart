@@ -18,7 +18,11 @@ public class Codes {
 	public static String ConfirmationUpdateRoute = "CONFIRMATION.UPDATE.ROUTE";
 	public static String ConfirmationMadeRoute = "CONFIRMATION.MADE.ROUTE";
 
-	public static String GeneralConfirmation = "CONFIRMATION";
+	public static String ConfirmationMailDelivery = "CONFIRMATION.MAIL.DELIVERY";
+	public static String ConfirmationCustomerPriceUpdate = "CONFIRMATION.CUSTOMER.PRICE.UPDATE";
+	
+	public static String DiscontinueRouteValid = "DISCONTINUE.ROUTE.VALID";
+	public static String DiscontinueRouteInvalid = "DISCONTINUE.ROUTE.INVALID";
 
 	public static String loginValid = "LOGIN.VALID";
 	public static String loginInvalid = "LOGIN.INVALID";
