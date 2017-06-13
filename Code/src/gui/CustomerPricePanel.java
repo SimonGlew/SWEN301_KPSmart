@@ -44,6 +44,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		originComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		originComboBox.setEditable(true);
 		originComboBox.setBounds(150, 69, 170, 26);
 		add(originComboBox);
 
@@ -57,6 +58,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		destComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		destComboBox.setEditable(true);
 		destComboBox.setBounds(150, 116, 170, 26);
 		add(destComboBox);
 
@@ -70,6 +72,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Earth", "Water", "Air"}));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		prioComboBox.setEditable(true);
 		prioComboBox.setBounds(150, 164, 170, 26);
 		add(prioComboBox);
 
@@ -84,7 +87,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		gramTextField.setBounds(150, 211, 170, 26);
 		add(gramTextField);
 
-		JLabel volumeLabel = new JLabel("Price per Cube");
+		JLabel volumeLabel = new JLabel("Price Per Cube");
 		volumeLabel.setForeground(Color.DARK_GRAY);
 		volumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeLabel.setBounds(30, 255, 130, 26);
