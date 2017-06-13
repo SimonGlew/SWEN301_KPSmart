@@ -46,7 +46,7 @@ public class ServerParser {
 	}
 	
 	public void parseClientLoginDetails(Packet p){
-		String[] information = p.getInformation().split("\\s+");
+		String[] information = p.getInformation().split("_");
 		
 		String username = information[0];
 		String password = information[1];
@@ -54,7 +54,7 @@ public class ServerParser {
 	
 	public void parseClientGetRoutesMailDelivery(Packet p){
 		System.out.println(p.getInformation());
-		String[] information = p.getInformation().split("\\s+");
+		String[] information = p.getInformation().split("_");
 		
 		String from = information[0];
 		String to = information[1];
@@ -64,7 +64,7 @@ public class ServerParser {
 	}
 	
 	public void parseMailCreation(Packet p){
-		String[] s = p.getInformation().split("\\s+");
+		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
 		String destination = s[1];
@@ -76,7 +76,7 @@ public class ServerParser {
 	}
 
 	public void parseTransportPriceUpdate(Packet p){
-		String[] s = p.getInformation().split("\\s+");
+		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
 		String destination = s[1];
@@ -93,7 +93,7 @@ public class ServerParser {
 	
 
 	public void parseCustomerPriceUpdate(Packet p){
-		String[] s = p.getInformation().split("\\s+");
+		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
 		String destination = s[1];
@@ -104,7 +104,7 @@ public class ServerParser {
 	}
 
 	public void parseTransportDiscontinue(Packet p){
-		String[] s = p.getInformation().split("\\s+");
+		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
 		String destination = s[1];

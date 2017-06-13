@@ -9,15 +9,15 @@ public class ClientStringBuilder {
 				+ "volume: " + volume + "\n"
 				+ "}";*/
 
-		return origin + " " + destination + " " + weight + " " + volume + " " + cost + " " + day;
+		return origin + "_" + destination + "_" + weight + "_" + volume + "_" + cost + "_" + day;
 	}
 	
 	public static String requestMailCreationRoutesString(String from, String to, String priority, double weight, double volume){
-		return from + " " + to + " " + priority + " " + weight + " " + volume;
+		return from + "_" + to + "_" + priority + "_" + weight + "_" + volume;
 	}
 	
 	public static String requestLoginDetailsString(String username, String password){
-		return username + " " + password;
+		return username + "_" + password;
 	}
 
 	public static String requestCustomerPriceUpdateString(String origin, String destination, String priority, double pricePerGram, double pricePerCube){
@@ -29,7 +29,7 @@ public class ClientStringBuilder {
 				+ "pricePerCube: " + pricePerCube + "\n"
 				+ "}";*/
 
-		return origin + " " + destination + " " + priority + " " + pricePerGram + " " + pricePerCube;
+		return origin + "_" + destination + "_" + priority + "_" + pricePerGram + "_" + pricePerCube;
 
 	}
 
@@ -46,7 +46,7 @@ public class ClientStringBuilder {
 				+ "duration: " + duration + "\n"
 				+ "}";*/
 
-		return origin + " " + destination + " " + company + " " + priority + " " + pricePerGram + " " + pricePerCube + " " + day + " " + period + " " + duration;
+		return origin + "_" + destination + "_" + company + "_" + priority + "_" + pricePerGram + "_" + pricePerCube + "_" + day + "_" + period + "_" + duration;
 	}
 
 	public static String requestTransportDiscontinuedString(String origin, String destination, String company, String priority){
@@ -57,6 +57,6 @@ public class ClientStringBuilder {
 				+ "priority: " + priority + "\n"
 				+ "}";*/
 
-		return origin + " " + destination + " " + company + " " + priority;
+		return origin + "_" + destination + "_" + company + "_" + priority;
 	}
 }

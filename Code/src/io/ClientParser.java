@@ -39,7 +39,7 @@ public class ClientParser {
 	}
 	
 	public void parseMailDeliveryRoutes(Packet p){
-		String[] information = p.getInformation().split("\\s+");
+		String[] information = p.getInformation().split("_");
 		double cheapestCost = Double.parseDouble(information[0]);
 		int cheapestTime = Integer.parseInt(information[1]);
 		double fastestCost = Double.parseDouble(information[2]);
@@ -47,14 +47,14 @@ public class ClientParser {
 	}
 	
 	public void parseServerNewRoute(Packet p){
-		String[] information = p.getInformation().split("\\s+");
+		String[] information = p.getInformation().split("_");
 		for(int i = 0; i < information.length; i++){
 			this.controller.addInLocation(information[i]);
 		}
 	}
 	
 	public void parseServerNewCompany(Packet p){
-		String[] information = p.getInformation().split("\\s+");
+		String[] information = p.getInformation().split("_");
 		for(int i = 0; i < information.length; i++){
 			this.controller.addInCompany(information[i]);
 		}
