@@ -23,12 +23,11 @@ public class MailCreationPanel extends EventCreationPanel {
 	// Sub-sections of MailCreationPanel
 	private JComboBox<String> originComboBox;
 	private JComboBox<String> destComboBox;
+	private JComboBox<String> prioComboBox;
 	private JTextField weightTextField;
 	private JLabel weightErrorLabel;
 	private JTextField volumeTextField;
 	private JLabel volumeErrorLabel;
-	private JTextField costTextField;
-	private JTextField dayTextField;
 	
 	public MailCreationPanel(ClientController controller) {
 		this.controller = controller;
@@ -64,11 +63,24 @@ public class MailCreationPanel extends EventCreationPanel {
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setBounds(122, 116, 154, 26);
 		add(destComboBox);
+		
+		JLabel priorityLabel = new JLabel("Priority");
+		priorityLabel.setForeground(Color.DARK_GRAY);
+		priorityLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		priorityLabel.setBounds(30, 164, 82, 26);
+		add(priorityLabel);
+
+		prioComboBox = new JComboBox<String>();
+		prioComboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Earth", "Water", "Air"}));
+		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		prioComboBox.setBounds(122, 164, 154, 26);
+		add(prioComboBox);
 
 		JLabel weightLabel = new JLabel("Weight");
 		weightLabel.setForeground(Color.DARK_GRAY);
 		weightLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		weightLabel.setBounds(30, 164, 82, 26);
+		weightLabel.setBounds(30, 211, 82, 26);
 		add(weightLabel);
 
 		weightTextField = new JTextField();
@@ -95,13 +107,13 @@ public class MailCreationPanel extends EventCreationPanel {
 			}
 		});
 		weightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		weightTextField.setBounds(122, 164, 154, 26);
+		weightTextField.setBounds(122, 211, 154, 26);
 		add(weightTextField);
 
 		JLabel volumeLabel = new JLabel("Volume");
 		volumeLabel.setForeground(Color.DARK_GRAY);
 		volumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeLabel.setBounds(30, 211, 82, 26);
+		volumeLabel.setBounds(30, 255, 82, 26);
 		add(volumeLabel);
 
 		volumeTextField = new JTextField();
@@ -124,72 +136,21 @@ public class MailCreationPanel extends EventCreationPanel {
 			}
 		});
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeTextField.setBounds(122, 211, 154, 26);
+		volumeTextField.setBounds(122, 255, 154, 26);
 		add(volumeTextField);
-		
-		JLabel costLabel = new JLabel("Cost");
-		costLabel.setForeground(Color.DARK_GRAY);
-		costLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		costLabel.setBounds(30, 258, 82, 26);
-		add(costLabel);
-
-		costTextField = new JTextField();
-		costTextField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-			}
-		});
-		costTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		costTextField.setBounds(122, 258, 154, 26);
-		add(costTextField);
-		
-		JLabel dayLabel = new JLabel("Day");
-		dayLabel.setForeground(Color.DARK_GRAY);
-		dayLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		dayLabel.setBounds(30, 305, 82, 26);
-		add(dayLabel);
-
-		dayTextField = new JTextField();
-		dayTextField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-			}
-		});
-		dayTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		dayTextField.setBounds(122, 305, 154, 26);
-		add(dayTextField);
 
 		JButton submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		submitButton.setBounds(10, 350, 108, 31);
+		submitButton.setBounds(10, 300, 108, 31);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (isValidNumber(weightTextField.getText()) && isValidNumber(volumeTextField.getText())) {
-							controller.requestMailCreation(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
+							controller.requestMailCreationRoutes(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
 							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
+							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
 							Double.parseDouble(weightTextField.getText()),
-							Double.parseDouble(volumeTextField.getText()), 
-							Double.parseDouble(costTextField.getText()),
-							dayTextField.getText());
+							Double.parseDouble(volumeTextField.getText()));
 				}
 			}
 		});
@@ -203,13 +164,13 @@ public class MailCreationPanel extends EventCreationPanel {
 		weightErrorLabel = new JLabel("");
 		weightErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
 		weightErrorLabel.setForeground(Color.RED);
-		weightErrorLabel.setBounds(128, 187, 264, 16);
+		weightErrorLabel.setBounds(128, 211, 264, 16);
 		add(weightErrorLabel);
 
 		volumeErrorLabel = new JLabel("");
 		volumeErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
 		volumeErrorLabel.setForeground(Color.RED);
-		volumeErrorLabel.setBounds(128, 234, 264, 16);
+		volumeErrorLabel.setBounds(128, 255, 264, 16);
 		add(volumeErrorLabel);
 	}
 }

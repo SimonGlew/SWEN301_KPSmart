@@ -45,6 +45,7 @@ public class Gui implements ActionListener{
 		loginBox.setPreferredSize(new Dimension(420,150));
 		loginBox.setLocation((frame.getWidth()/2)-(loginBox.getWidth()/2), (frame.getHeight()/2)-(loginBox.getHeight()/2));
 		loginBox.getContentPane().setLayout(new FlowLayout());
+		loginBox.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setPreferredSize(new Dimension(100, 30));
