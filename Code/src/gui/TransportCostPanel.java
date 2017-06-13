@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 
 import serverclient.ClientController;
 
-public class CustomerPricePanel extends EventCreationPanel{
+public class TransportCostPanel extends EventCreationPanel{
 	private ClientController controller;
 
 	// Sub-sections of MailCreationPanel
@@ -28,7 +28,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 	private JTextField volumeTextField;
 	private JLabel volumeErrorLabel;
 	
-	public CustomerPricePanel(ClientController controller) {
+	public TransportCostPanel(ClientController controller) {
 		this.controller = controller;
 		initPanel();
 	}
@@ -109,7 +109,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		gramTextField.setBounds(122, 211, 154, 26);
 		add(gramTextField);
 
-		JLabel volumeLabel = new JLabel("Volume Per Gram");
+		JLabel volumeLabel = new JLabel("Price per Cube");
 		volumeLabel.setForeground(Color.DARK_GRAY);
 		volumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeLabel.setBounds(30, 255, 82, 26);
@@ -155,7 +155,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		});
 		add(submitButton);
 
-		JLabel titleLabel = new JLabel("Customer Price Update");
+		JLabel titleLabel = new JLabel("Transport Cost Update");
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		titleLabel.setBounds(10, 11, 305, 31);
 		add(titleLabel);
