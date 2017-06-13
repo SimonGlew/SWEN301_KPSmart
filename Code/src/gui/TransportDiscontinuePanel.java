@@ -4,18 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import serverclient.ClientController;
 
+@SuppressWarnings("serial")
 public class TransportDiscontinuePanel extends EventCreationPanel{
 	private ClientController controller;
 
@@ -24,12 +22,6 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 	private JComboBox<String> destComboBox;
 	private JComboBox<String> compComboBox;
 	private JComboBox<String> prioComboBox;
-	private JTextField gramTextField;
-	private JLabel gramErrorLabel;
-	private JTextField volumeTextField;
-	private JLabel volumeErrorLabel;
-	private JTextField periodTextField;
-	private JTextField durationTextField;
 	
 	public TransportDiscontinuePanel(ClientController controller) {
 		this.controller = controller;
@@ -98,12 +90,11 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (isValidNumber(gramErrorLabel.getText()) && isValidNumber(volumeTextField.getText())) {
 							controller.requestTransportDiscontinued(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
 							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
 							compComboBox.getItemAt(compComboBox.getSelectedIndex()),
 							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()));
-				}
+				
 			}
 		});
 		add(submitButton);
@@ -112,17 +103,5 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
-
-		gramErrorLabel = new JLabel("");
-		gramErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		gramErrorLabel.setForeground(Color.RED);
-		gramErrorLabel.setBounds(128, 211, 264, 16);
-		add(gramErrorLabel);
-
-		volumeErrorLabel = new JLabel("");
-		volumeErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		volumeErrorLabel.setForeground(Color.RED);
-		volumeErrorLabel.setBounds(128, 255, 264, 16);
-		add(volumeErrorLabel);
 	}
 }

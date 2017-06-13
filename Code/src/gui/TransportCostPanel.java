@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,13 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
 
 import serverclient.ClientController;
 
+@SuppressWarnings("serial")
 public class TransportCostPanel extends EventCreationPanel{
 	private ClientController controller;
 
@@ -30,12 +26,10 @@ public class TransportCostPanel extends EventCreationPanel{
 	private JComboBox<String> compComboBox;
 	private JComboBox<String> prioComboBox;
 	private JTextField gramTextField;
-	private JLabel gramErrorLabel;
 	private JTextField volumeTextField;
-	private JLabel volumeErrorLabel;
 	private JTextField periodTextField;
 	private JTextField durationTextField;
-	
+
 	public TransportCostPanel(ClientController controller) {
 		this.controller = controller;
 		initPanel();
@@ -70,7 +64,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setBounds(150, 116, 170, 26);
 		add(destComboBox);
-		
+
 		JLabel companyLabel = new JLabel("Company");
 		companyLabel.setForeground(Color.DARK_GRAY);
 		companyLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -83,7 +77,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		compComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		compComboBox.setBounds(150, 164, 170, 26);
 		add(compComboBox);
-		
+
 		JLabel priorityLabel = new JLabel("Priority");
 		priorityLabel.setForeground(Color.DARK_GRAY);
 		priorityLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -118,7 +112,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeTextField.setBounds(150, 303, 170, 26);
 		add(volumeTextField);
-		
+
 		JLabel periodLabel = new JLabel("Period");
 		periodLabel.setForeground(Color.DARK_GRAY);
 		periodLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -129,7 +123,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		periodTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		periodTextField.setBounds(150, 350, 170, 26);
 		add(periodTextField);
-		
+
 		JLabel durationLabel = new JLabel("Duration");
 		durationLabel.setForeground(Color.DARK_GRAY);
 		durationLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -140,7 +134,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		durationTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		durationTextField.setBounds(150, 397, 170, 26);
 		add(durationTextField);
-		
+
 		JLabel daysLabel = new JLabel("Days");
 		daysLabel.setForeground(Color.DARK_GRAY);
 		daysLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -179,24 +173,23 @@ public class TransportCostPanel extends EventCreationPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String daySelected = "";
-				
+
 				for(JCheckBox j: dayBoxs){
 					if(j.isSelected()){
 						daySelected += j.getText() + " ";
 					}
 				}
-				
-				if (isValidNumber(gramErrorLabel.getText()) && isValidNumber(volumeTextField.getText())) {
-							controller.requestTransportCostUpdate(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-							compComboBox.getItemAt(compComboBox.getSelectedIndex()),
-							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
-							Double.parseDouble(gramTextField.getText()),
-							Double.parseDouble(volumeTextField.getText()),
-							daySelected,
-							Double.parseDouble(periodTextField.getText()),
-							Double.parseDouble(durationTextField.getText()));
-				}
+
+				controller.requestTransportCostUpdate(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
+						destComboBox.getItemAt(destComboBox.getSelectedIndex()),
+						compComboBox.getItemAt(compComboBox.getSelectedIndex()),
+						prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
+						Double.parseDouble(gramTextField.getText()),
+						Double.parseDouble(volumeTextField.getText()),
+						daySelected,
+						Double.parseDouble(periodTextField.getText()),
+						Double.parseDouble(durationTextField.getText()));
+
 			}
 		});
 		add(submitButton);
@@ -205,17 +198,5 @@ public class TransportCostPanel extends EventCreationPanel{
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
-
-		gramErrorLabel = new JLabel("");
-		gramErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		gramErrorLabel.setForeground(Color.RED);
-		gramErrorLabel.setBounds(128, 211, 264, 16);
-		add(gramErrorLabel);
-
-		volumeErrorLabel = new JLabel("");
-		volumeErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		volumeErrorLabel.setForeground(Color.RED);
-		volumeErrorLabel.setBounds(128, 255, 264, 16);
-		add(volumeErrorLabel);
 	}
 }

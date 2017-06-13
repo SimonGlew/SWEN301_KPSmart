@@ -4,19 +4,16 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.Color;
 import javax.swing.UIManager;
 import serverclient.ClientController;
 
 import javax.swing.DefaultComboBoxModel;
 
+@SuppressWarnings("serial")
 public class MailCreationPanel extends EventCreationPanel {
 	private ClientController controller;
 
@@ -25,10 +22,8 @@ public class MailCreationPanel extends EventCreationPanel {
 	private JComboBox<String> destComboBox;
 	private JComboBox<String> prioComboBox;
 	private JTextField weightTextField;
-	private JLabel weightErrorLabel;
 	private JTextField volumeTextField;
-	private JLabel volumeErrorLabel;
-	
+
 	public MailCreationPanel(ClientController controller) {
 		this.controller = controller;
 		initPanel();
@@ -63,7 +58,7 @@ public class MailCreationPanel extends EventCreationPanel {
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setBounds(150, 116, 170, 26);
 		add(destComboBox);
-		
+
 		JLabel priorityLabel = new JLabel("Priority");
 		priorityLabel.setForeground(Color.DARK_GRAY);
 		priorityLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -84,28 +79,6 @@ public class MailCreationPanel extends EventCreationPanel {
 		add(weightLabel);
 
 		weightTextField = new JTextField();
-		weightTextField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				if (!isValidNumber(weightTextField.getText())) {
-					weightErrorLabel.setText("Not a valid weight");
-				} else {
-					weightErrorLabel.setText("");
-				}
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 		weightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		weightTextField.setBounds(150, 211, 170, 26);
 		add(weightTextField);
@@ -117,24 +90,6 @@ public class MailCreationPanel extends EventCreationPanel {
 		add(volumeLabel);
 
 		volumeTextField = new JTextField();
-		volumeTextField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				if (!isValidNumber(volumeTextField.getText())) {
-					volumeErrorLabel.setText("Not a valid volume");
-				} else {
-					volumeErrorLabel.setText("");
-				}
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-			}
-		});
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeTextField.setBounds(150, 255, 170, 26);
 		add(volumeTextField);
@@ -145,13 +100,12 @@ public class MailCreationPanel extends EventCreationPanel {
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (isValidNumber(weightTextField.getText()) && isValidNumber(volumeTextField.getText())) {
-							controller.requestMailCreationRoutes(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
-							Double.parseDouble(weightTextField.getText()),
-							Double.parseDouble(volumeTextField.getText()));
-				}
+				controller.requestMailCreationRoutes(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
+						destComboBox.getItemAt(destComboBox.getSelectedIndex()),
+						prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
+						Double.parseDouble(weightTextField.getText()),
+						Double.parseDouble(volumeTextField.getText()));
+
 			}
 		});
 		add(submitButton);
@@ -160,17 +114,5 @@ public class MailCreationPanel extends EventCreationPanel {
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
-
-		weightErrorLabel = new JLabel("");
-		weightErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		weightErrorLabel.setForeground(Color.RED);
-		weightErrorLabel.setBounds(128, 211, 264, 16);
-		add(weightErrorLabel);
-
-		volumeErrorLabel = new JLabel("");
-		volumeErrorLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
-		volumeErrorLabel.setForeground(Color.RED);
-		volumeErrorLabel.setBounds(128, 255, 264, 16);
-		add(volumeErrorLabel);
 	}
 }

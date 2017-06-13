@@ -92,6 +92,5 @@ public class Gui implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		loginBox.setVisible(false);
-		
 	}
  }
