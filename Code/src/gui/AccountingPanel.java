@@ -27,45 +27,46 @@ public class AccountingPanel extends JPanel {
 		setLayout(null);
 		
 				JLabel titleLabel = new JLabel("Accounting Figures");
+				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				titleLabel.setVerticalAlignment(SwingConstants.TOP);
 				titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
-				titleLabel.setBounds(69, 11, 327, 47);
+				titleLabel.setBounds(10, 11, 430, 47);
 				add(titleLabel);
 
 		JLabel revenueTitleLabel = new JLabel("Total Revenue");
 		revenueTitleLabel.setForeground(Color.DARK_GRAY);
 		revenueTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		revenueTitleLabel.setBounds(30, 69, 108, 26);
+		revenueTitleLabel.setBounds(127, 69, 108, 26);
 		add(revenueTitleLabel);
 		
 		JLabel revenueLabel = new JLabel("$0.00");
 		revenueLabel.setForeground(Color.BLACK);
 		revenueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		revenueLabel.setBounds(162, 69, 108, 26);
+		revenueLabel.setBounds(259, 69, 45, 26);
 		add(revenueLabel);
 
 		JLabel expenditureTitleLabel = new JLabel("Total Expenditure");
 		expenditureTitleLabel.setForeground(Color.DARK_GRAY);
 		expenditureTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		expenditureTitleLabel.setBounds(30, 116, 121, 26);
+		expenditureTitleLabel.setBounds(127, 116, 121, 26);
 		add(expenditureTitleLabel);
 		
 		JLabel expenditureLabel = new JLabel("$0.00");
 		expenditureLabel.setForeground(Color.BLACK);
 		expenditureLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		expenditureLabel.setBounds(162, 116, 82, 26);
+		expenditureLabel.setBounds(259, 116, 45, 26);
 		add(expenditureLabel);
 
 		JLabel noEventsTitleLabel = new JLabel("Number of Events");
 		noEventsTitleLabel.setForeground(Color.DARK_GRAY);
 		noEventsTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		noEventsTitleLabel.setBounds(30, 164, 123, 26);
+		noEventsTitleLabel.setBounds(127, 164, 123, 26);
 		add(noEventsTitleLabel);
 		
 		JLabel noEventsLabel = new JLabel("0");
 		noEventsLabel.setForeground(Color.BLACK);
 		noEventsLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		noEventsLabel.setBounds(162, 164, 82, 26);
+		noEventsLabel.setBounds(259, 164, 45, 26);
 		add(noEventsLabel);
 	}
 }

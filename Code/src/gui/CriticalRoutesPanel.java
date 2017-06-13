@@ -37,6 +37,7 @@ public class CriticalRoutesPanel extends JPanel {
 				add(titleLabel);
 				
 				table = new JTable();
+				table.setEnabled(false);
 				table.setModel(new DefaultTableModel(
 					new Object[][] {
 						{"Origin", "Destination", "Average Difference (Per Item)"},
