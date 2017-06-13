@@ -21,21 +21,13 @@ public class KpsModel {
 	private RouteMap routeMap;
 	private KpsDatabase database;
 	
-	double DEFAULT_KPS_VOLCOST;
-	double DEFAULT_KPS_WEIGHTCOST;
-
 	public KpsModel(){
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
-		readConfig();
+
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
 		}
-	}
-	
-	private void readConfig(){
-		DEFAULT_KPS_VOLCOST=1;
-		DEFAULT_KPS_WEIGHTCOST=1;
 	}
 
 	private void processEvent(BusinessEvent event){
@@ -61,7 +53,7 @@ public class KpsModel {
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
-			segmentId = routeMap.addSegment(originId, destinationId, DEFAULT_KPS_WEIGHTCOST, DEFAULT_KPS_VOLCOST);
+			segmentId = routeMap.addSegment(originId, destinationId);
 		}
 		int transportOptionId = routeMap.getSegment(segmentId).getTransportOptionId(event.getCompany(), event.getPriority());
 		if(transportOptionId == -1){
@@ -82,9 +74,9 @@ public class KpsModel {
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
-			segmentId = routeMap.addSegment(originId, destinationId, event.getWeightCost(), event.getVolumeCost());
+			segmentId = routeMap.addSegment(originId, destinationId);
 		}else{
-			routeMap.updateSegmentPrice(segmentId, event.getWeightCost(), event.getVolumeCost());
+			routeMap.updateSegmentPrice(segmentId, event.getPriority(), event.getWeightCost(), event.getVolumeCost());
 		}
 	}
 
@@ -130,7 +122,7 @@ public class KpsModel {
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
-			segmentId = routeMap.addSegment(originId, destinationId, DEFAULT_KPS_WEIGHTCOST, DEFAULT_KPS_VOLCOST);
+			segmentId = routeMap.addSegment(originId, destinationId);
 		}
 		int transportOptionId = routeMap.getSegment(segmentId).getTransportOptionId(company, priority);
 		if(transportOptionId == -1){
@@ -139,7 +131,45 @@ public class KpsModel {
 			routeMap.updateTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
 		}
 		database.addTransportCostUpdate(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
-		return "Successfuly updated transport route.";
+		return "Successfuly Updated Transport Route.";
+	}
+	
+	public String newCustomerPriceUpdate(String origin, String destination, int priority, double weightCost, double volCost) {
+		int originId = routeMap.getLocationId(origin);
+		if(originId == -1){
+			originId = routeMap.addLocation(origin);
+		}
+		int destinationId = routeMap.getLocationId(destination);
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(origin);
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId == -1){
+			segmentId = routeMap.addSegment(originId, destinationId);
+		}else{
+			routeMap.updateSegmentPrice(segmentId, priority, weightCost, volCost);
+		}
+		database.addCustomerPriceUpdate(getDateTimeNow(), "usernamesarehard", origin, destination, priority, weightCost, volCost);
+		return "Successfully Updated Customer Price";
+	}
+	
+	public String newTransportDiscontinue(String origin, String destination, String company, int priority) {
+		int originId = routeMap.getLocationId(origin);
+		if(originId == -1){
+			originId = routeMap.addLocation(origin);
+		}
+		int destinationId = routeMap.getLocationId(destination);
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(destination);
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId != -1){
+			routeMap.discontinueTransportOption(segmentId, company, priority);
+		}else{
+			return "Transport Route does not exist";
+		}
+		database.addTransportDiscontinued(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority);
+		return "Successfuly Discontinued Transport Route";
 	}
 	
 	public String getDateTimeNow(){
@@ -148,7 +178,7 @@ public class KpsModel {
 	
 	public String getDateTime(Calendar c){
 		//yymmddhhmmss
-		return String.format("%2d%2d%2d%2d%2d%2d", 
+		return String.format("%02d%02d%02d%02d%02d%02d", 
 				c.get(Calendar.YEAR)%100,
 				c.get(Calendar.MONTH),
 				c.get(Calendar.DAY_OF_MONTH),
@@ -156,6 +186,7 @@ public class KpsModel {
 				c.get(Calendar.MINUTE),
 				c.get(Calendar.SECOND));
 	}
+	
 	
 	public Day parseDay(String s){
 		for(Day day: Day.values()){

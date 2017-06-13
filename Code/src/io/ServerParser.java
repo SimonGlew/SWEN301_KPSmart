@@ -97,20 +97,20 @@ public class ServerParser {
 		//TODO: RECEIVE MAXVOL AND MAXWEIGHT FROM CLIENT
 		double maxWeight = 1000;
 		double maxVol = 1000;
-		model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
+		String message = model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
+		//TODO: Return message to client
 	}
-
-	
 
 	public void parseCustomerPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
-
 		String origin = s[0];
 		String destination = s[1];
-		String priority = s[2];
+		//TODO: PARSE ACTUAL PRIORITIES TO NUMBERS
+		int priority = 1;
 		double pricePerGram = Double.parseDouble(s[3]);
 		double pricePerCube = Double.parseDouble(s[4]);
-
+		model.newCustomerPriceUpdate(origin, destination, priority, pricePerGram, pricePerCube);
+		//TODO: Return message to client
 	}
 
 	public void parseTransportDiscontinue(Packet p){
@@ -119,7 +119,10 @@ public class ServerParser {
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
-		String priority = s[3];
+		//TODO: PARSE ACTUAL PRIORITY TO NUMBER
+		int priority = 1;
+		String message = model.newTransportDiscontinue(origin, destination, company, priority);
+		//TODO: Return message to client
 	}
 	
 	public void broadcastValidLogin(){

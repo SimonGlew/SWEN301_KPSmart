@@ -95,7 +95,6 @@ public class Server {
 		try{
 			Scanner s = new Scanner(new File("server-config.txt"));
 			int p = s.nextInt();
-
 			s.close();
 			KpsModel m = new KpsModel();
 			Server server = new Server(p, m);
