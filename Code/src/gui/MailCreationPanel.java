@@ -48,7 +48,7 @@ public class MailCreationPanel extends EventCreationPanel {
 		originComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		originComboBox.setBounds(122, 69, 154, 26);
+		originComboBox.setBounds(150, 69, 170, 26);
 		add(originComboBox);
 
 		JLabel destLabel = new JLabel("Destination");
@@ -61,7 +61,7 @@ public class MailCreationPanel extends EventCreationPanel {
 		destComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		destComboBox.setBounds(122, 116, 154, 26);
+		destComboBox.setBounds(150, 116, 170, 26);
 		add(destComboBox);
 		
 		JLabel priorityLabel = new JLabel("Priority");
@@ -74,7 +74,7 @@ public class MailCreationPanel extends EventCreationPanel {
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Earth", "Water", "Air"}));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		prioComboBox.setBounds(122, 164, 154, 26);
+		prioComboBox.setBounds(150, 164, 170, 26);
 		add(prioComboBox);
 
 		JLabel weightLabel = new JLabel("Weight");
@@ -107,7 +107,7 @@ public class MailCreationPanel extends EventCreationPanel {
 			}
 		});
 		weightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		weightTextField.setBounds(122, 211, 154, 26);
+		weightTextField.setBounds(150, 211, 170, 26);
 		add(weightTextField);
 
 		JLabel volumeLabel = new JLabel("Volume");
@@ -136,12 +136,12 @@ public class MailCreationPanel extends EventCreationPanel {
 			}
 		});
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeTextField.setBounds(122, 255, 154, 26);
+		volumeTextField.setBounds(150, 255, 170, 26);
 		add(volumeTextField);
 
 		JButton submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		submitButton.setBounds(10, 300, 108, 31);
+		submitButton.setBounds(150, 300, 108, 31);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -158,7 +158,7 @@ public class MailCreationPanel extends EventCreationPanel {
 
 		JLabel titleLabel = new JLabel("Request for Delivery");
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
-		titleLabel.setBounds(10, 11, 305, 31);
+		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
 
 		weightErrorLabel = new JLabel("");
