@@ -13,16 +13,19 @@ public class ClientController {
 	private Client c;
 	private Gui g;
 	private ArrayList<String> locations;
+	private ArrayList<String> companies;
 
 	public ClientController(Client c){
 		this.c = c;
 		this.locations = new ArrayList<String>();
+		this.companies = new ArrayList<String>();
 		this.g = new Gui(this);
 		//setup login page
 	}
 	
 	public ClientController(){
 		this.locations = new ArrayList<String>();
+		this.companies = new ArrayList<String>();
 		this.g = new Gui(this);
 		//setup login page check
 	}
@@ -101,8 +104,14 @@ public class ClientController {
 	}
 	
 	public void addInLocation(String location){
-		if(!locations.contains(location)){
-			locations.add(location);
+		if(!this.locations.contains(location)){
+			this.locations.add(location);
+		}
+	}
+	
+	public void addInCompany(String company){
+		if(!this.companies.contains(company)){
+			this.companies.add(company);
 		}
 	}
 	

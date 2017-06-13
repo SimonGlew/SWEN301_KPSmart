@@ -1,6 +1,7 @@
 package serverclient;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -63,18 +64,18 @@ public class Server {
 	}
 
 	public synchronized void broadcast(Packet p, int id){
-		for(int i = clients.size(); --i >= 0;){
-			ClientThread t = clients.get(i);
+		for(int i = this.clients.size(); --i >= 0;){
+			ClientThread t = this.clients.get(i);
 
 			if(p.getBroadcast().equals(Codes.BroadcastSingle)){
 				if(t.getUserId() == id){
 					if(!t.writeToClient(p)){
-						clients.remove(i);
+						this.clients.remove(i);
 					}
 				}
 			}else{
 				if(!t.writeToClient(p)){
-					clients.remove(i);
+					this.clients.remove(i);
 				}
 			}
 		}
@@ -119,18 +120,12 @@ public class Server {
 			this.id = uniqueId++;
 			this.parser = new ServerParser(model, this.server, this.id);
 
-			try{
+			try {
 				this.output = new ObjectOutputStream(s.getOutputStream());
-			}catch(Exception e){
-				System.out.println("Exception: Creating client output streams " + e);
-			}
-
-			try{
 				this.input = new ObjectInputStream(s.getInputStream());
-			}catch(Exception e){
-				System.out.println("Exception: Creating client input streams " + e);
-			}
-
+			} catch (IOException e) {
+				System.out.println("Error: " + e);
+			}				
 		}
 
 		public void run(){
@@ -140,6 +135,7 @@ public class Server {
 					Packet packet = (Packet)this.input.readObject();
 					this.parser.parseMessage(packet);
 				}catch(Exception e){
+					System.out.println("EXCEPTION: " + e);
 					live = false;
 					break outer;
 				}
@@ -155,7 +151,7 @@ public class Server {
 				return false;
 
 			try{
-				output.writeObject(o);
+				this.output.writeObject(o);
 			}catch(Exception e){
 				System.out.println("Exception: Cannot write out from socket" + id + ", " + e);
 			}

@@ -15,8 +15,10 @@ public class ClientParser {
 			parseBusinessFigures(p);
 		}else if(p.getType().equals(Codes.ServerMailDeliveryRoutes)){
 			parseMailDeliveryRoutes(p);
-		}else if(p.getType().equals(Codes.ServerNewRoute)){
+		}else if(p.getType().equals(Codes.ServerNewRoute) || p.getType().equals(Codes.ServerRouteList)){
 			parseServerNewRoute(p);
+		}else if(p.getType().equals(Codes.ServerNewCompany) || p.getType().equals(Codes.ServerCompanyList)){
+			parseServerNewCompany(p);
 		}else if(p.getType().equals(Codes.loginInvalid)){
 			//Invalid Login
 		}else if(p.getType().equals(Codes.loginValid)){
@@ -37,7 +39,7 @@ public class ClientParser {
 	}
 	
 	public void parseMailDeliveryRoutes(Packet p){
-		String[] information = p.getInformation().split("//s+");
+		String[] information = p.getInformation().split("\\s+");
 		double cheapestCost = Double.parseDouble(information[0]);
 		int cheapestTime = Integer.parseInt(information[1]);
 		double fastestCost = Double.parseDouble(information[2]);
@@ -45,9 +47,16 @@ public class ClientParser {
 	}
 	
 	public void parseServerNewRoute(Packet p){
-		String[] information = p.getInformation().split("//s+");
+		String[] information = p.getInformation().split("\\s+");
 		for(int i = 0; i < information.length; i++){
 			this.controller.addInLocation(information[i]);
+		}
+	}
+	
+	public void parseServerNewCompany(Packet p){
+		String[] information = p.getInformation().split("\\s+");
+		for(int i = 0; i < information.length; i++){
+			this.controller.addInCompany(information[i]);
 		}
 	}
 }

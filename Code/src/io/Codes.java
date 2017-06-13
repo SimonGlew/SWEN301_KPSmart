@@ -31,8 +31,10 @@ public class Codes {
 	
 	public static String ServerRouteList = "SERVER.ROUTE.LIST";
 	public static String ServerBusinessFigures = "SERVER.BUSINESS.FIGURES";
+	public static String ServerCompanyList = "SERVER.COMPANY.LIST";
 	
 	public static String ServerNewRoute = "SERVER.NEW.ROUTE";
+	public static String ServerNewCompany = "SERVER.NEW.COMPANY";
 	
 	public static String BroadcastSingle = "BROADCAST.SINGLE";
 	public static String BroadcastAll = "BROADCAST.ALL";

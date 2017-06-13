@@ -1,6 +1,9 @@
 package serverclient;
 
-public class Packet {
+import java.io.Serializable;
+
+public class Packet implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String type;
 	private String broadcast;
 	private String information;
@@ -21,5 +24,9 @@ public class Packet {
 	
 	public String getBroadcast(){
 		return this.broadcast;
+	}
+	
+	public String toString(){
+		return this.type + " " + this.information + " " + this.broadcast;
 	}
 }

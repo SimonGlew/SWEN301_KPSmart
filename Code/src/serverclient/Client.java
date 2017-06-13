@@ -1,6 +1,7 @@
 package serverclient;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -48,7 +49,7 @@ public class Client {
 
 		System.out.println("Connected to " + this.ip + " on port " + this.port);
 
-		new ServerThread().start();
+		new ServerThread(this.input);
 	}
 
 	public void sendMessage(Packet p){
@@ -82,13 +83,24 @@ public class Client {
 	}
 
 	public class ServerThread extends Thread{
+		ObjectInputStream i;
+		
+		public ServerThread(ObjectInputStream i){
+			this.i = i;
+			start();
+		}
+		
 		public void run(){
 			while(true){
 				try{
-					Packet packet = (Packet)input.readObject();
+					Packet packet = (Packet)i.readObject();
 					parser.parseMessage(packet);
-				}catch(Exception e){
-					System.out.println("Exception: error reading from server, " + e);
+				}catch(IOException e){
+					System.out.println("Exception: error reading from server IO, " + e);
+					break;
+				} catch (ClassNotFoundException e) {
+					System.out.println("Exception: error reading from server Class Not Found, " + e);
+
 				}
 			}
 		}
