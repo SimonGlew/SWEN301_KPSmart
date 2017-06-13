@@ -1,6 +1,6 @@
 package storage;
 
-public class CustomerPriceUpdate implements BusinessEvent {
+public class CustomerPriceUpdate extends BusinessEvent {
 	String to;
 	String from;
 	int priority;
@@ -38,13 +38,15 @@ public class CustomerPriceUpdate implements BusinessEvent {
 		this.volumeCost = volumeCost;
 	}
 
+
 	@Override
 	public String toString() {
-		return "CustomerPriceUpdate [to=" + to + ", from=" + from + ", priority=" + priority + ", weightCost="
-				+ weightCost + ", volumeCost=" + volumeCost + "]";
+		return "CustomerPriceUpdate{" +
+				"to='" + to + '\'' +
+				", from='" + from + '\'' +
+				", priority=" + priority +
+				", weightCost=" + weightCost +
+				", volumeCost=" + volumeCost +
+				"} " + super.toString();
 	}
-
-
-
-
 }

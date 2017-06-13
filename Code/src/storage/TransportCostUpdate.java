@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.KpsModel;
 
-public class TransportCostUpdate  implements BusinessEvent{
+public class TransportCostUpdate  extends BusinessEvent{
 	String company;
 	String to;
 	String from;
@@ -111,13 +111,20 @@ public class TransportCostUpdate  implements BusinessEvent{
 
 	@Override
 	public String toString() {
-		return "TransportCostUpdate [company=" + company + ", to=" + to + ", from=" + from + ", priority=" + priority
-				+ ", weightCost=" + weightCost + ", volumeCost=" + volumeCost + ", maxWeight=" + maxWeight
-				+ ", maxVolume=" + maxVolume + ", duration=" + duration + ", frequency=" + frequency + ", days=" + days
-				+ "]";
+		return "TransportCostUpdate{" +
+				"company='" + company + '\'' +
+				", to='" + to + '\'' +
+				", from='" + from + '\'' +
+				", priority=" + priority +
+				", weightCost=" + weightCost +
+				", volumeCost=" + volumeCost +
+				", maxWeight=" + maxWeight +
+				", maxVolume=" + maxVolume +
+				", duration=" + duration +
+				", frequency=" + frequency +
+				", days=" + days +
+				"} " + super.toString();
 	}
-
-	
 
 
 }

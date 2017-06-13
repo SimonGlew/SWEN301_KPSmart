@@ -12,7 +12,8 @@ public class MailDelivery extends BusinessEvent{
 	double weight;
 	double volume;
 	int priority;
-	double cost;
+	double kpsCost;
+	double routeCost;
 
 	public Day getDay() {
 		return day;
@@ -50,15 +51,34 @@ public class MailDelivery extends BusinessEvent{
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public double getCost(){return cost;}
-	public void setCost(double cost){this.cost = cost;}
+
+	public double getKpsCost() {
+		return kpsCost;
+	}
+
+	public void setKpsCost(double kpsCost) {
+		this.kpsCost = kpsCost;
+	}
+
+	public double getRouteCost() {
+		return routeCost;
+	}
+
+	public void setRouteCost(double routeCost) {
+		this.routeCost = routeCost;
+	}
 
 	@Override
 	public String toString() {
-		return "MailDelivery [day=" + day + ", to=" + to + ", from=" + from + ", weight=" + weight + ", volume="
-				+ volume + ", priority=" + priority + "]";
+		return "MailDelivery{" +
+				"day=" + day +
+				", to='" + to + '\'' +
+				", from='" + from + '\'' +
+				", weight=" + weight +
+				", volume=" + volume +
+				", priority=" + priority +
+				", kpsCost=" + kpsCost +
+				", routeCost=" + routeCost +
+				"} " + super.toString();
 	}
-
-
-
 }

@@ -30,4 +30,14 @@ public abstract class BusinessEvent {
     public void setDateyymmddhhmmss(String dateyymmddhhmmss) {
         this.dateyymmddhhmmss = dateyymmddhhmmss;
     }
+
+    @Override
+    public String toString() {
+        return "BusinessEvent{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", dateyymmddhhmmss='" + dateyymmddhhmmss + '\'' +
+                '}';
+    }
 }
+

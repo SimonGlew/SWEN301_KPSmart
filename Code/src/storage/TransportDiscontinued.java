@@ -1,6 +1,6 @@
 package storage;
 
-public class TransportDiscontinued implements BusinessEvent {
+public class TransportDiscontinued extends BusinessEvent {
 	String company;
 	String to;
 	String from;
@@ -33,10 +33,13 @@ public class TransportDiscontinued implements BusinessEvent {
 
 	@Override
 	public String toString() {
-		return "TransportDiscontinued [company=" + company + ", to=" + to + ", from=" + from + ", priority=" + priority
-				+ "]";
+		return "TransportDiscontinued{" +
+				"company='" + company + '\'' +
+				", to='" + to + '\'' +
+				", from='" + from + '\'' +
+				", priority=" + priority +
+				"} " + super.toString();
 	}
-
 
 
 }
