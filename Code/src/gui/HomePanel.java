@@ -100,8 +100,6 @@ public class HomePanel extends JPanel {
 		lblTransportDiscontinued.addActionListener(e -> showPanel("TRANSPORT_DISC"));
 		panelCreateEvent.add(lblTransportDiscontinued);
 		
-		
-		
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
 		panelKeyFigures.setLayout(new GridLayout(5, 1, 0, 0));
 
