@@ -32,6 +32,7 @@ public class Gui implements ActionListener{
 	}
 	
 	private void frameSetup(){
+		// Set LookAndFeel to Nimbus
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if ("Nimbus".equals(info.getName())) {
