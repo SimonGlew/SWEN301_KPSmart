@@ -97,7 +97,9 @@ public class HomePanel extends JPanel {
 		panelCreateEvent.add(lblTransportCostUpdate);
 
 		JButton lblTransportDiscontinued = new JButton("Transport Discontinued");
+		lblTransportDiscontinued.addActionListener(e -> showPanel("TRANSPORT_DISC"));
 		panelCreateEvent.add(lblTransportDiscontinued);
+		
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
 		panelKeyFigures.setLayout(new GridLayout(5, 1, 0, 0));
 
@@ -187,6 +189,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
 		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
 		panelBody.add(new TransportCostPanel(this.controller), "TRANSPORT_COST");
+		panelBody.add(new TransportDiscontinuePanel(this.controller), "TRANSPORT_DISC");
 		panelBody.add(new TotalRevenuePanel(), "TOTAL_REVENUE");
 	}
 	
