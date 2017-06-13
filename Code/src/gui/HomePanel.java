@@ -35,30 +35,30 @@ public class HomePanel extends JPanel {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panelHeader, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
+								.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
-						.addComponent(panelHeader, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE))
+							.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+						.addComponent(panelBody, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panel.setLayout(new GridLayout(1, 1, 0, 0));
@@ -138,21 +138,29 @@ public class HomePanel extends JPanel {
 
 		JLabel lblLoggedInDallan = new JLabel("Logged in: Dallan Freemantle (Manager)");
 		GroupLayout gl_panelHeader = new GroupLayout(panelHeader);
-		gl_panelHeader.setHorizontalGroup(gl_panelHeader.createParallelGroup(Alignment.TRAILING).addGroup(gl_panelHeader
-				.createSequentialGroup().addContainerGap(636, Short.MAX_VALUE)
-				.addGroup(gl_panelHeader.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelHeader.createSequentialGroup().addComponent(lblLoggedInDallan)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblKpsmart, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 150,
-								GroupLayout.PREFERRED_SIZE))
-				.addContainerGap()));
-		gl_panelHeader.setVerticalGroup(gl_panelHeader.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelHeader.createSequentialGroup().addContainerGap()
-						.addComponent(lblKpsmart, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE).addGap(65)
-						.addGroup(gl_panelHeader.createParallelGroup(Alignment.TRAILING).addComponent(lblLoggedInDallan)
-								.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap()));
+		gl_panelHeader.setHorizontalGroup(
+			gl_panelHeader.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelHeader.createSequentialGroup()
+					.addContainerGap(666, Short.MAX_VALUE)
+					.addGroup(gl_panelHeader.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelHeader.createSequentialGroup()
+							.addComponent(lblLoggedInDallan)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblKpsmart, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		gl_panelHeader.setVerticalGroup(
+			gl_panelHeader.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelHeader.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblKpsmart, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_panelHeader.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblLoggedInDallan)
+						.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addGap(53))
+		);
 		panelHeader.setLayout(gl_panelHeader);
 		setLayout(groupLayout);
 	}

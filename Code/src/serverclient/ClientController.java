@@ -4,14 +4,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import gui.Gui;
 import io.ClientStringBuilder;
 import io.Codes;
 
 public class ClientController {
 	private Client c;
+	private Gui g;
 
 	public ClientController(Client c){
 		this.c = c;
+		this.g = new Gui();
 		//setup login page
 	}
 
