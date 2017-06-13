@@ -107,12 +107,15 @@ public class HomePanel extends JPanel {
 		panelKeyFigures.add(accountingButton);
 		
 		JButton mailStatsButton = new JButton("Mail Statistics");
+		mailStatsButton.addActionListener(e -> showPanel("AMOUNT_OF_MAIL"));
 		panelKeyFigures.add(mailStatsButton);
 		
 		JButton avgDeliveryButton = new JButton("Average Delivery Times");
+		avgDeliveryButton.addActionListener(e -> showPanel("AVERAGE_DELIVERY_TIMES"));
 		panelKeyFigures.add(avgDeliveryButton);
 		
 		JButton criticalRoutesButton = new JButton("Critical Routes");
+		criticalRoutesButton.addActionListener(e -> showPanel("CRITICAL_ROUTES"));
 		panelKeyFigures.add(criticalRoutesButton);
 
 		GroupLayout gl_panelSide = new GroupLayout(panelSide);
@@ -186,6 +189,9 @@ public class HomePanel extends JPanel {
 		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
 		panelBody.add(new TransportCostPanel(this.controller), "TRANSPORT_COST");
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
+		panelBody.add(new AmountOfMailPanel(), "AMOUNT_OF_MAIL");
+		panelBody.add(new DeliveryTimesPanel(), "AVERAGE_DELIVERY_TIMES");
+		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
 	}
 	
 	/**
