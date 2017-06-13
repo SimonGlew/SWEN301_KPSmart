@@ -24,7 +24,7 @@ public class ClientController {
 	public ClientController(){
 		this.locations = new ArrayList<String>();
 		this.g = new Gui(this);
-		//setup login page
+		//setup login page check
 	}
 	
 	public void requestMailCreationRoutes(String from, String to, String priority, double weight, double volume){
