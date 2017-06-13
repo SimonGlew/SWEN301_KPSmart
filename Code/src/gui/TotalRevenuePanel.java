@@ -6,6 +6,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class TotalRevenuePanel extends JPanel {
 	private JLabel lblTotalRevenue;
@@ -21,11 +23,15 @@ public class TotalRevenuePanel extends JPanel {
 		lblTotalRevenue = new JLabel("totalRevenue");
 		lblTotalRevenue.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		
-		JLabel lblNoEventsTitle = new JLabel("No. of Events:");
-		lblNoEventsTitle.setFont(new Font("Tahoma", Font.BOLD, 26));
+		JLabel lblNoEventsTitle = new JLabel("Number of events for report:");
+		lblNoEventsTitle.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNoEventsTitle.setForeground(Color.GRAY);
+		lblNoEventsTitle.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 		JLabel lblNoEvents = new JLabel("noEvents");
-		lblNoEvents.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblNoEvents.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNoEvents.setForeground(Color.GRAY);
+		lblNoEvents.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -36,10 +42,10 @@ public class TotalRevenuePanel extends JPanel {
 							.addComponent(lblTitle)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblTotalRevenue))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNoEventsTitle, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(lblNoEvents, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblNoEventsTitle, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNoEvents, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(80, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -50,9 +56,9 @@ public class TotalRevenuePanel extends JPanel {
 						.addComponent(lblTitle)
 						.addComponent(lblTotalRevenue))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNoEventsTitle, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNoEvents, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNoEvents, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNoEventsTitle, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(219, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
