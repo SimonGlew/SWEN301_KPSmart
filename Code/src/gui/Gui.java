@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import serverclient.ClientController;
 
@@ -10,8 +9,8 @@ import serverclient.ClientController;
  *
  */
 public class Gui {
-	ClientController controller;
-	JFrame frame;
+	private ClientController controller;
+	private JFrame frame;
 
 	public Gui(ClientController controller){
 		this.controller = controller;
@@ -20,8 +19,12 @@ public class Gui {
 		frame.setSize(1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.add(new HomePanel(this.controller));
+		frame.setContentPane(new HomePanel(this.controller));
 		
 		frame.setVisible(true);
 	}
-}
+	
+	public static void main(String[] args) {
+		new Gui(null);
+	}
+ }
