@@ -40,12 +40,12 @@ public class HomePanel extends JPanel {
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelHeader, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelHeader, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
@@ -59,12 +59,12 @@ public class HomePanel extends JPanel {
 					.addContainerGap()
 					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
-						.addComponent(panelBody, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
+						.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panel.setLayout(new GridLayout(1, 1, 0, 0));
@@ -78,54 +78,50 @@ public class HomePanel extends JPanel {
 		panelCreateEvent.setLayout(new GridLayout(4, 1, 0, 0));
 
 		JScrollPane scrollPaneKeyFigures = new JScrollPane();
-		scrollPaneKeyFigures.setBorder(new TitledBorder(null, "Key Events", TitledBorder.LEADING, TitledBorder.TOP,
-				null, new Color(59, 59, 59)));
+		scrollPaneKeyFigures.setBorder(new TitledBorder(null, "Business Figures", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
 		JPanel panelKeyFigures = new JPanel();
 		scrollPaneCreateEvents.setViewportView(panelCreateEvent);
 
-		JButton lblMailDelivery = new JButton("Mail Delivery");
-		lblMailDelivery.addActionListener(e -> showPanel("MAIL_CREATION"));
-		panelCreateEvent.add(lblMailDelivery);
+		JButton mailDeliveryButton = new JButton("Mail Delivery");
+		mailDeliveryButton.addActionListener(e -> showPanel("MAIL_CREATION"));
+		panelCreateEvent.add(mailDeliveryButton);
 
-		JButton lblCustomerCostUpdate = new JButton("Customer Price Update");
-		lblCustomerCostUpdate.addActionListener(e -> showPanel("CUSTOMER_PRICE"));
-		panelCreateEvent.add(lblCustomerCostUpdate);
+		JButton customerCostUpdateButton = new JButton("Customer Price Update");
+		customerCostUpdateButton.addActionListener(e -> showPanel("CUSTOMER_PRICE"));
+		panelCreateEvent.add(customerCostUpdateButton);
 
-		JButton lblTransportCostUpdate = new JButton("Transport Cost Update");
-		lblTransportCostUpdate.addActionListener(e -> showPanel("TRANSPORT_COST"));
-		panelCreateEvent.add(lblTransportCostUpdate);
+		JButton transportCostUpdateButton = new JButton("Transport Cost Update");
+		transportCostUpdateButton.addActionListener(e -> showPanel("TRANSPORT_COST"));
+		panelCreateEvent.add(transportCostUpdateButton);
 
-		JButton lblTransportDiscontinued = new JButton("Transport Discontinued");
-		lblTransportDiscontinued.addActionListener(e -> showPanel("TRANSPORT_DISC"));
-		panelCreateEvent.add(lblTransportDiscontinued);
+		JButton transportDiscontinuedButton = new JButton("Transport Discontinued");
+		transportDiscontinuedButton.addActionListener(e -> showPanel("TRANSPORT_DISC"));
+		panelCreateEvent.add(transportDiscontinuedButton);
 		
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
-		panelKeyFigures.setLayout(new GridLayout(5, 1, 0, 0));
+		panelKeyFigures.setLayout(new GridLayout(4, 1, 0, 0));
 
-		JButton lblTotalRevenue = new JButton("Total Revenue");
-		lblTotalRevenue.addActionListener(e -> showPanel("TOTAL_REVENUE"));
-		panelKeyFigures.add(lblTotalRevenue);
-
-		JButton lblTotalExpenditure = new JButton("Total Expenditure");
-		panelKeyFigures.add(lblTotalExpenditure);
-
-		JButton lblNewLabel = new JButton("Amount of Mail");
-		panelKeyFigures.add(lblNewLabel);
-
-		JButton lblAverageDeliveryTimes = new JButton("Average Delivery Times");
-		panelKeyFigures.add(lblAverageDeliveryTimes);
-
-		JButton lblCriticalRoutes = new JButton("Critical Routes");
-		panelKeyFigures.add(lblCriticalRoutes);
+		JButton accountingButton = new JButton("Accounting Figures");
+		accountingButton.addActionListener(e -> showPanel("ACCOUNTING"));
+		panelKeyFigures.add(accountingButton);
+		
+		JButton mailStatsButton = new JButton("Mail Statistics");
+		panelKeyFigures.add(mailStatsButton);
+		
+		JButton avgDeliveryButton = new JButton("Average Delivery Times");
+		panelKeyFigures.add(avgDeliveryButton);
+		
+		JButton criticalRoutesButton = new JButton("Critical Routes");
+		panelKeyFigures.add(criticalRoutesButton);
 
 		GroupLayout gl_panelSide = new GroupLayout(panelSide);
 		gl_panelSide.setHorizontalGroup(
-			gl_panelSide.createParallelGroup(Alignment.LEADING)
+			gl_panelSide.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelSide.createSequentialGroup()
-					.addGroup(gl_panelSide.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPaneCreateEvents, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-						.addComponent(scrollPaneKeyFigures, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+					.addGroup(gl_panelSide.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPaneKeyFigures, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+						.addComponent(scrollPaneCreateEvents, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
 					.addGap(0))
 		);
 		gl_panelSide.setVerticalGroup(
@@ -134,8 +130,8 @@ public class HomePanel extends JPanel {
 					.addContainerGap()
 					.addComponent(scrollPaneCreateEvents, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(179, Short.MAX_VALUE))
 		);
 		panelSide.setLayout(gl_panelSide);
 
@@ -189,8 +185,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
 		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
 		panelBody.add(new TransportCostPanel(this.controller), "TRANSPORT_COST");
-		panelBody.add(new TransportDiscontinuePanel(this.controller), "TRANSPORT_DISC");
-		panelBody.add(new TotalRevenuePanel(), "TOTAL_REVENUE");
+		panelBody.add(new AccountingPanel(), "ACCOUNTING");
 	}
 	
 	/**
