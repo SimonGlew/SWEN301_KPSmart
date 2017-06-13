@@ -19,13 +19,22 @@ public class KpsModel {
 
 	private RouteMap routeMap;
 	private KpsDatabase database;
+	
+	double DEFAULT_KPS_VOLCOST;
+	double DEFAULT_KPS_WEIGHTCOST;
 
 	public KpsModel(){
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
+		readConfig();
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
 		}
+	}
+	
+	private void readConfig(){
+		DEFAULT_KPS_VOLCOST=1;
+		DEFAULT_KPS_WEIGHTCOST=1;
 	}
 
 	private void processEvent(BusinessEvent event){
@@ -51,7 +60,7 @@ public class KpsModel {
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
-			segmentId = routeMap.addSegment(originId, destinationId);
+			segmentId = routeMap.addSegment(originId, destinationId, DEFAULT_KPS_WEIGHTCOST, DEFAULT_KPS_VOLCOST);
 		}
 		int transportOptionId = routeMap.getSegment(segmentId).getTransportOptionId(event.getCompany(), event.getPriority());
 		if(transportOptionId == -1){
@@ -62,15 +71,39 @@ public class KpsModel {
 	}
 
 	private void processCustomerPriceUpdate(CustomerPriceUpdate event){
-
+		int originId = routeMap.getLocationId(event.getFrom());
+		if(originId == -1){
+			originId = routeMap.addLocation(event.getFrom());
+		}
+		int destinationId = routeMap.getLocationId(event.getTo());
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(event.getTo());
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId == -1){
+			segmentId = routeMap.addSegment(originId, destinationId, event.getWeightCost(), event.getVolumeCost());
+		}else{
+			routeMap.updateSegmentPrice(segmentId, event.getWeightCost(), event.getVolumeCost());
+		}
 	}
 
 	private void processTransportDiscontinued(TransportDiscontinued event){
-
+		int originId = routeMap.getLocationId(event.getFrom());
+		if(originId == -1){
+			originId = routeMap.addLocation(event.getFrom());
+		}
+		int destinationId = routeMap.getLocationId(event.getTo());
+		if(destinationId == -1){
+			destinationId = routeMap.addLocation(event.getTo());
+		}
+		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
+		if(segmentId != -1){
+			routeMap.discontinueTransportOption(segmentId, event.getCompany(), event.getPriority());
+		}
 	}
 
 	private void processMailDelivery(MailDelivery event){
-
+		
 	}
 
 
