@@ -14,7 +14,7 @@ public class ClientController {
 
 	public ClientController(Client c){
 		this.c = c;
-		this.g = new Gui();
+		this.g = new Gui(this);
 		//setup login page
 	}
 

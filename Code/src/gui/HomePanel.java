@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -14,11 +15,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 
+import serverclient.ClientController;
+
 public class HomePanel extends JPanel {
+	private ClientController controller;
+	private JPanel panelBody;
+	private CardLayout LayoutPanelBody;
 
-	public HomePanel() {
+	public HomePanel(ClientController controller) {
+		this.controller = controller;
 		initPanel();
-
 	}
 
 	private void initPanel() {
@@ -29,7 +35,7 @@ public class HomePanel extends JPanel {
 
 		JPanel panelSide = new JPanel();
 
-		JPanel panelBody = new JPanel();
+		initPanelBody();
 
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -163,5 +169,17 @@ public class HomePanel extends JPanel {
 		);
 		panelHeader.setLayout(gl_panelHeader);
 		setLayout(groupLayout);
+	}
+
+	/**
+	 * Initialise the body panel
+	 */
+	private void initPanelBody() {
+		// Create the body using a card layout
+		LayoutPanelBody = new CardLayout();
+		panelBody = new JPanel(LayoutPanelBody);
+		
+		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
+		panelBody.add(new TotalRevenuePanel(), "TOTAL_REVENUE");
 	}
 }
