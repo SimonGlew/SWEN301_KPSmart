@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -14,11 +15,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 
+import serverclient.ClientController;
+
 public class HomePanel extends JPanel {
+	private ClientController controller;
+	private JPanel panelBody;
+	private CardLayout layoutPanelBody;
 
-	public HomePanel() {
+	public HomePanel(ClientController controller) {
+		this.controller = controller;
 		initPanel();
-
 	}
 
 	private void initPanel() {
@@ -29,7 +35,7 @@ public class HomePanel extends JPanel {
 
 		JPanel panelSide = new JPanel();
 
-		JPanel panelBody = new JPanel();
+		initPanelBody();
 
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -79,6 +85,7 @@ public class HomePanel extends JPanel {
 		scrollPaneCreateEvents.setViewportView(panelCreateEvent);
 
 		JButton lblMailDelivery = new JButton("Mail Delivery");
+		lblMailDelivery.addActionListener(e -> showPanel("MAIL_CREATION"));
 		panelCreateEvent.add(lblMailDelivery);
 
 		JButton lblCustomerCostUpdate = new JButton("Customer Price Update");
@@ -93,6 +100,7 @@ public class HomePanel extends JPanel {
 		panelKeyFigures.setLayout(new GridLayout(5, 1, 0, 0));
 
 		JButton lblTotalRevenue = new JButton("Total Revenue");
+		lblTotalRevenue.addActionListener(e -> showPanel("TOTAL_REVENUE"));
 		panelKeyFigures.add(lblTotalRevenue);
 
 		JButton lblTotalExpenditure = new JButton("Total Expenditure");
@@ -163,5 +171,26 @@ public class HomePanel extends JPanel {
 		);
 		panelHeader.setLayout(gl_panelHeader);
 		setLayout(groupLayout);
+	}
+
+	/**
+	 * Initialise the body panel
+	 */
+	private void initPanelBody() {
+		// Create the body using a card layout
+		layoutPanelBody = new CardLayout();
+		panelBody = new JPanel(layoutPanelBody);
+		
+		panelBody.add(new JPanel(), "EMPTY");
+		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
+		panelBody.add(new TotalRevenuePanel(), "TOTAL_REVENUE");
+	}
+	
+	/**
+	 * Switch the body panel
+	 * @param name
+	 */
+	private void showPanel(String name) {
+		layoutPanelBody.show(panelBody, name);
 	}
 }

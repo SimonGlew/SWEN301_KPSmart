@@ -16,8 +16,8 @@ public class ClientController {
 
 	public ClientController(Client c){
 		this.c = c;
-		this.g = new Gui();
 		this.locations = new ArrayList<String>();
+		this.g = new Gui(this);
 		//setup login page
 	}
 	
