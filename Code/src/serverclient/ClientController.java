@@ -21,6 +21,12 @@ public class ClientController {
 		//setup login page
 	}
 	
+	public ClientController(){
+		this.locations = new ArrayList<String>();
+		this.g = new Gui(this);
+		//setup login page
+	}
+	
 	public void requestMailCreationRoutes(String from, String to, String priority, double weight, double volume){
 		Packet p = new Packet(Codes.ClientGetRoutesMailDelivery, null, ClientStringBuilder.requestMailCreationRoutesString(from, to, priority, weight, volume));
 		this.c.sendMessage(p);
@@ -93,5 +99,9 @@ public class ClientController {
 		if(!locations.contains(location)){
 			locations.add(location);
 		}
+	}
+	
+	public static void main(String[] args){
+		new ClientController();
 	}
 }
