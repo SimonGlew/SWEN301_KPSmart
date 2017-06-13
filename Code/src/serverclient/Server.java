@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import io.Codes;
 import io.ServerParser;
 import model.KpsModel;
 
@@ -42,7 +43,7 @@ public class Server {
 				Socket s = ss.accept();
 				if(!alive)
 					break;
-				ClientThread t = new ClientThread(s, this.model);
+				ClientThread t = new ClientThread(s, this.model, this);
 				System.out.println("Client accepted " + t.getUserId() + " and started");
 				this.clients.add(t);
 				t.start();
@@ -65,7 +66,7 @@ public class Server {
 		for(int i = clients.size(); --i >= 0;){
 			ClientThread t = clients.get(i);
 
-			if(p.getType() == "SINGLE SENDBACK"){ //TODO: Placeholder for messages with single sendback
+			if(p.getBroadcast().equals(Codes.BroadcastSingle)){
 				if(t.getUserId() == id){
 					if(!t.writeToClient(p)){
 						clients.remove(i);
@@ -110,11 +111,13 @@ public class Server {
 		private ObjectOutputStream output;
 		private int id;
 		private ServerParser parser;
+		private Server server;
 
-		private ClientThread(Socket s, KpsModel model){
+		private ClientThread(Socket s, KpsModel model, Server server){
 			this.s = s;
-			this.parser = new ServerParser(model, this);
+			this.server = server;
 			this.id = uniqueId++;
+			this.parser = new ServerParser(model, this.server, this.id);
 
 			try{
 				this.output = new ObjectOutputStream(s.getOutputStream());

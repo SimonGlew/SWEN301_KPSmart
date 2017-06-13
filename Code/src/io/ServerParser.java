@@ -3,28 +3,60 @@ package io;
 import serverclient.Packet;
 import serverclient.Server;
 import io.Codes;
-import io.Codes.Events;
 import model.KpsModel;
 
 public class ServerParser {
 	private KpsModel model;
-	private Server.ClientThread out;
+	private Server server;
+	private int clientId;
 
-	public ServerParser(KpsModel model, Server.ClientThread out){
+	public ServerParser(KpsModel model, Server server, int clientId){
 		this.model = model;
-		this.out = out;
+		this.server = server;
+		this.clientId = clientId;
 	}
 
 	public void parseMessage(Packet p){
-		if(p.getType().equals(Codes.Events.TransportPriceUpdate)){
+		String[] temp = p.getType().split(".");
+		if(temp[0].equals(Codes.EventSubString)){
+			parseEvent(p);
+		}else if(p.getType().equals(Codes.ClientGetRoutesMailDelivery)){
+			parseClientGetRoutesMailDelivery(p);
+		}
+	}
+	
+	public void parseEvent(Packet p){
+		if(p.getType().equals(Codes.TransportPriceUpdate)){
 			parseTransportPriceUpdate(p);
-		}else if(p.getType().equals(Codes.Events.CustomerPriceUpdate)){
+		}else if(p.getType().equals(Codes.CustomerPriceUpdate)){
 			parseCustomerPriceUpdate(p);
-		}else if(p.getType().equals(Codes.Events.MailCreation)){
+		}else if(p.getType().equals(Codes.MailCreation)){
 			parseMailCreation(p);
-		}else if(p.getType().equals(Codes.Events.TransportDiscontinue)){
+		}else if(p.getType().equals(Codes.TransportDiscontinue)){
 			parseTransportDiscontinue(p);
 		}
+	}
+	
+	public void parseClientGetRoutesMailDelivery(Packet p){
+		String[] information = p.getInformation().split("//s+");
+		
+		String from = information[0];
+		String to = information[1];
+		String priority = information[2];
+		double weight = Double.parseDouble(information[3]);
+		double volume = Double.parseDouble(information[4]);
+	}
+	
+	public void parseMailCreation(Packet p){
+		String[] s = p.getInformation().split("\\s+");
+
+		String origin = s[0];
+		String destination = s[1];
+		double weight = Double.parseDouble(s[2]);
+		double volume = Double.parseDouble(s[3]);
+		double cost = Double.parseDouble(s[4]);
+		String day = s[5];
+
 	}
 
 	public void parseTransportPriceUpdate(Packet p){
@@ -42,15 +74,7 @@ public class ServerParser {
 
 	}
 
-	public void parseMailCreation(Packet p){
-		String[] s = p.getInformation().split("\\s+");
-
-		String origin = s[0];
-		String destination = s[1];
-		double weight = Double.parseDouble(s[2]);
-		double volume = Double.parseDouble(s[3]);
-
-	}
+	
 
 	public void parseCustomerPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("\\s+");
@@ -71,5 +95,16 @@ public class ServerParser {
 		String company = s[2];
 		String priority = s[3];
 	}
-
+	
+	public void broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){
+		this.server.broadcast(new Packet(Codes.ServerBusinessFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures()),  -1);
+	}
+	
+	public void broadcastRoute(String to, String from){
+		this.server.broadcast(new Packet(Codes.ServerNewRoute, Codes.BroadcastAll, ServerStringBuilder.makeNewRouteString(to, from)), -1);
+	}
+	
+	public void broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime){
+		this.server.broadcast(new Packet(Codes.ServerMailDeliveryRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryString(cheapestCost, cheapestTime, fastestCost, fastestTime)), this.clientId);
+	}
 }
