@@ -27,7 +27,15 @@ public class KpsModel {
 
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
-		}
+		}		
+	}
+	
+	public List<String> getCompanies(){
+		return routeMap.getAllCompanies();
+	}
+	
+	public List<String> getLocations(){
+		return routeMap.getAllLocations();
 	}
 
 	private void processEvent(BusinessEvent event){

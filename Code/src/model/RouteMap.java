@@ -20,12 +20,32 @@ public class RouteMap {
 
 	private Map<Integer, Location> locations;
 	private Map<Integer, Segment> segments;
-
+	
 	public RouteMap() {
 		locations = new HashMap<Integer, Location>();
 		segments = new HashMap<Integer, Segment>();
 	}
-
+	
+	public List<String> getAllLocations(){
+		List<String> allLocations = new ArrayList<String>();
+		for(Location loc: locations.values()){
+			allLocations.add(loc.getName());
+		}
+		return allLocations;
+	}
+	
+	public List<String> getAllCompanies(){
+		List<String> allCompanies = new ArrayList<String>();
+		for(Segment seg: segments.values()){
+			for(TransportOption option: seg.getTransportOptions().values()){
+				if(!allCompanies.contains(option.getTransportFirm())){
+					allCompanies.add(option.getTransportFirm());
+				}
+			}
+		}
+		return allCompanies;
+	}
+	
 	public int addLocation(String name) {
 		int id = 1;
 		while (locations.containsKey(id)) {
