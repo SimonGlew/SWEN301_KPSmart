@@ -170,8 +170,8 @@ public class ServerParser {
 		return 4;
 	}
 
-	public Packet broadcastValidLogin(Boolean isManager){
-		return new Packet(Codes.loginValid, Codes.BroadcastSingle, isManager);
+	public Packet broadcastValidLogin(boolean isManager){
+		return new Packet(Codes.loginValid, Codes.BroadcastSingle, Boolean.toString(isManager));
 	}
 
 	public Packet broadcastInvalidLogin(){
