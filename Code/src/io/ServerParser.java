@@ -49,10 +49,11 @@ public class ServerParser {
 	}
 
 	public void parseClientLoginDetails(Packet p){
-		String[] information = p.getInformation().split("_");
+		System.out.println(p.toString());
+		/*String[] information = p.getInformation().split("_");
 
 		String username = information[0];
-		String password = information[1];
+		String password = information[1]; */
 
 		String message = Codes.loginValid;
 
