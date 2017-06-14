@@ -14,7 +14,7 @@ import storage.UserDatabase;
 import users.StaffMember;
 
 /**
- * Created by Jack on 6/3/2017.
+ * Created by Jonathan on 3/6/2017.
  */
 
 public class KpsModel {
@@ -42,6 +42,8 @@ public class KpsModel {
 	public List<String> getLocations(){
 		return routeMap.getAllLocations();
 	}
+	
+	
 
 	private void processEvent(BusinessEvent event){
 		if(event instanceof TransportCostUpdate){
@@ -50,8 +52,6 @@ public class KpsModel {
 			processCustomerPriceUpdate((CustomerPriceUpdate)event);
 		}else if(event instanceof TransportDiscontinued){
 			processTransportDiscontinued((TransportDiscontinued)event);
-		}else if(event instanceof MailDelivery){
-			processMailDelivery((MailDelivery)event);
 		}
 	}
 
@@ -106,10 +106,6 @@ public class KpsModel {
 		if(segmentId != -1){
 			routeMap.discontinueTransportOption(segmentId, event.getCompany(), event.getPriority());
 		}
-	}
-
-	private void processMailDelivery(MailDelivery event){
-
 	}
 
 
@@ -196,6 +192,11 @@ public class KpsModel {
 		}
 		database.addTransportDiscontinued(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority);
 		return Codes.DiscontinueRouteValid;
+	}
+	
+	public String newMailDelivery(Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost, double hours){
+		database.addMailDelivery(getDateTimeNow(), "useramesarehard", day, to, from, weight, volume, priority, kpsCost, routeCost, hours);
+		return Codes.ConfirmationMailDelivery;
 	}
 
 	public String getDateTimeNow(){
