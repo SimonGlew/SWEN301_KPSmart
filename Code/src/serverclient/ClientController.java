@@ -150,7 +150,7 @@ public class ClientController {
 		g.homePanel.update();
 	}
 
-	public void successfullLogin(){
+	public void successfullLogin(boolean manager){
 		this.g.loginSuccess();
 	}
 

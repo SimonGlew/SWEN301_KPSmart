@@ -8,11 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginDialog implements ActionListener{
 	JDialog loginBox;
-	JTextField passwordField;
+	JPasswordField passwordField;
 	JTextField usernameField;
 	JButton submit;
 	Gui gui;
@@ -41,7 +42,7 @@ public class LoginDialog implements ActionListener{
 
 		JLabel password = new JLabel("Password");
 		password.setPreferredSize(new Dimension(100, 30));
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setPreferredSize(new Dimension(300, 30));
 		loginBox.getContentPane().add(password);
 		loginBox.getContentPane().add(passwordField);

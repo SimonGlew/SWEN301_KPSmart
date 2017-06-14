@@ -22,7 +22,7 @@ public class ClientParser {
 		}else if(p.getType().equals(Codes.loginInvalid)){
 			controller.failedLogin();
 		}else if(p.getType().equals(Codes.loginValid)){
-			controller.successfullLogin();
+			controller.successfullLogin(Boolean.parseBoolean(p.getInformation()));
 		}else if(p.getType().equals(Codes.ConfirmationMailDelivery)){
 			//Mail delivery was a success
 		}else if(p.getType().equals(Codes.ConfirmationCustomerPriceUpdate)){
