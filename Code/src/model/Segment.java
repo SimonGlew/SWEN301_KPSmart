@@ -94,4 +94,12 @@ public class Segment {
 		}
 	}
 
+	public double getWeightCost(int priority) {
+		return weightCosts.get(priority);
+	}
+
+	public double getVolCost(int priority) {
+		return volCosts.get(priority);
+	}
+
 }

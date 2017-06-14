@@ -116,7 +116,7 @@ public class KpsModel {
 	}
 
 	public String newTransportPriceUpdate(String origin, String destination, String company, int priority,
-			double pricePerGram, double maxWeight, double pricePerCube, double maxVol, List<Day> days, int frequency, double duration) {
+			double pricePerGram, double pricePerCube, double maxWeight, double maxVol, List<Day> days, int frequency, double duration) {
 		boolean newRoute = false;
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
@@ -217,5 +217,31 @@ public class KpsModel {
 			}
 		}
 		return null;
+	}
+
+	public Route getCheapestRoute(String from, String to, int priority, double weight, double volume) {
+		int originId = routeMap.getLocationId(from);
+		if(originId == -1){
+			System.out.println("Origin not in map: " + from);
+			return null;
+		}
+		int destinationId = routeMap.getLocationId(to);
+		if(destinationId == -1){
+			System.out.println("Destination not in map: " + to);
+			return null;
+		}
+		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority);
+	}
+
+	public Route getFastestRoute(String from, String to, int priority, double weight, double volume) {
+		int originId = routeMap.getLocationId(from);
+		if(originId == -1){
+			return null;
+		}
+		int destinationId = routeMap.getLocationId(to);
+		if(destinationId == -1){
+			return null;
+		}
+		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority);
 	}
 }

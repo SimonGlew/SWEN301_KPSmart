@@ -20,32 +20,32 @@ public class RouteMap {
 
 	private Map<Integer, Location> locations;
 	private Map<Integer, Segment> segments;
-	
+
 	public RouteMap() {
 		locations = new HashMap<Integer, Location>();
 		segments = new HashMap<Integer, Segment>();
 	}
-	
-	public List<String> getAllLocations(){
+
+	public List<String> getAllLocations() {
 		List<String> allLocations = new ArrayList<String>();
-		for(Location loc: locations.values()){
+		for (Location loc : locations.values()) {
 			allLocations.add(loc.getName());
 		}
 		return allLocations;
 	}
-	
-	public List<String> getAllCompanies(){
+
+	public List<String> getAllCompanies() {
 		List<String> allCompanies = new ArrayList<String>();
-		for(Segment seg: segments.values()){
-			for(TransportOption option: seg.getTransportOptions().values()){
-				if(!allCompanies.contains(option.getTransportFirm())){
+		for (Segment seg : segments.values()) {
+			for (TransportOption option : seg.getTransportOptions().values()) {
+				if (!allCompanies.contains(option.getTransportFirm())) {
 					allCompanies.add(option.getTransportFirm());
 				}
 			}
 		}
 		return allCompanies;
 	}
-	
+
 	public int addLocation(String name) {
 		int id = 1;
 		while (locations.containsKey(id)) {
@@ -60,15 +60,14 @@ public class RouteMap {
 			return -1;
 		} else {
 			locations.put(id, new Location(name, id));
-			KpsModel.println(
-					String.format("Added location %s with id: %d", name, id));
+			KpsModel.println(String.format("Added location %s with id: %d", name, id));
 			return id;
 		}
 	}
 
-	public int getLocationId(String name){
-		for(Entry<Integer, Location> entry: locations.entrySet()){
-			if(entry.getValue().getName().equalsIgnoreCase(name)){
+	public int getLocationId(String name) {
+		for (Entry<Integer, Location> entry : locations.entrySet()) {
+			if (entry.getValue().getName().equalsIgnoreCase(name)) {
 				return entry.getKey();
 			}
 		}
@@ -133,11 +132,11 @@ public class RouteMap {
 
 	public int updateTransportOption(int segId, String firm, int priority, double weightCost, double volCost,
 			double maxWeight, double maxVol, int frequency, double duration, List<Day> list) {
-		return segments.get(segId).updateTransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol, frequency,
-				duration, list);
+		return segments.get(segId).updateTransportOption(firm, priority, weightCost, volCost, maxWeight, maxVol,
+				frequency, duration, list);
 	}
 
-	public Route findCheapestRoute(int originId, int destinationId, double weight, double vol) {
+	public Route findCheapestRoute(int originId, int destinationId, double weight, double vol, int priority) {
 		Location origin = locations.get(originId);
 		Location destination = locations.get(destinationId);
 		Set<Location> visited = new HashSet<Location>();
@@ -172,10 +171,10 @@ public class RouteMap {
 				for (Segment segment : node.loc.getSegsOut()) {
 					if (!visited.contains(segment.getDestination())) {
 						for (TransportOption option : segment.getTransportOptions().values()) {
-							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol())
-								;
-							fringe.offer(new SearchNode(segment.getDestination(), node.loc, option,
-									node.costSoFar + (weight * option.getWeightCost()) + (vol * option.getVolCost())));
+							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && priority == option.getPriority()){
+								fringe.offer(new SearchNode(segment.getDestination(), node.loc, option,
+									node.costSoFar + (weight * segment.getWeightCost(priority)) + (vol * segment.getVolCost(priority))));
+							}
 						}
 					}
 				}
@@ -218,8 +217,9 @@ public class RouteMap {
 
 	public void discontinueTransportOption(int segmentId, String company, int priority) {
 		segments.get(segmentId).discontinueRoute(company, priority);
-		KpsModel.println(String.format("Discontinued transport route from %s to %s with company %s and priority %d", 
-				segments.get(segmentId).getOrigin().getName(), segments.get(segmentId).getDestination().getName(), company, priority));
+		KpsModel.println(String.format("Discontinued transport route from %s to %s with company %s and priority %d",
+				segments.get(segmentId).getOrigin().getName(), segments.get(segmentId).getDestination().getName(),
+				company, priority));
 	}
 
 }

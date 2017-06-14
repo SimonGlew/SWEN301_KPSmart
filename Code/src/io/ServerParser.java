@@ -10,6 +10,7 @@ import io.Codes;
 import model.KpsModel;
 import model.KpsModel.Day;
 import model.Location;
+import model.Route;
 
 public class ServerParser {
 	private KpsModel model;
@@ -70,9 +71,11 @@ public class ServerParser {
 
 		String from = information[0];
 		String to = information[1];
-		String priority = information[2];
+		int priority = parsePriority(information[2]);
 		double weight = Double.parseDouble(information[3]);
 		double volume = Double.parseDouble(information[4]);
+		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
+		System.out.println(cheapest);
 	}
 
 	public void parseMailCreation(Packet p){
@@ -89,6 +92,9 @@ public class ServerParser {
 
 	public void parseTransportPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
+		for(int i = 0; i < s.length; i++){
+			System.out.printf("%d: %s\n", i, s[i]);
+		}
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
