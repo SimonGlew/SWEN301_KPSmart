@@ -20,20 +20,18 @@ import serverclient.ClientController;
  * Graphical User Interface for the KPSmart Client
  *
  */
-public class Gui implements ActionListener{
-	private ClientController controller;
-	private JFrame frame;
-	private JDialog loginBox;
-	JTextField passwordField;
-	JTextField usernameField;
-	JButton submit;
-	HomePanel homePanel;
+public class Gui{
+	public ClientController controller;
+	public JFrame frame;
+	public JDialog loginBox;
+
+	public HomePanel homePanel;
 
 	public Gui(ClientController controller){
 		this.controller = controller;
 		this.homePanel = new HomePanel(this.controller);
 		frameSetup();
-		passwordPanel();
+		new LoginDialog(this);
 	}
 
 	private void frameSetup(){
@@ -57,49 +55,5 @@ public class Gui implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(homePanel);
 		frame.setVisible(true);
-	}
-
-	private void passwordPanel() {
-		loginBox = new JDialog(frame, "Login");
-		loginBox.setModal(true);
-		loginBox.setResizable(false);
-		loginBox.setSize(new Dimension(420,150));
-		loginBox.setPreferredSize(new Dimension(420,150));
-		loginBox.setLocation((frame.getWidth()/2)-(loginBox.getWidth()/2), (frame.getHeight()/2)-(loginBox.getHeight()/2));
-		loginBox.getContentPane().setLayout(new FlowLayout());
-		loginBox.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-		JLabel usernameLabel = new JLabel("Username:");
-		usernameLabel.setPreferredSize(new Dimension(100, 30));
-		usernameField = new JTextField();
-		usernameField.setPreferredSize(new Dimension(300, 30));
-		loginBox.getContentPane().add(usernameLabel);
-		loginBox.getContentPane().add(usernameField);
-
-		JLabel password = new JLabel("Password");
-		password.setPreferredSize(new Dimension(100, 30));
-		passwordField = new JTextField();
-		passwordField.setPreferredSize(new Dimension(300, 30));
-		loginBox.getContentPane().add(password);
-		loginBox.getContentPane().add(passwordField);
-
-	    submit = new JButton("Submit");
-	    loginBox.getContentPane().add(submit);
-	    submit.addActionListener(this);
-
-	    loginBox.pack();
-	    loginBox.setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		controller.LoginRequest(usernameField.getText(), passwordField.getText());
-		submit.setEnabled(false);
-
-		while(!controller.logged){System.out.println("waiting");}
-
-
-		homePanel.username.setText("Logged In: " );
-		loginBox.setVisible(false);
 	}
  }
