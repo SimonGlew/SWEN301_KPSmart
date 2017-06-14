@@ -31,6 +31,11 @@ public class CustomerPricePanel extends EventCreationPanel{
 		initPanel();
 	}
 
+	public void update() {
+		originComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
+		destComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
+	}
+
 	private void initPanel() {
 		setBackground(UIManager.getColor("Panel.background"));
 		setLayout(null);
@@ -42,7 +47,6 @@ public class CustomerPricePanel extends EventCreationPanel{
 		add(originLabel);
 
 		originComboBox = new JComboBox<String>();
-		originComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		originComboBox.setEditable(true);
 		originComboBox.setBounds(150, 69, 170, 26);
@@ -55,7 +59,6 @@ public class CustomerPricePanel extends EventCreationPanel{
 		add(destLabel);
 
 		destComboBox = new JComboBox<String>();
-		destComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setEditable(true);
 		destComboBox.setBounds(150, 116, 170, 26);
@@ -71,7 +74,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard}));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		prioComboBox.setEditable(true);
+		prioComboBox.setEditable(false);
 		prioComboBox.setBounds(150, 164, 170, 26);
 		add(prioComboBox);
 

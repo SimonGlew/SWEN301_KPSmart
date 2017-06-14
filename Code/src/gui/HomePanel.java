@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.border.TitledBorder;
 
@@ -27,11 +28,24 @@ public class HomePanel extends JPanel {
 	private CardLayout layoutPanelBody;
 	public JLabel username;
 	private Gui gui;
+	private ArrayList<JPanel> panels;
+
+	private MailCreationPanel mail;
+	private TransportCostPanel tansportCost;
+	private TransportDiscontinuePanel transportDisc;
+	private CustomerPricePanel customerPrice;
 
 	public HomePanel(Gui g,ClientController controller) {
 		this.gui = g;
 		this.controller = controller;
 		initPanel();
+	}
+
+	public void update(){
+		mail.update();
+		tansportCost.update();
+		transportDisc.update();
+		customerPrice.update();
 	}
 
 	public void initPanel() {
@@ -193,16 +207,22 @@ public class HomePanel extends JPanel {
 	/**
 	 * Initialise the body panel
 	 */
-	private void initPanelBody() {
+	public void initPanelBody() {
 		// Create the body using a card layout
 		layoutPanelBody = new CardLayout();
 		panelBody = new JPanel(layoutPanelBody);
 
+		mail = new MailCreationPanel(this.controller);
+		tansportCost = new TransportCostPanel(this.controller);
+		transportDisc = new TransportDiscontinuePanel(this.controller);
+		customerPrice = new CustomerPricePanel(this.controller);
+
+
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
-		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
-		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
-		panelBody.add(new TransportCostPanel(this.controller), "TRANSPORT_COST");
-		panelBody.add(new TransportDiscontinuePanel(this.controller), "TRANSPORT_DISC");
+		panelBody.add(mail, "MAIL_CREATION");
+		panelBody.add(customerPrice, "CUSTOMER_PRICE");
+		panelBody.add(tansportCost, "TRANSPORT_COST");
+		panelBody.add(transportDisc, "TRANSPORT_DISC");
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
 		panelBody.add(new AmountOfMailPanel(), "AMOUNT_OF_MAIL");
 		panelBody.add(new DeliveryTimesPanel(), "AVERAGE_DELIVERY_TIMES");
