@@ -219,7 +219,7 @@ public class KpsDatabase {
 		return true;
 	}
 
-	public boolean addMailDelivery(String dateTime, String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost){
+	public boolean addMailDelivery(String dateTime, String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost, double hours){
 		MailDelivery mailDelivery = new MailDelivery();
 		mailDelivery.setId(nextEventID());
 		mailDelivery.setDateyymmddhhmmss(dateTime);
@@ -232,6 +232,7 @@ public class KpsDatabase {
 		mailDelivery.setPriority(priority);
 		mailDelivery.setKpsCost(kpsCost);
 		mailDelivery.setRouteCost(routeCost);
+		mailDelivery.setHours(hours);
 		businessEvents.add(mailDelivery);
 		writeEvents();
 
@@ -346,6 +347,9 @@ public class KpsDatabase {
 
 		Element routeCostElement = dom.createElement("RouteCost");
 		routeCostElement.setTextContent(e.getRouteCost()+"");
+		
+		Element hoursElement = dom.createElement("Hours");
+		hoursElement.setTextContent(e.getHours()+"");
 
 		mdElement.appendChild(eventIDElement);
 		mdElement.appendChild(dateTimeElement);
@@ -358,6 +362,7 @@ public class KpsDatabase {
 		mdElement.appendChild(priorityElement);
 		mdElement.appendChild(kpsCostElement);
 		mdElement.appendChild(routeCostElement);
+		mdElement.appendChild(hoursElement);
 
 		return mdElement;
 	}
@@ -537,6 +542,9 @@ public class KpsDatabase {
 					break;
 				case "Priority":
 					mailDelivery.setPriority(Integer.parseInt(data.getTextContent()));
+					break;
+				case "Hours":
+					mailDelivery.setHours(Double.parseDouble(data.getTextContent()));
 					break;
 			}
 		}
