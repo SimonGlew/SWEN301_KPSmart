@@ -3,6 +3,7 @@ package serverclient;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import gui.Gui;
@@ -51,6 +52,37 @@ public class ClientController {
 //		String dateAndTime = formatter.format(date);
 //
 //		System.out.printf("Mail delivery event creation requested @ %s\norigin: %s\ndestination: %s\nweight: %f g\nvolume: %f cm^3\n", dateAndTime, origin, dest, weight, volume);
+
+		String day = "Sunday";
+
+		Calendar c = Calendar.getInstance();
+		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+		switch(dayOfWeek){
+			case 1:
+				day = "Sunday";
+				break;
+			case 2:
+				day = "Monday";
+				break;
+			case 3:
+				day = "Tuesday";
+				break;
+			case 4:
+				day = "Wednesday";
+				break;
+			case 5:
+				day = "Thursday";
+				break;
+			case 6:
+				day = "Friday";
+				break;
+			case 7:
+				day = "Saturday";
+				break;
+			default:
+				break;
+		}
 
 		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume, cost, day));
 		this.c.sendMessage(p);
