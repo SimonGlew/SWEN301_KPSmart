@@ -21,6 +21,7 @@ public class KpsModel {
 
 	public enum Day {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
 
+	private BusinessMonitoring businessMonitor;
 	private RouteMap routeMap;
 	private KpsDatabase database;
 	private UserDatabase userDatabase;
@@ -29,10 +30,15 @@ public class KpsModel {
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
 		userDatabase = new UserDatabase();
+		businessMonitor = new BusinessMonitoring(database);
 
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
 		}
+	}
+	
+	public BusinessMonitoring getBusinessMonitor(){
+		return businessMonitor;
 	}
 
 	public List<String> getCompanies(){
@@ -236,12 +242,10 @@ public class KpsModel {
 	public Route getCheapestRoute(String from, String to, int priority, double weight, double volume) {
 		int originId = routeMap.getLocationId(from);
 		if(originId == -1){
-			System.out.println("Origin not in map: " + from);
 			return null;
 		}
 		int destinationId = routeMap.getLocationId(to);
 		if(destinationId == -1){
-			System.out.println("Destination not in map: " + to);
 			return null;
 		}
 		Calendar c = Calendar.getInstance();

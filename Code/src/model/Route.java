@@ -55,7 +55,6 @@ public class Route {
 		boolean inTransit = false;
 		TransportOption nextOption = options.get(0);
 		while(currentLocation != destination){
-			System.out.println(hour + ": " + currentLocation.getName());
 			if(waiting){
 				if(nextOption.containsDayInt(day)){
 					if(hour%nextOption.getFrequency()==0){

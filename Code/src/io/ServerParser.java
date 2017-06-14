@@ -31,7 +31,6 @@ public class ServerParser {
 		if(temp[0].equals(Codes.EventSubString)){
 			return parseEvent(p);
 		}else if(p.getType().equals(Codes.ClientGetRoutesMailDelivery)){
-			//System.out.println(p.getInformation());
 			return parseClientGetRoutesMailDelivery(p);
 		}else if(p.getType().equals(Codes.loginDetails)){
 			return parseClientLoginDetails(p);
@@ -55,7 +54,6 @@ public class ServerParser {
 	}
 
 	public Packet parseClientLoginDetails(Packet p){
-		System.out.println(p.toString());
 		String[] information = p.getInformation().split("_");
 
 		String username = information[0];
@@ -71,7 +69,6 @@ public class ServerParser {
 	}
 
 	public Packet parseClientGetRoutesMailDelivery(Packet p){
-		System.out.println(p.getInformation());
 		String[] information = p.getInformation().split("_");
 
 		String from = information[0];
@@ -81,8 +78,6 @@ public class ServerParser {
 		double volume = Double.parseDouble(information[4]);
 		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
 		Route fastest = model.getFastestRoute(from, to, priority, weight, volume);
-		System.out.println(cheapest);
-		System.out.println(fastest);
 		return broadcastRoutesMailDelivery(cheapest.getCost(), cheapest.getRouteCost(), (int)cheapest.getTime(), fastest.getCost(), fastest.getRouteCost(), (int)fastest.getTime());
 	}
 

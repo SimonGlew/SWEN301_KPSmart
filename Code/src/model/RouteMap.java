@@ -230,7 +230,6 @@ public class RouteMap {
 								}
 								
 								double cost = Route.calculateTime(day, hour, origin, option.getSegment().getDestination(), options);
-								System.out.println(cost);
 								fringe.offer(new SearchNode(segment.getDestination(), node.loc, option, cost));
 							}
 						}
