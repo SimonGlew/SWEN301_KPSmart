@@ -10,6 +10,8 @@ import storage.KpsDatabase;
 import storage.MailDelivery;
 import storage.TransportCostUpdate;
 import storage.TransportDiscontinued;
+import storage.UserDatabase;
+import users.StaffMember;
 
 /**
  * Created by Jack on 6/3/2017.
@@ -21,10 +23,12 @@ public class KpsModel {
 
 	private RouteMap routeMap;
 	private KpsDatabase database;
+	private UserDatabase userDatabase;
 
 	public KpsModel(){
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
+		userDatabase = new UserDatabase();
 
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
@@ -243,5 +247,9 @@ public class KpsModel {
 			return null;
 		}
 		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority);
+	}
+
+	public StaffMember validateLogin(String username, String password) {
+		return userDatabase.solveUserWithCredentials(username, password);
 	}
 }

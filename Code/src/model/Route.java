@@ -10,7 +10,7 @@ public class Route {
 	double weight;
 	double vol;
 
-	double time;
+	int time;
 	double cost;
 
 	public Route(Location origin, Location destination, List<TransportOption> options, double weight, double vol){
@@ -21,8 +21,10 @@ public class Route {
 		this.vol = vol;
 
 		for(TransportOption option: options){
-			cost += option.getVolCost()*vol + option.getWeightCost()*weight;
+			cost += option.getSegment().getVolCost(option.getPriority())*vol + option.getSegment().getWeightCost(option.getPriority())*weight;
 		}
+
+		time = 40;
 
 	}
 
@@ -33,5 +35,13 @@ public class Route {
 		}
 		s+= String.format("Total Cost: %.2f", cost);
 		return s;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public int getTime() {
+		return time;
 	}
 }

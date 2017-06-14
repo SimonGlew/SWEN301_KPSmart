@@ -2,6 +2,7 @@ package io;
 
 import serverclient.Packet;
 import serverclient.Server;
+import users.StaffMember;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,20 +56,17 @@ public class ServerParser {
 
 	public Packet parseClientLoginDetails(Packet p){
 		System.out.println(p.toString());
-		/*String[] information = p.getInformation().split("_");
+		String[] information = p.getInformation().split("_");
 
 		String username = information[0];
-		String password = information[1]; */
+		String password = information[1];
 
-		String message = Codes.loginValid;
+		StaffMember staff = model.validateLogin(username, password);
 
-		if(message.equals(Codes.loginValid)){
-			return this.broadcastValidLogin();
-		}else if(message.equals(Codes.loginInvalid)){
+		if(staff == null){
 			return this.broadcastInvalidLogin();
-		}else{
-			return null;
 		}
+		return this.broadcastValidLogin(staff.isManager());
 	}
 
 	public Packet parseClientGetRoutesMailDelivery(Packet p){
@@ -81,10 +79,9 @@ public class ServerParser {
 		double weight = Double.parseDouble(information[3]);
 		double volume = Double.parseDouble(information[4]);
 		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
-		System.out.println(cheapest);
-		//RETURN THIS METHOD broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime)
+		Route fastest = model.getFastestRoute(from, to, priority, weight, volume);
 
-		return null;
+		return broadcastRoutesMailDelivery(cheapest.getCost(), cheapest.getTime(), fastest.getCost(), fastest.getTime());
 	}
 
 	public Packet parseMailCreation(Packet p){
@@ -173,8 +170,8 @@ public class ServerParser {
 		return 4;
 	}
 
-	public Packet broadcastValidLogin(){
-		return new Packet(Codes.loginValid, Codes.BroadcastSingle, null);
+	public Packet broadcastValidLogin(Boolean isManager){
+		return new Packet(Codes.loginValid, Codes.BroadcastSingle, isManager);
 	}
 
 	public Packet broadcastInvalidLogin(){
