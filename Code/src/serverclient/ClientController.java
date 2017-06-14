@@ -44,7 +44,7 @@ public class ClientController {
 	 * @param weight
 	 * @param volume
 	 */
-	public void requestMailCreation(String origin, String dest, double weight, double volume, double cost, String day) {
+	public void requestMailCreation(String origin, String dest, double weight, double volume, double cost) {
 		// TODO:
 //		Date date = new Date(time);
 //		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
@@ -108,12 +108,14 @@ public class ClientController {
 		if(!this.locations.contains(location)){
 			this.locations.add(location);
 		}
+		g.homePanel.update();
 	}
 
 	public void addInCompany(String company){
 		if(!this.companies.contains(company)){
 			this.companies.add(company);
 		}
+		g.homePanel.update();
 	}
 
 	public void successfullLogin(){
