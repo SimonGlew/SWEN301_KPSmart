@@ -54,15 +54,15 @@ public class LoginDialog implements ActionListener{
 	    loginBox.setVisible(true);
 	}
 
+	public void reset(){
+		usernameField.setText("");
+		passwordField.setText("");
+		submit.setEnabled(true);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
 		submit.setEnabled(false);
-
-		while(!gui.controller.logged){System.out.println("waiting");}
-
-
-		gui.homePanel.username.setText("Logged In: " );
-		loginBox.setVisible(false);
 	}
 }

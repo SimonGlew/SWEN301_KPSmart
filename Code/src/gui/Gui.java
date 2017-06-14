@@ -24,14 +24,27 @@ public class Gui{
 	public ClientController controller;
 	public JFrame frame;
 	public JDialog loginBox;
-
 	public HomePanel homePanel;
+	public LoginDialog passwordDialog;
 
 	public Gui(ClientController controller){
 		this.controller = controller;
 		this.homePanel = new HomePanel(this.controller);
 		frameSetup();
-		new LoginDialog(this);
+		passwordDialog = new LoginDialog(this);
+	}
+
+	public void loginSuccess(){
+		homePanel.username.setText("Logged In: " + passwordDialog.usernameField);
+		passwordDialog.loginBox.dispose();
+	}
+
+	public void loginFail(){
+		passwordDialog.reset();
+	}
+
+	public void logout(){
+		passwordDialog = new LoginDialog(this);
 	}
 
 	private void frameSetup(){
