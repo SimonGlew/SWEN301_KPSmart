@@ -82,6 +82,8 @@ public class ServerParser {
 		double volume = Double.parseDouble(information[4]);
 		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
 		System.out.println(cheapest);
+		//RETURN THIS METHOD broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime)
+
 		return null;
 	}
 
@@ -94,6 +96,8 @@ public class ServerParser {
 		double volume = Double.parseDouble(s[3]);
 		double cost = Double.parseDouble(s[4]);
 		String day = s[5];
+
+		//RETURN THIS METHOD sendConfirmationMailDelivery()
 
 		return null;
 	}

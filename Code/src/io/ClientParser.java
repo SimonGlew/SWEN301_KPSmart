@@ -63,6 +63,7 @@ public class ClientParser {
 		for(int i = 0; i < information.length; i++){
 			this.controller.addInLocation(information[i]);
 		}
+		System.out.println(this.controller.getLocations().length);
 	}
 
 	public void parseServerNewCompany(Packet p){
@@ -70,5 +71,7 @@ public class ClientParser {
 		for(int i = 0; i < information.length; i++){
 			this.controller.addInCompany(information[i]);
 		}
+		System.out.println(this.controller.getCompanies().length);
+
 	}
 }
