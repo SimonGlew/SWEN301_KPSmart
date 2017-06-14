@@ -42,8 +42,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		add(originLabel);
 
 		originComboBox = new JComboBox<String>();
-		originComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
+		originComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		originComboBox.setEditable(true);
 		originComboBox.setBounds(150, 69, 170, 26);
@@ -56,8 +55,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 		add(destLabel);
 
 		destComboBox = new JComboBox<String>();
-		destComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
+		destComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setEditable(true);
 		destComboBox.setBounds(150, 116, 170, 26);

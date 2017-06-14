@@ -84,12 +84,12 @@ public class Client {
 
 	public class ServerThread extends Thread{
 		ObjectInputStream i;
-		
+
 		public ServerThread(ObjectInputStream i){
 			this.i = i;
 			start();
 		}
-		
+
 		public void run(){
 			while(true){
 				try{

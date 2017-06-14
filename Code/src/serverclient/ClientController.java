@@ -114,11 +114,19 @@ public class ClientController {
 		}
 	}
 
-	public static void main(String[] args){
-		new ClientController();
+	public String[] getLocations(){
+		String[] array = new String[locations.size()];
+		for(int i = 0; i < locations.size(); i++){
+			array[i] = locations.get(i);
+		}
+		return array;
 	}
 
-
-
-
+	public String[] getCompanies(){
+		String[] array = new String[companies.size()];
+		for(int i = 0; i < companies.size(); i++){
+			array[i] = companies.get(i);
+		}
+		return array;
+	}
 }

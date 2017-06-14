@@ -40,8 +40,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		add(originLabel);
 
 		originComboBox = new JComboBox<String>();
-		originComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
+		originComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		originComboBox.setEditable(false);
 		originComboBox.setBounds(150, 69, 170, 26);
@@ -54,8 +53,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		add(destLabel);
 
 		destComboBox = new JComboBox<String>();
-		destComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
+		destComboBox.setModel(new DefaultComboBoxModel<String>(controller.getLocations()));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setEditable(false);
 		destComboBox.setBounds(150, 116, 170, 26);
@@ -68,8 +66,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		add(companyLabel);
 
 		compComboBox = new JComboBox<String>();
-		compComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Company quan", "Company tu", "Company shree" }));
+		compComboBox.setModel(new DefaultComboBoxModel<String>(controller.getCompanies()));
 		compComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		compComboBox.setEditable(false);
 		compComboBox.setBounds(150, 164, 170, 26);

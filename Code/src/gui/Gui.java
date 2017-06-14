@@ -26,11 +26,11 @@ public class Gui implements ActionListener{
 
 	public Gui(ClientController controller){
 		this.controller = controller;
-		
+
 		frameSetup();
 		passwordPanel();
 	}
-	
+
 	private void frameSetup(){
 		// Set LookAndFeel to Nimbus
 		try {
@@ -46,7 +46,7 @@ public class Gui implements ActionListener{
 		        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		    } catch (Exception ex) { }
 		}
-		
+
 		frame = new JFrame("KPSmart");
 		frame.setSize(1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,30 +63,27 @@ public class Gui implements ActionListener{
 		loginBox.setLocation((frame.getWidth()/2)-(loginBox.getWidth()/2), (frame.getHeight()/2)-(loginBox.getHeight()/2));
 		loginBox.getContentPane().setLayout(new FlowLayout());
 		loginBox.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setPreferredSize(new Dimension(100, 30));
 		JTextField usernameField = new JTextField();
 		usernameField.setPreferredSize(new Dimension(300, 30));
 		loginBox.getContentPane().add(usernameLabel);
 		loginBox.getContentPane().add(usernameField);
-		
+
 		JLabel password = new JLabel("Password");
 		password.setPreferredSize(new Dimension(100, 30));
 		JTextField passwordField = new JTextField();
 		passwordField.setPreferredSize(new Dimension(300, 30));
 		loginBox.getContentPane().add(password);
 		loginBox.getContentPane().add(passwordField);
-		
+
 	    JButton submit = new JButton("Submit");
 	    loginBox.getContentPane().add(submit);
 	    submit.addActionListener(this);
-	    
+
 	    loginBox.pack();
 	    loginBox.setVisible(true);
-	}
-	public static void main(String[] args) {
-		new Gui(null);
 	}
 
 	@Override
