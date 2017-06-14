@@ -23,32 +23,36 @@ public class ServerParser {
 
 	}
 
-	public void parseMessage(Packet p){
+	public Packet parseMessage(Packet p){
 		String[] temp = p.getType().split("\\.");
 
 		if(temp[0].equals(Codes.EventSubString)){
-			parseEvent(p);
+			return parseEvent(p);
 		}else if(p.getType().equals(Codes.ClientGetRoutesMailDelivery)){
-			System.out.println(p.getInformation());
-			parseClientGetRoutesMailDelivery(p);
+			//System.out.println(p.getInformation());
+			return parseClientGetRoutesMailDelivery(p);
 		}else if(p.getType().equals(Codes.loginDetails)){
-			parseClientLoginDetails(p);
+			return parseClientLoginDetails(p);
+		}else{
+			return null;
 		}
 	}
 
-	public void parseEvent(Packet p){
+	public Packet parseEvent(Packet p){
 		if(p.getType().equals(Codes.TransportPriceUpdate)){
-			parseTransportPriceUpdate(p);
+			return parseTransportPriceUpdate(p);
 		}else if(p.getType().equals(Codes.CustomerPriceUpdate)){
-			parseCustomerPriceUpdate(p);
+			return parseCustomerPriceUpdate(p);
 		}else if(p.getType().equals(Codes.MailCreation)){
-			parseMailCreation(p);
+			return parseMailCreation(p);
 		}else if(p.getType().equals(Codes.TransportDiscontinue)){
-			parseTransportDiscontinue(p);
+			return parseTransportDiscontinue(p);
+		}else{
+			return null;
 		}
 	}
 
-	public void parseClientLoginDetails(Packet p){
+	public Packet parseClientLoginDetails(Packet p){
 		System.out.println(p.toString());
 		/*String[] information = p.getInformation().split("_");
 
@@ -58,13 +62,15 @@ public class ServerParser {
 		String message = Codes.loginValid;
 
 		if(message.equals(Codes.loginValid)){
-			this.broadcastValidLogin();
+			return this.broadcastValidLogin();
 		}else if(message.equals(Codes.loginInvalid)){
-			this.broadcastInvalidLogin();
+			return this.broadcastInvalidLogin();
+		}else{
+			return null;
 		}
 	}
 
-	public void parseClientGetRoutesMailDelivery(Packet p){
+	public Packet parseClientGetRoutesMailDelivery(Packet p){
 		System.out.println(p.getInformation());
 		String[] information = p.getInformation().split("_");
 
@@ -73,9 +79,11 @@ public class ServerParser {
 		String priority = information[2];
 		double weight = Double.parseDouble(information[3]);
 		double volume = Double.parseDouble(information[4]);
+
+		return null;
 	}
 
-	public void parseMailCreation(Packet p){
+	public Packet parseMailCreation(Packet p){
 		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
@@ -85,9 +93,10 @@ public class ServerParser {
 		double cost = Double.parseDouble(s[4]);
 		String day = s[5];
 
+		return null;
 	}
 
-	public void parseTransportPriceUpdate(Packet p){
+	public Packet parseTransportPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
 		String origin = s[0];
 		String destination = s[1];
@@ -107,14 +116,13 @@ public class ServerParser {
 		String returnString = model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
 
 		if(returnString.equals(Codes.ConfirmationMadeRoute)){
-			broadcastRoute(destination, origin);
-			broadcastConfirmationMadeRoute();
+			return broadcastConfirmationMadeRoute(destination, origin);
 		}else{
-			broadcastTransportRouteUpdate();
+			return broadcastTransportRouteUpdate();
 		}
 	}
 
-	public void parseCustomerPriceUpdate(Packet p){
+	public Packet parseCustomerPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
 		String origin = s[0];
 		String destination = s[1];
@@ -124,14 +132,13 @@ public class ServerParser {
 		String returnString = model.newCustomerPriceUpdate(origin, destination, priority, pricePerGram, pricePerCube);
 
 		if(returnString.equals(Codes.ConfirmationMadeCustomerRoute)){
-			broadcastRoute(destination, origin);
-			broadcastConfirmationMadeCustomerRoute();
+			return broadcastConfirmationMadeCustomerRoute(destination, origin);
 		}else{
-			broadcastConfirmationUpdateCustomerRoute();
+			return broadcastConfirmationUpdateCustomerRoute();
 		}
 	}
 
-	public void parseTransportDiscontinue(Packet p){
+	public Packet parseTransportDiscontinue(Packet p){
 		String[] s = p.getInformation().split("_");
 
 		String origin = s[0];
@@ -141,9 +148,11 @@ public class ServerParser {
 		String message = model.newTransportDiscontinue(origin, destination, company, priority);
 
 		if(message.equals(Codes.DiscontinueRouteValid)){
-			this.broadcastConfirmationDiscontinueRouteValid();
+			return this.broadcastConfirmationDiscontinueRouteValid();
 		}else if(message.equals(Codes.DiscontinueRouteInvalid)){
-			this.broadcastConfirmationDiscontinueRouteInvalid();
+			return this.broadcastConfirmationDiscontinueRouteInvalid();
+		}else{
+			return null;
 		}
 	}
 
@@ -158,66 +167,72 @@ public class ServerParser {
 		return 4;
 	}
 
-	public void broadcastValidLogin(){
-		this.server.broadcast(new Packet(Codes.loginValid, Codes.BroadcastSingle, null), this.clientId);
-		this.server.broadcast(new Packet(Codes.ServerCompanyList, Codes.BroadcastSingle, ServerStringBuilder.makeCompanyListString(new ArrayList<String>())), this.clientId);
-		this.server.broadcast(new Packet(Codes.ServerRouteList, Codes.BroadcastSingle, ServerStringBuilder.makeLocationListString(new ArrayList<Location>())), this.clientId);
+	public Packet broadcastValidLogin(){
+		return new Packet(Codes.loginValid, Codes.BroadcastSingle, null);
 	}
 
-	public void broadcastInvalidLogin(){
-		this.server.broadcast(new Packet(Codes.loginInvalid, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastInvalidLogin(){
+		return new Packet(Codes.loginInvalid, Codes.BroadcastSingle, null);
 	}
 
-	public void sendConfirmationMailDelivery(){
-		this.server.broadcast(new Packet(Codes.ConfirmationMailDelivery, Codes.BroadcastSingle, null), this.clientId);
+	public Packet sendConfirmationMailDelivery(){
+		return new Packet(Codes.ConfirmationMailDelivery, Codes.BroadcastSingle, null);
 	}
 
-	public void sendConfirmationCustomerPriceUpdate(){
-		this.server.broadcast(new Packet(Codes.ConfirmationCustomerPriceUpdate, Codes.BroadcastSingle, null), this.clientId);
+	public Packet sendConfirmationCustomerPriceUpdate(){
+		return new Packet(Codes.ConfirmationCustomerPriceUpdate, Codes.BroadcastSingle, null);
 	}
 
-	public void sendDiscontinueRouteValid(){
-		this.server.broadcast(new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null), this.clientId);
+	public Packet sendDiscontinueRouteValid(){
+		return new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null);
 	}
 
-	public void sendDiscontinueRouteInvalid(){
-		this.server.broadcast(new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null), this.clientId);
+	public Packet sendDiscontinueRouteInvalid(){
+		return new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null);
 	}
 
-	public void broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){
-		this.server.broadcast(new Packet(Codes.ServerBusinessFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures()),  -1);
+	public Packet broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){
+		return new Packet(Codes.ServerBusinessFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures());
 	}
 
-	public void broadcastRoute(String to, String from){
-		this.server.broadcast(new Packet(Codes.ServerNewRoute, Codes.BroadcastAll, ServerStringBuilder.makeNewRouteString(to, from)), -1);
+	public Packet broadcastRoute(String to, String from){
+		return new Packet(Codes.ServerNewRoute, Codes.BroadcastAll, ServerStringBuilder.makeNewRouteString(to, from));
 	}
 
-	public void broadcastConfirmationMadeRoute(){
-		this.server.broadcast(new Packet(Codes.ConfirmationMadeRoute, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastConfirmationMadeRoute(String destination, String origin){
+		return new Packet(Codes.ConfirmationMadeRoute, Codes.BroadcastSingle, ServerStringBuilder.makeNewRouteString(destination, origin));
 	}
 
-	public void broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime){
-		this.server.broadcast(new Packet(Codes.ServerMailDeliveryRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryString(cheapestCost, cheapestTime, fastestCost, fastestTime)), this.clientId);
+	public Packet broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime){
+		return new Packet(Codes.ServerMailDeliveryRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryString(cheapestCost, cheapestTime, fastestCost, fastestTime));
 	}
 
-	public void broadcastTransportRouteUpdate(){
-		this.server.broadcast(new Packet(Codes.ConfirmationUpdateRoute, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastTransportRouteUpdate(){
+		return new Packet(Codes.ConfirmationUpdateRoute, Codes.BroadcastSingle, null);
 	}
 
-	public void broadcastConfirmationMadeCustomerRoute(){
-		this.server.broadcast(new Packet(Codes.ConfirmationMadeCustomerRoute, Codes.BroadcastSingle, null), this.clientId);
-
+	public Packet broadcastConfirmationMadeCustomerRoute(String destination, String origin){
+		return new Packet(Codes.ConfirmationMadeCustomerRoute, Codes.BroadcastSingle, ServerStringBuilder.makeNewRouteString(destination, origin));
 	}
 
-	public void broadcastConfirmationUpdateCustomerRoute(){
-		this.server.broadcast(new Packet(Codes.ConfirmationUpdateCustomerRoute, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastConfirmationUpdateCustomerRoute(){
+		return new Packet(Codes.ConfirmationUpdateCustomerRoute, Codes.BroadcastSingle, null);
 	}
 
-	public void broadcastConfirmationDiscontinueRouteValid(){
-		this.server.broadcast(new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastConfirmationDiscontinueRouteValid(){
+		return new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null);
 	}
 
-	public void broadcastConfirmationDiscontinueRouteInvalid(){
-		this.server.broadcast(new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null), this.clientId);
+	public Packet broadcastConfirmationDiscontinueRouteInvalid(){
+		return new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null);
+	}
+
+	public String getStringFromArrayList(List<String> list){
+		String s = "";
+		for(int i = 0; i < list.size(); i++){
+			if(i == list.size() - 1){ s+= list.get(i); }
+			else {s += list.get(i) + "_";}
+		}
+		return s;
 	}
 }

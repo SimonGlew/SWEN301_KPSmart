@@ -112,19 +112,21 @@ public class Server {
 		private int id;
 		private ServerParser parser;
 		private Server server;
+		private KpsModel model;
 
 		private ClientThread(Socket s, KpsModel model, Server server){
 			this.s = s;
 			this.server = server;
 			this.id = uniqueId++;
 			this.parser = new ServerParser(model, this.server, this.id);
+			this.model = model;
 
 			try {
 				this.output = new ObjectOutputStream(s.getOutputStream());
 				this.input = new ObjectInputStream(s.getInputStream());
 			} catch (IOException e) {
 				System.out.println("Error: " + e);
-			}				
+			}
 		}
 
 		public void run(){
@@ -132,7 +134,17 @@ public class Server {
 			outer: while(live){
 				try{
 					Packet packet = (Packet)this.input.readObject();
-					this.parser.parseMessage(packet);
+					Packet send = this.parser.parseMessage(packet);
+
+					if(send.getType().equals(Codes.ConfirmationMadeCustomerRoute) || send.getType().equals(Codes.ConfirmationMadeRoute)){
+						broadcast(new Packet(Codes.ServerNewRoute, Codes.BroadcastAll, send.getInformation()), this.id);
+					}
+
+					if(send.getType().equals(Codes.loginValid)){
+						broadcast(new Packet(Codes.ServerRouteList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getLocations())), this.id);
+						broadcast(new Packet(Codes.ServerCompanyList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getCompanies())), this.id);
+					}
+					broadcast(send, this.id);
 				}catch(Exception e){
 					System.out.println("EXCEPTION: " + e);
 					live = false;
