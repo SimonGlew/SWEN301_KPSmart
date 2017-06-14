@@ -53,6 +53,14 @@ public class ServerParser {
 
 		String username = information[0];
 		String password = information[1];
+
+		String message = Codes.loginValid;
+
+		if(message.equals(Codes.loginValid)){
+			this.broadcastValidLogin();
+		}else if(message.equals(Codes.loginInvalid)){
+			this.broadcastInvalidLogin();
+		}
 	}
 
 	public void parseClientGetRoutesMailDelivery(Packet p){
