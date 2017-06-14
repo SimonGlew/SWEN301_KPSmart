@@ -47,6 +47,46 @@ public class KpsDatabase {
 		return businessEvents;
 	}
 
+	public List<TransportCostUpdate> getAllTransportCostUpdates(){
+		ArrayList<TransportCostUpdate> list = new ArrayList<>();
+		for(BusinessEvent e : businessEvents){
+			if(e instanceof TransportCostUpdate){
+				list.add((TransportCostUpdate)e);
+			}
+		}
+		return list;
+	}
+
+	public List<CustomerPriceUpdate> getAllCustomerPriceUpdate(){
+		ArrayList<CustomerPriceUpdate> list = new ArrayList<>();
+		for(BusinessEvent e : businessEvents){
+			if(e instanceof CustomerPriceUpdate){
+				list.add((CustomerPriceUpdate)e);
+			}
+		}
+		return list;
+	}
+
+	public List<MailDelivery> getAllMailDelivery(){
+		ArrayList<MailDelivery> list = new ArrayList<>();
+		for(BusinessEvent e : businessEvents){
+			if(e instanceof MailDelivery){
+				list.add((MailDelivery)e);
+			}
+		}
+		return list;
+	}
+
+	public List<TransportDiscontinued> getAllTransportDiscontinued(){
+		ArrayList<TransportDiscontinued> list = new ArrayList<>();
+		for(BusinessEvent e : businessEvents){
+			if(e instanceof TransportDiscontinued){
+				list.add((TransportDiscontinued)e);
+			}
+		}
+		return list;
+	}
+
 	public void loadEvents() {
 		businessEvents = new ArrayList<>();
 		Document dom;
