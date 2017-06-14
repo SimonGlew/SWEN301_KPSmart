@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.UIManager;
+
+import io.Codes;
 import serverclient.ClientController;
 
 import javax.swing.DefaultComboBoxModel;
@@ -69,7 +71,7 @@ public class MailCreationPanel extends EventCreationPanel {
 
 		prioComboBox = new JComboBox<String>();
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Earth", "Water", "Air"}));
+				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard }));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		prioComboBox.setEditable(true);
 		prioComboBox.setBounds(150, 164, 170, 26);

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import io.Codes;
 import serverclient.ClientController;
 
 @SuppressWarnings("serial")
@@ -91,7 +92,7 @@ public class TransportCostPanel extends EventCreationPanel{
 
 		prioComboBox = new JComboBox<String>();
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Earth", "Water", "Air"}));
+				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard}));
 		prioComboBox.setEditable(true);
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		prioComboBox.setBounds(150, 211, 170, 26);
@@ -140,7 +141,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		durationTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		durationTextField.setBounds(150, 397, 170, 26);
 		add(durationTextField);
-		
+
 		JLabel maxWeightLabel = new JLabel("Max Weight");
 		maxWeightLabel.setForeground(Color.DARK_GRAY);
 		maxWeightLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -151,7 +152,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		maxWeightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		maxWeightTextField.setBounds(450, 69, 170, 26);
 		add(maxWeightTextField);
-		
+
 		JLabel maxVolumeLabel = new JLabel("Max Volume");
 		maxVolumeLabel.setForeground(Color.DARK_GRAY);
 		maxVolumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -215,8 +216,10 @@ public class TransportCostPanel extends EventCreationPanel{
 						Double.parseDouble(gramTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()),
 						daySelected,
-						Double.parseDouble(periodTextField.getText()),
-						Double.parseDouble(durationTextField.getText()));
+						Integer.parseInt(periodTextField.getText()),
+						Double.parseDouble(durationTextField.getText()),
+						Double.parseDouble(maxWeightTextField.getText()),
+						Double.parseDouble(maxVolumeTextField.getText()));
 
 			}
 		});

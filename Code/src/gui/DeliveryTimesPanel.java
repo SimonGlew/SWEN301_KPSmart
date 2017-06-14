@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.UIManager;
+
+import io.Codes;
 import serverclient.ClientController;
 
 import javax.swing.DefaultComboBoxModel;
@@ -28,7 +30,7 @@ public class DeliveryTimesPanel extends JPanel {
 	private void initPanel() {
 		setBackground(UIManager.getColor("Panel.background"));
 		setLayout(null);
-		
+
 				JLabel titleLabel = new JLabel("Average Delivery Times");
 				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				titleLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -59,15 +61,15 @@ public class DeliveryTimesPanel extends JPanel {
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setBounds(200, 116, 170, 26);
 		add(destComboBox);
-		
+
 		JLabel priorityTitleLabel = new JLabel("Priority");
 		priorityTitleLabel.setForeground(Color.DARK_GRAY);
 		priorityTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		priorityTitleLabel.setBounds(80, 163, 82, 26);
 		add(priorityTitleLabel);
-		
+
 		JComboBox<String> priorityComboBox = new JComboBox<String>();
-		priorityComboBox.setModel(new DefaultComboBoxModel(new String[] {"Earth", "Water", "Air"}));
+		priorityComboBox.setModel(new DefaultComboBoxModel(new String[] {Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard}));
 		priorityComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		priorityComboBox.setBounds(200, 163, 170, 26);
 		add(priorityComboBox);
@@ -77,7 +79,7 @@ public class DeliveryTimesPanel extends JPanel {
 		avgDeliveryTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		avgDeliveryTitleLabel.setBounds(80, 211, 164, 26);
 		add(avgDeliveryTitleLabel);
-		
+
 		JLabel avgDeliveryLabel = new JLabel("0 hours");
 		avgDeliveryLabel.setForeground(Color.DARK_GRAY);
 		avgDeliveryLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));

@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 
+import io.Codes;
 import serverclient.ClientController;
 
 @SuppressWarnings("serial")
@@ -22,7 +23,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 	private JComboBox<String> destComboBox;
 	private JComboBox<String> compComboBox;
 	private JComboBox<String> prioComboBox;
-	
+
 	public TransportDiscontinuePanel(ClientController controller) {
 		this.controller = controller;
 		initPanel();
@@ -59,7 +60,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		destComboBox.setEditable(false);
 		destComboBox.setBounds(150, 116, 170, 26);
 		add(destComboBox);
-		
+
 		JLabel companyLabel = new JLabel("Company");
 		companyLabel.setForeground(Color.DARK_GRAY);
 		companyLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -73,7 +74,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		compComboBox.setEditable(false);
 		compComboBox.setBounds(150, 164, 170, 26);
 		add(compComboBox);
-		
+
 		JLabel priorityLabel = new JLabel("Priority");
 		priorityLabel.setForeground(Color.DARK_GRAY);
 		priorityLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -82,7 +83,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 
 		prioComboBox = new JComboBox<String>();
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Earth", "Water", "Air"}));
+				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard}));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		prioComboBox.setEditable(false);
 		prioComboBox.setBounds(150, 211, 170, 26);
@@ -98,7 +99,7 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
 							compComboBox.getItemAt(compComboBox.getSelectedIndex()),
 							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()));
-				
+
 			}
 		});
 		add(submitButton);

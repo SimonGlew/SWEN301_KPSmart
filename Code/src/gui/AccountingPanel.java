@@ -25,7 +25,7 @@ public class AccountingPanel extends JPanel {
 	private void initPanel() {
 		setBackground(UIManager.getColor("Panel.background"));
 		setLayout(null);
-		
+
 				JLabel titleLabel = new JLabel("Accounting Figures");
 				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				titleLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -38,7 +38,7 @@ public class AccountingPanel extends JPanel {
 		revenueTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		revenueTitleLabel.setBounds(127, 69, 108, 26);
 		add(revenueTitleLabel);
-		
+
 		JLabel revenueLabel = new JLabel("$0.00");
 		revenueLabel.setForeground(Color.BLACK);
 		revenueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -50,7 +50,7 @@ public class AccountingPanel extends JPanel {
 		expenditureTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		expenditureTitleLabel.setBounds(127, 116, 121, 26);
 		add(expenditureTitleLabel);
-		
+
 		JLabel expenditureLabel = new JLabel("$0.00");
 		expenditureLabel.setForeground(Color.BLACK);
 		expenditureLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -62,7 +62,7 @@ public class AccountingPanel extends JPanel {
 		noEventsTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		noEventsTitleLabel.setBounds(127, 164, 123, 26);
 		add(noEventsTitleLabel);
-		
+
 		JLabel noEventsLabel = new JLabel("0");
 		noEventsLabel.setForeground(Color.BLACK);
 		noEventsLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));

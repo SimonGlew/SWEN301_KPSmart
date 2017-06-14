@@ -20,6 +20,7 @@ public class ServerParser {
 		this.model = model;
 		this.server = server;
 		this.clientId = clientId;
+
 	}
 
 	public void parseMessage(Packet p){
@@ -34,7 +35,7 @@ public class ServerParser {
 			parseClientLoginDetails(p);
 		}
 	}
-	
+
 	public void parseEvent(Packet p){
 		if(p.getType().equals(Codes.TransportPriceUpdate)){
 			parseTransportPriceUpdate(p);
@@ -46,25 +47,25 @@ public class ServerParser {
 			parseTransportDiscontinue(p);
 		}
 	}
-	
+
 	public void parseClientLoginDetails(Packet p){
 		String[] information = p.getInformation().split("_");
-		
+
 		String username = information[0];
 		String password = information[1];
 	}
-	
+
 	public void parseClientGetRoutesMailDelivery(Packet p){
 		System.out.println(p.getInformation());
 		String[] information = p.getInformation().split("_");
-		
+
 		String from = information[0];
 		String to = information[1];
 		String priority = information[2];
 		double weight = Double.parseDouble(information[3]);
 		double volume = Double.parseDouble(information[4]);
 	}
-	
+
 	public void parseMailCreation(Packet p){
 		String[] s = p.getInformation().split("_");
 
@@ -82,8 +83,7 @@ public class ServerParser {
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
-		//TODO: PARSE ACTUAL PRIORITIES TO NUMBERS
-		int priority = 1;
+		int priority = parsePriority(s[3]);
 		double pricePerGram = Double.parseDouble(s[4]);
 		double pricePerCube = Double.parseDouble(s[5]);
 		List<Day> days = new ArrayList<Day>();
@@ -91,26 +91,35 @@ public class ServerParser {
 		for(String day: dayArray){
 			days.add(model.parseDay(day));
 		}
-		//TODO: Should this be an int or double? Model is set up for ints, this is probably wrong
-		int frequency = (int)Double.parseDouble(s[7]);
+		int frequency = Integer.parseInt(s[7]);
 		double duration = Double.parseDouble(s[8]);
-		//TODO: RECEIVE MAXVOL AND MAXWEIGHT FROM CLIENT
-		double maxWeight = 1000;
-		double maxVol = 1000;
-		String message = model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
-		//TODO: Return message to client
+		double maxWeight = Double.parseDouble(s[9]);
+		double maxVol = Double.parseDouble(s[10]);
+		String returnString = model.newTransportPriceUpdate(origin, destination, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, days, frequency, duration);
+
+		if(returnString.equals(Codes.ConfirmationMadeRoute)){
+			broadcastRoute(destination, origin);
+			broadcastConfirmationMadeRoute();
+		}else{
+			broadcastTransportRouteUpdate();
+		}
 	}
 
 	public void parseCustomerPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
 		String origin = s[0];
 		String destination = s[1];
-		//TODO: PARSE ACTUAL PRIORITIES TO NUMBERS
-		int priority = 1;
+		int priority = parsePriority(s[2]);
 		double pricePerGram = Double.parseDouble(s[3]);
 		double pricePerCube = Double.parseDouble(s[4]);
-		model.newCustomerPriceUpdate(origin, destination, priority, pricePerGram, pricePerCube);
-		//TODO: Return message to client
+		String returnString = model.newCustomerPriceUpdate(origin, destination, priority, pricePerGram, pricePerCube);
+
+		if(returnString.equals(Codes.ConfirmationMadeCustomerRoute)){
+			broadcastRoute(destination, origin);
+			broadcastConfirmationMadeCustomerRoute();
+		}else{
+			broadcastConfirmationUpdateCustomerRoute();
+		}
 	}
 
 	public void parseTransportDiscontinue(Packet p){
@@ -119,47 +128,87 @@ public class ServerParser {
 		String origin = s[0];
 		String destination = s[1];
 		String company = s[2];
-		//TODO: PARSE ACTUAL PRIORITY TO NUMBER
-		int priority = 1;
+		int priority = parsePriority(s[3]);
 		String message = model.newTransportDiscontinue(origin, destination, company, priority);
-		//TODO: Return message to client
+
+		if(message.equals(Codes.DiscontinueRouteValid)){
+			this.broadcastConfirmationDiscontinueRouteValid();
+		}else if(message.equals(Codes.DiscontinueRouteInvalid)){
+			this.broadcastConfirmationDiscontinueRouteInvalid();
+		}
 	}
-	
+
+	public int parsePriority(String priority){
+		if(priority.equals(Codes.Priorities.InternationalAir)){
+			return 1;
+		}else if(priority.equals(Codes.Priorities.InternationalStandard)){
+			return 2;
+		}else if(priority.equals(Codes.Priorities.DomesticStandard)){
+			return 3;
+		}
+		return 4;
+	}
+
 	public void broadcastValidLogin(){
 		this.server.broadcast(new Packet(Codes.loginValid, Codes.BroadcastSingle, null), this.clientId);
 		this.server.broadcast(new Packet(Codes.ServerCompanyList, Codes.BroadcastSingle, ServerStringBuilder.makeCompanyListString(new ArrayList<String>())), this.clientId);
 		this.server.broadcast(new Packet(Codes.ServerRouteList, Codes.BroadcastSingle, ServerStringBuilder.makeLocationListString(new ArrayList<Location>())), this.clientId);
 	}
-	
+
 	public void broadcastInvalidLogin(){
 		this.server.broadcast(new Packet(Codes.loginInvalid, Codes.BroadcastSingle, null), this.clientId);
 	}
-	
+
 	public void sendConfirmationMailDelivery(){
 		this.server.broadcast(new Packet(Codes.ConfirmationMailDelivery, Codes.BroadcastSingle, null), this.clientId);
 	}
-	
+
 	public void sendConfirmationCustomerPriceUpdate(){
 		this.server.broadcast(new Packet(Codes.ConfirmationCustomerPriceUpdate, Codes.BroadcastSingle, null), this.clientId);
 	}
-	
+
 	public void sendDiscontinueRouteValid(){
 		this.server.broadcast(new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null), this.clientId);
 	}
-	
+
 	public void sendDiscontinueRouteInvalid(){
 		this.server.broadcast(new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null), this.clientId);
 	}
-	
+
 	public void broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){
 		this.server.broadcast(new Packet(Codes.ServerBusinessFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures()),  -1);
 	}
-	
+
 	public void broadcastRoute(String to, String from){
 		this.server.broadcast(new Packet(Codes.ServerNewRoute, Codes.BroadcastAll, ServerStringBuilder.makeNewRouteString(to, from)), -1);
 	}
-	
+
+	public void broadcastConfirmationMadeRoute(){
+		this.server.broadcast(new Packet(Codes.ConfirmationMadeRoute, Codes.BroadcastSingle, null), this.clientId);
+	}
+
 	public void broadcastRoutesMailDelivery(double cheapestCost, int cheapestTime, double fastestCost, int fastestTime){
 		this.server.broadcast(new Packet(Codes.ServerMailDeliveryRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryString(cheapestCost, cheapestTime, fastestCost, fastestTime)), this.clientId);
+	}
+
+	public void broadcastTransportRouteUpdate(){
+		this.server.broadcast(new Packet(Codes.ConfirmationUpdateRoute, Codes.BroadcastSingle, null), this.clientId);
+	}
+
+	public void broadcastConfirmationMadeCustomerRoute(){
+		this.server.broadcast(new Packet(Codes.ConfirmationMadeCustomerRoute, Codes.BroadcastSingle, null), this.clientId);
+
+	}
+
+	public void broadcastConfirmationUpdateCustomerRoute(){
+		this.server.broadcast(new Packet(Codes.ConfirmationUpdateCustomerRoute, Codes.BroadcastSingle, null), this.clientId);
+	}
+
+	public void broadcastConfirmationDiscontinueRouteValid(){
+		this.server.broadcast(new Packet(Codes.DiscontinueRouteValid, Codes.BroadcastSingle, null), this.clientId);
+	}
+
+	public void broadcastConfirmationDiscontinueRouteInvalid(){
+		this.server.broadcast(new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null), this.clientId);
 	}
 }

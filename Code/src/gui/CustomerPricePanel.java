@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import io.Codes;
 import serverclient.ClientController;
 
 @SuppressWarnings("serial")
@@ -70,7 +71,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 
 		prioComboBox = new JComboBox<String>();
 		prioComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Earth", "Water", "Air"}));
+				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard}));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		prioComboBox.setEditable(true);
 		prioComboBox.setBounds(150, 164, 170, 26);

@@ -3,6 +3,7 @@ package model;
 import java.util.Calendar;
 import java.util.List;
 
+import io.Codes;
 import storage.BusinessEvent;
 import storage.CustomerPriceUpdate;
 import storage.KpsDatabase;
@@ -20,20 +21,20 @@ public class KpsModel {
 
 	private RouteMap routeMap;
 	private KpsDatabase database;
-	
+
 	public KpsModel(){
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
 
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
-		}		
+		}
 	}
-	
+
 	public List<String> getCompanies(){
 		return routeMap.getAllCompanies();
 	}
-	
+
 	public List<String> getLocations(){
 		return routeMap.getAllLocations();
 	}
@@ -104,7 +105,7 @@ public class KpsModel {
 	}
 
 	private void processMailDelivery(MailDelivery event){
-		
+
 	}
 
 
@@ -114,19 +115,18 @@ public class KpsModel {
 				cal.get(Calendar.YEAR), cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND), s);
 	}
 
-	public static void main(String[] args){
-		new KpsModel();
-	}
-
 	public String newTransportPriceUpdate(String origin, String destination, String company, int priority,
 			double pricePerGram, double maxWeight, double pricePerCube, double maxVol, List<Day> days, int frequency, double duration) {
+		boolean newRoute = false;
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
 			originId = routeMap.addLocation(origin);
+			newRoute = true;
 		}
 		int destinationId = routeMap.getLocationId(destination);
 		if(destinationId == -1){
 			destinationId = routeMap.addLocation(destination);
+			newRoute = true;
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
@@ -139,17 +139,26 @@ public class KpsModel {
 			routeMap.updateTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
 		}
 		database.addTransportCostUpdate(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
-		return "Successfuly Updated Transport Route.";
+
+		if(newRoute){
+			return Codes.ConfirmationMadeRoute;
+		}else{
+			return Codes.ConfirmationUpdateRoute;
+		}
+
 	}
-	
+
 	public String newCustomerPriceUpdate(String origin, String destination, int priority, double weightCost, double volCost) {
+		boolean newRoute = false;
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
 			originId = routeMap.addLocation(origin);
+			newRoute = true;
 		}
 		int destinationId = routeMap.getLocationId(destination);
 		if(destinationId == -1){
 			destinationId = routeMap.addLocation(origin);
+			newRoute = true;
 		}
 		int segmentId = routeMap.getSegmentIdFrom(originId, destinationId);
 		if(segmentId == -1){
@@ -158,9 +167,14 @@ public class KpsModel {
 			routeMap.updateSegmentPrice(segmentId, priority, weightCost, volCost);
 		}
 		database.addCustomerPriceUpdate(getDateTimeNow(), "usernamesarehard", origin, destination, priority, weightCost, volCost);
-		return "Successfully Updated Customer Price";
+
+		if(newRoute){
+			return Codes.ConfirmationMadeCustomerRoute;
+		}else{
+			return Codes.ConfirmationUpdateCustomerRoute;
+		}
 	}
-	
+
 	public String newTransportDiscontinue(String origin, String destination, String company, int priority) {
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
@@ -174,19 +188,19 @@ public class KpsModel {
 		if(segmentId != -1){
 			routeMap.discontinueTransportOption(segmentId, company, priority);
 		}else{
-			return "Transport Route does not exist";
+			return Codes.DiscontinueRouteInvalid;
 		}
 		database.addTransportDiscontinued(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority);
-		return "Successfuly Discontinued Transport Route";
+		return Codes.DiscontinueRouteValid;
 	}
-	
+
 	public String getDateTimeNow(){
 		return getDateTime(Calendar.getInstance());
 	}
-	
+
 	public String getDateTime(Calendar c){
 		//yymmddhhmmss
-		return String.format("%02d%02d%02d%02d%02d%02d", 
+		return String.format("%02d%02d%02d%02d%02d%02d",
 				c.get(Calendar.YEAR)%100,
 				c.get(Calendar.MONTH),
 				c.get(Calendar.DAY_OF_MONTH),
@@ -194,8 +208,8 @@ public class KpsModel {
 				c.get(Calendar.MINUTE),
 				c.get(Calendar.SECOND));
 	}
-	
-	
+
+
 	public Day parseDay(String s){
 		for(Day day: Day.values()){
 			if(day.toString().equalsIgnoreCase(s)){

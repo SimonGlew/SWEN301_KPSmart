@@ -22,14 +22,14 @@ public class ClientController {
 		this.g = new Gui(this);
 		//setup login page
 	}
-	
+
 	public ClientController(){
 		this.locations = new ArrayList<String>();
 		this.companies = new ArrayList<String>();
 		this.g = new Gui(this);
 		//setup login page check
 	}
-	
+
 	public void requestMailCreationRoutes(String from, String to, String priority, double weight, double volume){
 		Packet p = new Packet(Codes.ClientGetRoutesMailDelivery, null, ClientStringBuilder.requestMailCreationRoutesString(from, to, priority, weight, volume));
 		this.c.sendMessage(p);
@@ -53,7 +53,7 @@ public class ClientController {
 		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume, cost, day));
 		this.c.sendMessage(p);
 	}
-	
+
 
 	/**
 	 * Requests a customer price update from the server
@@ -81,11 +81,10 @@ public class ClientController {
 	 * @param period
 	 * @param duration
 	 */
-	public void requestTransportCostUpdate(String origin, String dest, String company, String priority, double pricePerGram, double pricePerCube, String day, double period, double duration) {
-		Packet p = new Packet(Codes.TransportPriceUpdate, null, ClientStringBuilder.requestTransportCostUpdateString(origin, dest, company, priority, pricePerGram, pricePerCube, day, period, duration));
+	public void requestTransportCostUpdate(String origin, String dest, String company, String priority, double pricePerGram, double pricePerCube, String days, int period, double duration, double maxWeight, double maxVolume) {
+		Packet p = new Packet(Codes.TransportPriceUpdate, null, ClientStringBuilder.requestTransportCostUpdateString(origin, dest, company, priority, pricePerGram, pricePerCube, days, period, duration, maxWeight, maxVolume));
 		this.c.sendMessage(p);
 	}
-
 	/**
 	 * Requests a transport route to be discontinued from the server
 	 * @param origin
@@ -97,27 +96,29 @@ public class ClientController {
 		Packet p = new Packet(Codes.TransportDiscontinue, null, ClientStringBuilder.requestTransportDiscontinuedString(origin, dest, company, priority));
 		this.c.sendMessage(p);
 	}
-	
+
 	public void LoginRequest(String username, String password){
 		Packet p = new Packet(Codes.loginDetails, null, ClientStringBuilder.requestLoginDetailsString(username, password));
 		this.c.sendMessage(p);
 	}
-	
+
 	public void addInLocation(String location){
 		if(!this.locations.contains(location)){
 			this.locations.add(location);
 		}
 	}
-	
+
 	public void addInCompany(String company){
 		if(!this.companies.contains(company)){
 			this.companies.add(company);
 		}
 	}
-	
+
 	public static void main(String[] args){
 		new ClientController();
 	}
+
+
 
 
 }
