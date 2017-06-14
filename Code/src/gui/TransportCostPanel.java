@@ -173,7 +173,7 @@ public class TransportCostPanel extends EventCreationPanel{
 		JCheckBox t = new JCheckBox("Tuesday");
 		t.setBounds(260, 440, 100, 20);
 		JCheckBox w = new JCheckBox("Wednesday");
-		w.setBounds(370, 440, 100, 20);
+		w.setBounds(370, 440, 150, 20);
 		JCheckBox th = new JCheckBox("Thursday");
 		th.setBounds(150, 470, 100, 20);
 		JCheckBox f = new JCheckBox("Friday");

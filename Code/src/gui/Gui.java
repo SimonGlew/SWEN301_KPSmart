@@ -29,7 +29,7 @@ public class Gui{
 
 	public Gui(ClientController controller){
 		this.controller = controller;
-		this.homePanel = new HomePanel(this.controller);
+		this.homePanel = new HomePanel(this, this.controller);
 		frameSetup();
 		passwordDialog = new LoginDialog(this);
 	}

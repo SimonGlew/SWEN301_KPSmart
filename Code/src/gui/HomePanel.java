@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.TitledBorder;
 
 import serverclient.ClientController;
@@ -23,13 +26,15 @@ public class HomePanel extends JPanel {
 	private JPanel panelBody;
 	private CardLayout layoutPanelBody;
 	public JLabel username;
+	private Gui gui;
 
-	public HomePanel(ClientController controller) {
+	public HomePanel(Gui g,ClientController controller) {
+		this.gui = g;
 		this.controller = controller;
 		initPanel();
 	}
 
-	private void initPanel() {
+	public void initPanel() {
 		setBackground(Color.GRAY);
 		setPreferredSize(new Dimension(1000, 800));
 
@@ -143,6 +148,13 @@ public class HomePanel extends JPanel {
 		JButton lblLogIn = new JButton("Log out");
 		lblLogIn.setBorder(null);
 		lblLogIn.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogIn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				username.setText("Not Logged");
+				gui.loginFail();
+			}
+		});
 
 		JLabel lblKpsmart = new JLabel("KPSmart");
 		lblKpsmart.setForeground(Color.DARK_GRAY);
