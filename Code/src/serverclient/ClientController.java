@@ -14,12 +14,14 @@ public class ClientController {
 	private Gui g;
 	private ArrayList<String> locations;
 	private ArrayList<String> companies;
+	public boolean logged;
 
 	public ClientController(Client c){
 		this.c = c;
 		this.locations = new ArrayList<String>();
 		this.companies = new ArrayList<String>();
 		this.g = new Gui(this);
+		this.logged = false;
 		//setup login page
 	}
 

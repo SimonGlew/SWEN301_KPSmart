@@ -23,6 +23,9 @@ public class Gui implements ActionListener{
 	private ClientController controller;
 	private JFrame frame;
 	private JDialog loginBox;
+	JTextField passwordField;
+	JTextField usernameField;
+	JButton submit;
 
 	public Gui(ClientController controller){
 		this.controller = controller;
@@ -66,19 +69,19 @@ public class Gui implements ActionListener{
 
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setPreferredSize(new Dimension(100, 30));
-		JTextField usernameField = new JTextField();
+		usernameField = new JTextField();
 		usernameField.setPreferredSize(new Dimension(300, 30));
 		loginBox.getContentPane().add(usernameLabel);
 		loginBox.getContentPane().add(usernameField);
 
 		JLabel password = new JLabel("Password");
 		password.setPreferredSize(new Dimension(100, 30));
-		JTextField passwordField = new JTextField();
+		passwordField = new JTextField();
 		passwordField.setPreferredSize(new Dimension(300, 30));
 		loginBox.getContentPane().add(password);
 		loginBox.getContentPane().add(passwordField);
 
-	    JButton submit = new JButton("Submit");
+	    submit = new JButton("Submit");
 	    loginBox.getContentPane().add(submit);
 	    submit.addActionListener(this);
 
@@ -88,6 +91,13 @@ public class Gui implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		controller.LoginRequest(usernameField.getText(), passwordField.getText());
+		submit.setEnabled(false);
+
+		while(!controller.logged){System.out.println("waiting");}
+
+
+
 		loginBox.setVisible(false);
 	}
  }
