@@ -103,9 +103,9 @@ public class CustomerPricePanel extends EventCreationPanel{
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controller.requestCustomerPriceUpdate(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-						destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-						prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
+				controller.requestCustomerPriceUpdate((String)originComboBox.getSelectedItem(),
+						(String)destComboBox.getSelectedItem(),
+						(String)prioComboBox.getSelectedItem(),
 						Double.parseDouble(gramTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()));
 

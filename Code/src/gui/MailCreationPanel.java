@@ -103,9 +103,9 @@ public class MailCreationPanel extends EventCreationPanel {
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controller.requestMailCreationRoutes(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-						destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-						prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
+				controller.requestMailCreationRoutes((String)originComboBox.getSelectedItem(),
+						(String)destComboBox.getSelectedItem(),
+						(String)prioComboBox.getSelectedItem(),
 						Double.parseDouble(weightTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()));
 

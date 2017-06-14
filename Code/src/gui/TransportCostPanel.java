@@ -206,10 +206,10 @@ public class TransportCostPanel extends EventCreationPanel{
 					}
 				}
 
-				controller.requestTransportCostUpdate(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-						destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-						compComboBox.getItemAt(compComboBox.getSelectedIndex()),
-						prioComboBox.getItemAt(prioComboBox.getSelectedIndex()),
+				controller.requestTransportCostUpdate((String)originComboBox.getSelectedItem(),
+						(String)destComboBox.getSelectedItem(),
+						(String)compComboBox.getSelectedItem(),
+						(String)prioComboBox.getSelectedItem(),
 						Double.parseDouble(gramTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()),
 						daySelected,

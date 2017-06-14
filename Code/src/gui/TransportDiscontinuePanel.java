@@ -92,10 +92,10 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-							controller.requestTransportDiscontinued(originComboBox.getItemAt(originComboBox.getSelectedIndex()),
-							destComboBox.getItemAt(destComboBox.getSelectedIndex()),
-							compComboBox.getItemAt(compComboBox.getSelectedIndex()),
-							prioComboBox.getItemAt(prioComboBox.getSelectedIndex()));
+				controller.requestTransportDiscontinued((String)originComboBox.getSelectedItem(),
+						(String)destComboBox.getSelectedItem(),
+						(String)compComboBox.getSelectedItem(),
+						(String)prioComboBox.getSelectedItem());
 
 			}
 		});
