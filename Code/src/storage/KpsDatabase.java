@@ -122,7 +122,7 @@ public class KpsDatabase {
 		}
 
 	}
-	
+
 	private int nextEventID(){
 		int id = 1;
 		boolean inUse;
