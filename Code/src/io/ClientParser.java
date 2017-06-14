@@ -20,7 +20,7 @@ public class ClientParser {
 		}else if(p.getType().equals(Codes.ServerNewCompany) || p.getType().equals(Codes.ServerCompanyList)){
 			parseServerNewCompany(p);
 		}else if(p.getType().equals(Codes.loginInvalid)){
-			//Invalid Login
+			controller.failedLogin();
 		}else if(p.getType().equals(Codes.loginValid)){
 			controller.successfullLogin();
 		}else if(p.getType().equals(Codes.ConfirmationMailDelivery)){
