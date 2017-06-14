@@ -58,11 +58,12 @@ public class LoginDialog implements ActionListener{
 		usernameField.setText("");
 		passwordField.setText("");
 		submit.setEnabled(true);
+		loginBox.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
-		submit.setEnabled(false);
+		loginBox.setVisible(false);
 	}
 }

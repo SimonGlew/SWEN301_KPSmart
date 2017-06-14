@@ -35,7 +35,7 @@ public class Gui{
 	}
 
 	public void loginSuccess(){
-		homePanel.username.setText("Logged In: " + passwordDialog.usernameField);
+		homePanel.username.setText("Logged In: " + passwordDialog.usernameField.getText());
 		passwordDialog.loginBox.dispose();
 	}
 

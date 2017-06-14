@@ -116,6 +116,14 @@ public class ClientController {
 		}
 	}
 
+	public void successfullLogin(){
+		this.g.loginSuccess();
+	}
+
+	public void failedLogin(){
+		this.g.loginFail();
+	}
+
 	public String[] getLocations(){
 		String[] array = new String[locations.size()];
 		for(int i = 0; i < locations.size(); i++){
