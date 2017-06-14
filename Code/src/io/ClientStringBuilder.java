@@ -1,7 +1,7 @@
 package io;
 
 public class ClientStringBuilder {
-	public static String requestMailCreationString(String origin, String destination, double weight, double volume, double cost, String day){
+	public static String requestMailCreationString(String origin, String destination, double weight, double volume, String priority, double cost, double routeCost, String day, double time){
 		/*return "{\n"
 				+ "origin: " + origin + "\n"
 				+ "destination: " + destination + "\n"
@@ -9,7 +9,7 @@ public class ClientStringBuilder {
 				+ "volume: " + volume + "\n"
 				+ "}";*/
 
-		return origin + "_" + destination + "_" + weight + "_" + volume + "_" + cost + "_" + day;
+		return origin + "_" + destination + "_" + weight + "_" + volume + "_" + priority + "_" + cost + "_" + routeCost + "_" + day + "_" + time;
 	}
 
 	public static String requestMailCreationRoutesString(String from, String to, String priority, double weight, double volume){

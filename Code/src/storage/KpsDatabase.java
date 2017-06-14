@@ -164,18 +164,13 @@ public class KpsDatabase {
 	}
 
 	private int nextEventID(){
-		int id = 1;
-		boolean inUse;
-		do{
-			inUse = false;
-			for(BusinessEvent event: businessEvents){
-				if(event.id==id){
-					inUse = true;
-				}
+		int maxID = 1;
+		for(BusinessEvent event: businessEvents){
+			if(event.getId() > maxID){
+				maxID = event.getId();
 			}
-			id++;
-		}while(inUse);
-		return id;
+		}
+		return maxID + 1;
 	}
 
 	public boolean addTransportCostUpdate(String dateTime, String username, String company, String to, String from,

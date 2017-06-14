@@ -136,7 +136,7 @@ public class RouteMap {
 				frequency, duration, list);
 	}
 
-	public Route findCheapestRoute(int originId, int destinationId, double weight, double vol, int priority) {
+	public Route findCheapestRoute(int originId, int destinationId, double weight, double vol, int priority, Day day, int hour) {
 		Location origin = locations.get(originId);
 		Location destination = locations.get(destinationId);
 		Set<Location> visited = new HashSet<Location>();
@@ -165,7 +165,7 @@ public class RouteMap {
 						path.add(0, pathseg.option);
 						curLoc = pathseg.from;
 					}
-					Route route = new Route(origin, destination, path, weight, vol);
+					Route route = new Route(origin, destination, path, weight, vol, day, hour);
 					return route;
 				}
 				for (Segment segment : node.loc.getSegsOut()) {

@@ -2,29 +2,37 @@ package model;
 
 import java.util.List;
 
+import model.KpsModel.Day;
+
 public class Route {
 	Location origin;
 	List<TransportOption> options;
 	Location destination;
-
+	Day startDay;
+	int startHour;
+	
 	double weight;
 	double vol;
 
 	int time;
 	double cost;
+	double routeCost;
 
-	public Route(Location origin, Location destination, List<TransportOption> options, double weight, double vol){
+	public Route(Location origin, Location destination, List<TransportOption> options, double weight, double vol, Day day, int hour){
 		this.origin = origin;
 		this.options = options;
 		this.destination = destination;
 		this.weight = weight;
 		this.vol = vol;
+		this.startDay = day;
+		this.startHour = hour;
+		
+		calculateTime();
 
 		for(TransportOption option: options){
 			cost += option.getSegment().getVolCost(option.getPriority())*vol + option.getSegment().getWeightCost(option.getPriority())*weight;
+			routeCost += option.getVolCost()*vol + option.getWeightCost()*weight;
 		}
-
-		time = 40;
 
 	}
 
@@ -36,12 +44,60 @@ public class Route {
 		s+= String.format("Total Cost: %.2f", cost);
 		return s;
 	}
+	
+	public void calculateTime(){
+		int day = startDay.ordinal();
+		int hour = startHour;
+		Location currentLocation = origin;
+		int optionIndex = 0;
+		double transportEnd = 0;
+		boolean waiting = true;
+		boolean inTransit = false;
+		TransportOption nextOption = options.get(0);
+		while(currentLocation != destination){
+			System.out.println(hour + ": " + currentLocation.getName());
+			if(waiting){
+				if(nextOption.containsDayInt(day)){
+					if(hour%nextOption.getFrequency()==0){
+						transportEnd = hour + nextOption.getDuration();
+						inTransit = true;
+						waiting = false;
+					}
+				}
+			}else if(inTransit){
+				if(hour >= transportEnd){
+					inTransit = false;
+					waiting = true;
+					currentLocation = nextOption.getSegment().getDestination();
+					optionIndex++;
+					if(optionIndex<options.size()){
+						nextOption = options.get(optionIndex);
+					}else{
+						break;
+					}
+				}
+			}
+			hour++;
+			if(hour%24==0){
+				day++;
+			}
+			if(day > 6){
+				day -= 7;
+			}
+		}		
+		time = hour - startHour;
+	}
 
 	public double getCost() {
 		return cost;
+	}
+	
+	public double getRouteCost() {
+		return routeCost;
 	}
 
 	public int getTime() {
 		return time;
 	}
+	
 }

@@ -74,4 +74,25 @@ public class TransportOption {
 		return priority;
 	}
 
+	public List<Day> getDays() {
+		return days;
+	}
+
+	public int getFrequency() {
+		return frequency;
+	}
+	
+	public double getDuration() {
+		return duration;
+	}
+
+	public boolean containsDayInt(int day) {
+		for(Day d: days){
+			if(d.ordinal() == day){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

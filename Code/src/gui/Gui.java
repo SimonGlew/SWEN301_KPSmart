@@ -76,7 +76,7 @@ public class Gui{
 		JOptionPane.showMessageDialog(frame, "Event: " + string + " successfully logged");
 	}
 
-	public void giveDeliveryOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime) {
-		homePanel.mail.showDeliveryOption(cheapCost, cheapTime, fastestCost, fastestTime);
+	public void giveDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {
+		homePanel.mail.showDeliveryOption(cheapCost, cheapRouteCost, cheapTime, fastestCost, fastestRouteCost, fastestTime);
 	}
  }

@@ -146,7 +146,7 @@ public class Server {
 					}
 					broadcast(send, this.id);
 				}catch(Exception e){
-					System.out.println("EXCEPTION: " + e);
+					e.printStackTrace();
 					live = false;
 					break outer;
 				}

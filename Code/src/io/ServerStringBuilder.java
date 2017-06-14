@@ -15,9 +15,9 @@ public class ServerStringBuilder {
 		return "";
 	}
 
-	public static String makeMailDeliveryString(double cheapestCost, int cheapestTime, double fastestCost,
-			int fastestTime) {
-		return cheapestCost + "_" + cheapestTime + "_" + fastestCost + "_" + fastestTime;
+	public static String makeMailDeliveryString(double cheapestCost, double cheapestRouteCost, int cheapestTime, double fastestCost,
+			double fastestRouteCost, int fastestTime) {
+		return cheapestCost + "_" + cheapestRouteCost + "_" + cheapestTime + "_" + fastestCost + "_" + fastestRouteCost + "_" + fastestTime;
 	}
 
 	public static String makeLocationListString(ArrayList<Location> locations) {

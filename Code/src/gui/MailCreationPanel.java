@@ -38,8 +38,9 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 	private JRadioButton fast;
 	private JButton submitOption;
 	private JDialog option;
-	private double fastCost;
-	private double cheapCost;
+	private String priority;
+	private double fastCost, fastRouteCost, fastTime;
+	private double cheapCost, cheapRouteCost, cheapTime;
 
 	public MailCreationPanel(ClientController controller, Gui gui) {
 		this.controller = controller;
@@ -122,11 +123,13 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				priority = (String)prioComboBox.getSelectedItem();
 				controller.requestMailCreationRoutes((String)originComboBox.getSelectedItem(),
 						(String)destComboBox.getSelectedItem(),
 						(String)prioComboBox.getSelectedItem(),
 						Double.parseDouble(weightTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()));
+						
 
 			}
 		});
@@ -138,9 +141,13 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		add(titleLabel);
 	}
 
-	public void showDeliveryOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime) {
+	public void showDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {
 		this.fastCost = fastestCost;
+		this.fastRouteCost = fastestRouteCost;
+		this.fastTime = fastestTime;
 		this.cheapCost = cheapCost;
+		this.cheapRouteCost = cheapRouteCost;
+		this.cheapTime = cheapTime;
 
 		option = new JDialog();
 		option.setTitle("Delivery Options");
@@ -234,13 +241,23 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 			if(((JButton)e.getSource()).equals(submitOption)){
 				option.setVisible(false);
 				double cost = 0;
-				if(cheap.isSelected()) cost = this.cheapCost;
-				else if(fast.isSelected()) cost = this.fastCost;
+				double routeCost = 0;
+				double time = 0;
+				if(cheap.isSelected()){
+					cost = this.cheapCost;
+					routeCost = this.cheapRouteCost;
+					time = this.cheapTime;
+				}
+				else if(fast.isSelected()){
+					cost = this.fastCost;
+					routeCost = this.fastRouteCost;
+					time = this.fastTime;
+				}
 				controller.requestMailCreation((String)originComboBox.getSelectedItem(),
 						(String)destComboBox.getSelectedItem(),
 						Double.parseDouble(weightTextField.getText()),
 						Double.parseDouble(volumeTextField.getText()),
-						cost);
+						priority, cost, routeCost, time);
 			}
 		}
 	}

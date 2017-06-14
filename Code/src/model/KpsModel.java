@@ -19,7 +19,7 @@ import users.StaffMember;
 
 public class KpsModel {
 
-	public enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+	public enum Day {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
 
 	private RouteMap routeMap;
 	private KpsDatabase database;
@@ -115,7 +115,7 @@ public class KpsModel {
 				cal.get(Calendar.YEAR), cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND), s);
 	}
 
-	public String newTransportPriceUpdate(String origin, String destination, String company, int priority,
+	public String newTransportPriceUpdate(String username, String origin, String destination, String company, int priority,
 			double pricePerGram, double pricePerCube, double maxWeight, double maxVol, List<Day> days, int frequency, double duration) {
 		boolean newRoute = false;
 		int originId = routeMap.getLocationId(origin);
@@ -138,7 +138,7 @@ public class KpsModel {
 		}else{
 			routeMap.updateTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
 		}
-		database.addTransportCostUpdate(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
+		database.addTransportCostUpdate(getDateTimeNow(), username, company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
 
 		if(newRoute){
 			return Codes.ConfirmationMadeRoute;
@@ -148,7 +148,7 @@ public class KpsModel {
 
 	}
 
-	public String newCustomerPriceUpdate(String origin, String destination, int priority, double weightCost, double volCost) {
+	public String newCustomerPriceUpdate(String username, String origin, String destination, int priority, double weightCost, double volCost) {
 		boolean newRoute = false;
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
@@ -166,7 +166,7 @@ public class KpsModel {
 		}else{
 			routeMap.updateSegmentPrice(segmentId, priority, weightCost, volCost);
 		}
-		database.addCustomerPriceUpdate(getDateTimeNow(), "usernamesarehard", origin, destination, priority, weightCost, volCost);
+		database.addCustomerPriceUpdate(getDateTimeNow(), username, origin, destination, priority, weightCost, volCost);
 
 		if(newRoute){
 			return Codes.ConfirmationMadeCustomerRoute;
@@ -175,7 +175,7 @@ public class KpsModel {
 		}
 	}
 
-	public String newTransportDiscontinue(String origin, String destination, String company, int priority) {
+	public String newTransportDiscontinue(String username, String origin, String destination, String company, int priority) {
 		int originId = routeMap.getLocationId(origin);
 		if(originId == -1){
 			originId = routeMap.addLocation(origin);
@@ -190,12 +190,12 @@ public class KpsModel {
 		}else{
 			return Codes.DiscontinueRouteInvalid;
 		}
-		database.addTransportDiscontinued(getDateTimeNow(), "usernamesarehard", company, origin, destination, priority);
+		database.addTransportDiscontinued(getDateTimeNow(), username, company, origin, destination, priority);
 		return Codes.DiscontinueRouteValid;
 	}
 	
-	public String newMailDelivery(Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost, double hours){
-		database.addMailDelivery(getDateTimeNow(), "useramesarehard", day, to, from, weight, volume, priority, kpsCost, routeCost, hours);
+	public String newMailDelivery(String username, Day day, String to, String from, double weight, double volume, int priority, double kpsCost, double routeCost, double hours){
+		database.addMailDelivery(getDateTimeNow(), username, day, to, from, weight, volume, priority, kpsCost, routeCost, hours);
 		return Codes.ConfirmationMailDelivery;
 	}
 
@@ -223,7 +223,16 @@ public class KpsModel {
 		}
 		return null;
 	}
-
+	
+	public Day parseDay(int i){
+		for(Day day: Day.values()){
+			if(day.ordinal() == i){
+				return day;
+			}
+		}
+		return null;
+	}
+	
 	public Route getCheapestRoute(String from, String to, int priority, double weight, double volume) {
 		int originId = routeMap.getLocationId(from);
 		if(originId == -1){
@@ -235,7 +244,10 @@ public class KpsModel {
 			System.out.println("Destination not in map: " + to);
 			return null;
 		}
-		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority);
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DAY_OF_WEEK)-1;
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority, parseDay(day), hour);
 	}
 
 	public Route getFastestRoute(String from, String to, int priority, double weight, double volume) {
@@ -247,7 +259,10 @@ public class KpsModel {
 		if(destinationId == -1){
 			return null;
 		}
-		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority);
+		Calendar c = Calendar.getInstance();
+		int day = c.get(Calendar.DAY_OF_WEEK)-1;
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority, parseDay(day), hour);
 	}
 
 	public StaffMember validateLogin(String username, String password) {

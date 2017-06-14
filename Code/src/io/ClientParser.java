@@ -53,11 +53,13 @@ public class ClientParser {
 	public void parseMailDeliveryRoutes(Packet p){
 		String[] information = p.getInformation().split("_");
 		double cheapestCost = Double.parseDouble(information[0]);
-		int cheapestTime = Integer.parseInt(information[1]);
-		double fastestCost = Double.parseDouble(information[2]);
-		int fastestTime = Integer.parseInt(information[3]);
+		double cheapestRouteCost = Double.parseDouble(information[1]);
+		int cheapestTime = Integer.parseInt(information[2]);
+		double fastestCost = Double.parseDouble(information[3]);
+		double fastestRouteCost = Double.parseDouble(information[4]);
+		int fastestTime = Integer.parseInt(information[5]);
 		
-		controller.notifyDeliverOption(cheapestCost, cheapestTime, fastestCost, fastestTime);
+		controller.notifyDeliverOption(cheapestCost, cheapestRouteCost, cheapestTime, fastestCost, fastestRouteCost, fastestTime);
 	}
 
 	public void parseServerNewRoute(Packet p){

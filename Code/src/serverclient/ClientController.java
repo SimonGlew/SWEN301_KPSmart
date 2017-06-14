@@ -44,8 +44,11 @@ public class ClientController {
 	 * @param dest
 	 * @param weight
 	 * @param volume
+	 * @param priority 
+	 * @param time 
+	 * @param time2 
 	 */
-	public void requestMailCreation(String origin, String dest, double weight, double volume, double cost) {
+	public void requestMailCreation(String origin, String dest, double weight, double volume, String priority, double cost, double routeCost, double time) {
 		// TODO:
 //		Date date = new Date(time);
 //		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
@@ -84,7 +87,7 @@ public class ClientController {
 				break;
 		}
 
-		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume, cost, day));
+		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume, priority, cost, routeCost, day, time));
 		this.c.sendMessage(p);
 	}
 
@@ -180,7 +183,7 @@ public class ClientController {
 		g.eventSuccessfull(string);
 	}
 
-	public void notifyDeliverOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime){
-		g.giveDeliveryOption(cheapCost, cheapTime, fastestCost, fastestTime);
+	public void notifyDeliverOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime){
+		g.giveDeliveryOption(cheapCost, cheapRouteCost, cheapTime, fastestCost, fastestRouteCost, fastestTime);
 	}
 }
