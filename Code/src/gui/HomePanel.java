@@ -188,6 +188,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
 		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
 		panelBody.add(new TransportCostPanel(this.controller), "TRANSPORT_COST");
+		panelBody.add(new TransportDiscontinuePanel(this.controller), "TRANSPORT_DISC");
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
 		panelBody.add(new AmountOfMailPanel(), "AMOUNT_OF_MAIL");
 		panelBody.add(new DeliveryTimesPanel(), "AVERAGE_DELIVERY_TIMES");
