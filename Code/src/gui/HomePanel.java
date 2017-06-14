@@ -17,10 +17,12 @@ import javax.swing.border.TitledBorder;
 
 import serverclient.ClientController;
 
+@SuppressWarnings("serial")
 public class HomePanel extends JPanel {
 	private ClientController controller;
 	private JPanel panelBody;
 	private CardLayout layoutPanelBody;
+	public JLabel username;
 
 	public HomePanel(ClientController controller) {
 		this.controller = controller;
@@ -98,22 +100,22 @@ public class HomePanel extends JPanel {
 		JButton transportDiscontinuedButton = new JButton("Transport Discontinued");
 		transportDiscontinuedButton.addActionListener(e -> showPanel("TRANSPORT_DISC"));
 		panelCreateEvent.add(transportDiscontinuedButton);
-		
+
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
 		panelKeyFigures.setLayout(new GridLayout(4, 1, 0, 0));
 
 		JButton accountingButton = new JButton("Accounting Figures");
 		accountingButton.addActionListener(e -> showPanel("ACCOUNTING"));
 		panelKeyFigures.add(accountingButton);
-		
+
 		JButton mailStatsButton = new JButton("Mail Statistics");
 		mailStatsButton.addActionListener(e -> showPanel("AMOUNT_OF_MAIL"));
 		panelKeyFigures.add(mailStatsButton);
-		
+
 		JButton avgDeliveryButton = new JButton("Average Delivery Times");
 		avgDeliveryButton.addActionListener(e -> showPanel("AVERAGE_DELIVERY_TIMES"));
 		panelKeyFigures.add(avgDeliveryButton);
-		
+
 		JButton criticalRoutesButton = new JButton("Critical Routes");
 		criticalRoutesButton.addActionListener(e -> showPanel("CRITICAL_ROUTES"));
 		panelKeyFigures.add(criticalRoutesButton);
@@ -147,7 +149,7 @@ public class HomePanel extends JPanel {
 		lblKpsmart.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKpsmart.setFont(new Font("Bitstream Vera Sans", Font.ITALIC, 31));
 
-		JLabel lblLoggedInDallan = new JLabel("Logged in: Dallan Freemantle (Manager)");
+		username = new JLabel("Not Logged");
 		GroupLayout gl_panelHeader = new GroupLayout(panelHeader);
 		gl_panelHeader.setHorizontalGroup(
 			gl_panelHeader.createParallelGroup(Alignment.TRAILING)
@@ -155,7 +157,7 @@ public class HomePanel extends JPanel {
 					.addContainerGap(666, Short.MAX_VALUE)
 					.addGroup(gl_panelHeader.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelHeader.createSequentialGroup()
-							.addComponent(lblLoggedInDallan)
+							.addComponent(username)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblKpsmart, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
@@ -168,7 +170,7 @@ public class HomePanel extends JPanel {
 					.addComponent(lblKpsmart, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_panelHeader.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblLoggedInDallan)
+						.addComponent(username)
 						.addComponent(lblLogIn, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 					.addGap(53))
 		);
@@ -183,7 +185,7 @@ public class HomePanel extends JPanel {
 		// Create the body using a card layout
 		layoutPanelBody = new CardLayout();
 		panelBody = new JPanel(layoutPanelBody);
-		
+
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(new MailCreationPanel(this.controller), "MAIL_CREATION");
 		panelBody.add(new CustomerPricePanel(this.controller), "CUSTOMER_PRICE");
@@ -194,7 +196,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new DeliveryTimesPanel(), "AVERAGE_DELIVERY_TIMES");
 		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
 	}
-	
+
 	/**
 	 * Switch the body panel
 	 * @param name

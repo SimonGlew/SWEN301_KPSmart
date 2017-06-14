@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -26,10 +27,11 @@ public class Gui implements ActionListener{
 	JTextField passwordField;
 	JTextField usernameField;
 	JButton submit;
+	HomePanel homePanel;
 
 	public Gui(ClientController controller){
 		this.controller = controller;
-
+		this.homePanel = new HomePanel(this.controller);
 		frameSetup();
 		passwordPanel();
 	}
@@ -53,7 +55,7 @@ public class Gui implements ActionListener{
 		frame = new JFrame("KPSmart");
 		frame.setSize(1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new HomePanel(this.controller));
+		frame.add(homePanel);
 		frame.setVisible(true);
 	}
 
@@ -97,7 +99,7 @@ public class Gui implements ActionListener{
 		while(!controller.logged){System.out.println("waiting");}
 
 
-
+		homePanel.username.setText("Logged In: " );
 		loginBox.setVisible(false);
 	}
  }
