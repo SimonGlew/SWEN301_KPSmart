@@ -262,7 +262,7 @@ public class KpsModel {
 		Calendar c = Calendar.getInstance();
 		int day = c.get(Calendar.DAY_OF_WEEK)-1;
 		int hour = c.get(Calendar.HOUR_OF_DAY);
-		return routeMap.findCheapestRoute(originId, destinationId, weight, volume, priority, parseDay(day), hour);
+		return routeMap.findFastestRoute(originId, destinationId, weight, volume, priority, parseDay(day), hour);
 	}
 
 	public StaffMember validateLogin(String username, String password) {

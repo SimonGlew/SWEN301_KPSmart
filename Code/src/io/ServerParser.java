@@ -81,8 +81,9 @@ public class ServerParser {
 		double volume = Double.parseDouble(information[4]);
 		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
 		Route fastest = model.getFastestRoute(from, to, priority, weight, volume);
-
-		return broadcastRoutesMailDelivery(cheapest.getCost(), cheapest.getRouteCost(), cheapest.getTime(), fastest.getCost(), fastest.getRouteCost(), fastest.getTime());
+		System.out.println(cheapest);
+		System.out.println(fastest);
+		return broadcastRoutesMailDelivery(cheapest.getCost(), cheapest.getRouteCost(), (int)cheapest.getTime(), fastest.getCost(), fastest.getRouteCost(), (int)fastest.getTime());
 	}
 
 	public Packet parseMailCreation(Packet p){

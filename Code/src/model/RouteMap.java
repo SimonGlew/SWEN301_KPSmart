@@ -182,6 +182,64 @@ public class RouteMap {
 		}
 		return null;
 	}
+	
+	public Route findFastestRoute(int originId, int destinationId, double weight, double vol, int priority, Day day, int hour) {
+		Location origin = locations.get(originId);
+		Location destination = locations.get(destinationId);
+		Set<Location> visited = new HashSet<Location>();
+		Queue<SearchNode> fringe = new PriorityQueue<SearchNode>(new Comparator<SearchNode>() {
+			@Override
+			public int compare(SearchNode o1, SearchNode o2) {
+				if (o1.costSoFar > o2.costSoFar) {
+					return 1;
+				} else {
+					return -1;
+				}
+			}
+		});
+		fringe.offer(new SearchNode(origin, null, null, 0));
+		Map<Location, PathSegment> pathSegments = new HashMap<Location, PathSegment>();
+		while (!fringe.isEmpty()) {
+			SearchNode node = fringe.poll();
+			if (!visited.contains(node.loc)) {
+				pathSegments.put(node.loc, new PathSegment(node.from, node.option));
+				visited.add(node.loc);
+				if (node.loc == destination) {
+					List<TransportOption> path = new ArrayList<TransportOption>();
+					Location curLoc = destination;
+					while (curLoc != origin) {
+						PathSegment pathseg = pathSegments.get(curLoc);
+						path.add(0, pathseg.option);
+						curLoc = pathseg.from;
+					}
+					Route route = new Route(origin, destination, path, weight, vol, day, hour);
+					return route;
+				}
+				for (Segment segment : node.loc.getSegsOut()) {
+					if (!visited.contains(segment.getDestination())) {
+						for (TransportOption option : segment.getTransportOptions().values()) {
+							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && priority == option.getPriority()){
+								
+								List<TransportOption> options = new ArrayList<TransportOption>();
+								options.add(0, option);
+								Location curLoc = node.loc;
+								while (curLoc != origin) {
+									PathSegment pathseg = pathSegments.get(curLoc);
+									options.add(0, pathseg.option);
+									curLoc = pathseg.from;
+								}
+								
+								double cost = Route.calculateTime(day, hour, origin, option.getSegment().getDestination(), options);
+								System.out.println(cost);
+								fringe.offer(new SearchNode(segment.getDestination(), node.loc, option, cost));
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 	private class SearchNode {
 		Location loc;

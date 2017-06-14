@@ -14,7 +14,7 @@ public class Route {
 	double weight;
 	double vol;
 
-	int time;
+	double time;
 	double cost;
 	double routeCost;
 
@@ -27,7 +27,7 @@ public class Route {
 		this.startDay = day;
 		this.startHour = hour;
 		
-		calculateTime();
+		time = calculateTime(startDay, startHour, origin, destination, options);
 
 		for(TransportOption option: options){
 			cost += option.getSegment().getVolCost(option.getPriority())*vol + option.getSegment().getWeightCost(option.getPriority())*weight;
@@ -45,7 +45,7 @@ public class Route {
 		return s;
 	}
 	
-	public void calculateTime(){
+	public static double calculateTime(Day startDay, int startHour, Location origin, Location destination, List<TransportOption> options){
 		int day = startDay.ordinal();
 		int hour = startHour;
 		Location currentLocation = origin;
@@ -85,7 +85,7 @@ public class Route {
 				day -= 7;
 			}
 		}		
-		time = hour - startHour;
+		return hour - startHour;
 	}
 
 	public double getCost() {
@@ -96,7 +96,7 @@ public class Route {
 		return routeCost;
 	}
 
-	public int getTime() {
+	public double getTime() {
 		return time;
 	}
 	
