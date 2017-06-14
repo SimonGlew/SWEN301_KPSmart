@@ -152,10 +152,12 @@ public class ClientController {
 
 	public void successfullLogin(boolean manager){
 		this.g.loginSuccess();
+		logged = true;
 	}
 
 	public void failedLogin(){
 		this.g.loginFail();
+		logged = false;
 	}
 
 	public String[] getLocations(){
@@ -172,5 +174,13 @@ public class ClientController {
 			array[i] = companies.get(i);
 		}
 		return array;
+	}
+	
+	public void successfullEvent(String string){
+		g.eventSuccessfull(string);
+	}
+
+	public void notifyDeliverOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime){
+		g.giveDeliveryOption(cheapCost, cheapTime, fastestCost, fastestTime);
 	}
 }

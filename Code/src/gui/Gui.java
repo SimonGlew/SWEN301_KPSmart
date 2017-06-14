@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -69,5 +70,13 @@ public class Gui{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(homePanel);
 		frame.setVisible(true);
+	}
+	
+	public void eventSuccessfull(String string){
+		JOptionPane.showMessageDialog(frame, "Event: " + string + " successfully logged");
+	}
+
+	public void giveDeliveryOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime) {
+		homePanel.mail.showDeliveryOption(cheapCost, cheapTime, fastestCost, fastestTime);
 	}
  }

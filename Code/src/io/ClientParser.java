@@ -24,9 +24,9 @@ public class ClientParser {
 		}else if(p.getType().equals(Codes.loginValid)){
 			controller.successfullLogin(Boolean.parseBoolean(p.getInformation()));
 		}else if(p.getType().equals(Codes.ConfirmationMailDelivery)){
-			//Mail delivery was a success
+			controller.successfullEvent("Mail Delivery");
 		}else if(p.getType().equals(Codes.ConfirmationCustomerPriceUpdate)){
-			//Customer price update was a success
+			controller.successfullEvent("Customer Price Update");
 		}else if(p.getType().equals(Codes.DiscontinueRouteValid)){
 			//Discontinued Route Valid
 		}else if(p.getType().equals(Codes.DiscontinueRouteInvalid)){
@@ -56,6 +56,8 @@ public class ClientParser {
 		int cheapestTime = Integer.parseInt(information[1]);
 		double fastestCost = Double.parseDouble(information[2]);
 		int fastestTime = Integer.parseInt(information[3]);
+		
+		controller.notifyDeliverOption(cheapestCost, cheapestTime, fastestCost, fastestTime);
 	}
 
 	public void parseServerNewRoute(Packet p){

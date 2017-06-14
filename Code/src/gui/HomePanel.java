@@ -30,10 +30,10 @@ public class HomePanel extends JPanel {
 	private Gui gui;
 	private ArrayList<JPanel> panels;
 
-	private MailCreationPanel mail;
-	private TransportCostPanel tansportCost;
-	private TransportDiscontinuePanel transportDisc;
-	private CustomerPricePanel customerPrice;
+	public MailCreationPanel mail;
+	public TransportCostPanel tansportCost;
+	public TransportDiscontinuePanel transportDisc;
+	public CustomerPricePanel customerPrice;
 
 	public HomePanel(Gui g,ClientController controller) {
 		this.gui = g;
@@ -160,7 +160,7 @@ public class HomePanel extends JPanel {
 		panelSide.setLayout(gl_panelSide);
 
 		JButton lblLogIn = new JButton("Log out");
-		lblLogIn.setBorder(null);
+
 		lblLogIn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogIn.addActionListener(new ActionListener(){
 			@Override
@@ -212,7 +212,7 @@ public class HomePanel extends JPanel {
 		layoutPanelBody = new CardLayout();
 		panelBody = new JPanel(layoutPanelBody);
 
-		mail = new MailCreationPanel(this.controller);
+		mail = new MailCreationPanel(this.controller, gui);
 		tansportCost = new TransportCostPanel(this.controller);
 		transportDisc = new TransportDiscontinuePanel(this.controller);
 		customerPrice = new CustomerPricePanel(this.controller);

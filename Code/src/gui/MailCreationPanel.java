@@ -2,21 +2,29 @@ package gui;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
 import javax.swing.UIManager;
 
 import io.Codes;
 import serverclient.ClientController;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
-public class MailCreationPanel extends EventCreationPanel {
+public class MailCreationPanel extends EventCreationPanel implements ActionListener{
 	private ClientController controller;
 
 	// Sub-sections of MailCreationPanel
@@ -25,9 +33,17 @@ public class MailCreationPanel extends EventCreationPanel {
 	private JComboBox<String> prioComboBox;
 	private JTextField weightTextField;
 	private JTextField volumeTextField;
+	private Gui gui;
+	private JRadioButton cheap;
+	private JRadioButton fast;
+	private JButton submitOption;
+	private JDialog option;
+	private double fastCost;
+	private double cheapCost;
 
-	public MailCreationPanel(ClientController controller) {
+	public MailCreationPanel(ClientController controller, Gui gui) {
 		this.controller = controller;
+		this.gui = gui;
 		initPanel();
 	}
 
@@ -121,4 +137,113 @@ public class MailCreationPanel extends EventCreationPanel {
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
 	}
+
+	public void showDeliveryOption(double cheapCost, double cheapTime, double fastestCost, double fastestTime) {
+		this.fastCost = fastestCost;
+		this.cheapCost = cheapCost;
+
+		option = new JDialog();
+		option.setTitle("Delivery Options");
+		option.setModal(true);
+		option.setResizable(false);
+		option.setSize(new Dimension(620,260));
+		option.setPreferredSize(new Dimension(420,260));
+		option.setLocation((gui.frame.getWidth()/2)-(option.getWidth()/2), (gui.frame.getHeight()/2)-(option.getHeight()/2));
+		option.getContentPane().setLayout(null);
+		option.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		JLabel header = new JLabel("Please select a delivery option");
+		header.setForeground(Color.DARK_GRAY);
+		header.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		header.setBounds(180, 10, 300, 20);
+		option.add(header);
+
+		JLabel cheapD = new JLabel("Cost ($)");
+		cheapD.setForeground(Color.DARK_GRAY);
+		cheapD.setBounds(250, 45, 100, 20);
+		option.add(cheapD);
+
+		JLabel time = new JLabel("Time (hrs)");
+		time.setForeground(Color.DARK_GRAY);
+		time.setBounds(380, 45, 100, 20);
+		option.add(time);
+
+
+		JPanel option1 = new JPanel();
+		option1.setBounds(15, 75, 590, 40);
+		option1.setBorder(BorderFactory.createEtchedBorder());
+		option1.setLayout(null);
+
+		JLabel cheapLabel = new JLabel("Cheapest Option:");
+		cheapLabel.setBounds(5, 10, 150, 20);
+		option1.add(cheapLabel);
+
+		JLabel cheapCostLabel = new JLabel(cheapCost + "");
+		cheapCostLabel.setBounds(240, 10, 150, 20);
+		option1.add(cheapCostLabel);
+
+		JLabel cheapTimeLabel = new JLabel(cheapTime + "");
+		cheapTimeLabel.setBounds(375, 10, 100, 20);
+		option1.add(cheapTimeLabel);
+
+		cheap = new JRadioButton();
+		cheap.setBounds(530, 10, 20, 20);
+		cheap.addActionListener(this);
+		option1.add(cheap);
+
+		option.add(option1);
+
+		JPanel option2 = new JPanel();
+		option2.setBounds(15, 120, 590, 40);
+		option2.setBorder(BorderFactory.createEtchedBorder());
+		option2.setLayout(null);
+
+		JLabel fastLabel = new JLabel("Fastest Option:");
+		fastLabel.setBounds(5, 10, 150, 20);
+		option2.add(fastLabel);
+
+		JLabel fastCostLabel = new JLabel(fastestCost + "");
+		fastCostLabel.setBounds(240, 10, 150, 20);
+		option2.add(fastCostLabel);
+
+		JLabel fastTimeLabel = new JLabel(fastestTime + "");
+		fastTimeLabel.setBounds(375, 10, 100, 20);
+		option2.add(fastTimeLabel);
+
+		fast = new JRadioButton();
+		fast.setBounds(530, 10, 20, 20);
+		fast.addActionListener(this);
+		option2.add(fast);
+
+		option.add(option2);
+
+		submitOption = new JButton("Submit");
+		submitOption.setBounds(260, 180, 100, 30);
+		submitOption.addActionListener(this);
+		option.add(submitOption);
+
+		option.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof JRadioButton){
+			if(((JRadioButton)e.getSource()).equals(cheap)) fast.setSelected(false);
+			else if(((JRadioButton)e.getSource()).equals(fast)) cheap.setSelected(false);
+		}else if(e.getSource() instanceof JButton){
+			if(((JButton)e.getSource()).equals(submitOption)){
+				option.setVisible(false);
+				double cost = 0;
+				if(cheap.isSelected()) cost = this.cheapCost;
+				else if(fast.isSelected()) cost = this.fastCost;
+				controller.requestMailCreation((String)originComboBox.getSelectedItem(),
+						(String)destComboBox.getSelectedItem(),
+						Double.parseDouble(weightTextField.getText()),
+						Double.parseDouble(volumeTextField.getText()),
+						cost);
+			}
+		}
+	}
+
+
 }
