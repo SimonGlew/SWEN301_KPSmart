@@ -82,9 +82,9 @@ public class HomePanel extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
 						.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -121,19 +121,15 @@ public class HomePanel extends JPanel {
 		panelCreateEvent.add(transportDiscontinuedButton);
 
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
-		panelKeyFigures.setLayout(new GridLayout(4, 1, 0, 0));
+		panelKeyFigures.setLayout(new GridLayout(3, 1, 0, 0));
 
 		JButton accountingButton = new JButton("Accounting Figures");
 		accountingButton.addActionListener(e -> showPanel("ACCOUNTING"));
 		panelKeyFigures.add(accountingButton);
 
 		JButton mailStatsButton = new JButton("Mail Statistics");
-		mailStatsButton.addActionListener(e -> showPanel("AMOUNT_OF_MAIL"));
+		mailStatsButton.addActionListener(e -> showPanel("MAIL_STATISTICS"));
 		panelKeyFigures.add(mailStatsButton);
-
-		JButton avgDeliveryButton = new JButton("Average Delivery Times");
-		avgDeliveryButton.addActionListener(e -> showPanel("AVERAGE_DELIVERY_TIMES"));
-		panelKeyFigures.add(avgDeliveryButton);
 
 		JButton criticalRoutesButton = new JButton("Critical Routes");
 		criticalRoutesButton.addActionListener(e -> showPanel("CRITICAL_ROUTES"));
@@ -154,8 +150,8 @@ public class HomePanel extends JPanel {
 					.addContainerGap()
 					.addComponent(scrollPaneCreateEvents, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(179, Short.MAX_VALUE))
+					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(43, Short.MAX_VALUE))
 		);
 		panelSide.setLayout(gl_panelSide);
 
@@ -224,8 +220,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(tansportCost, "TRANSPORT_COST");
 		panelBody.add(transportDisc, "TRANSPORT_DISC");
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
-		panelBody.add(new AmountOfMailPanel(), "AMOUNT_OF_MAIL");
-		panelBody.add(new DeliveryTimesPanel(), "AVERAGE_DELIVERY_TIMES");
+		panelBody.add(new MailStatisticsPanel(), "MAIL_STATISTICS");
 		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
 	}
 
