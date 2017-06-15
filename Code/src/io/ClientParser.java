@@ -11,7 +11,7 @@ public class ClientParser {
 	}
 
 	public void parseMessage(Packet p){
-		if(p.getType().equals(Codes.ServerBusinessFigures)){
+		if(p.getType().equals(Codes.ServerAccountingFigures)){
 			parseBusinessFigures(p);
 		}else if(p.getType().equals(Codes.ServerMailDeliveryRoutes)){
 			parseMailDeliveryRoutes(p);
@@ -47,7 +47,14 @@ public class ClientParser {
 	}
 
 	public void parseBusinessFigures(Packet p){
-
+		String[] information = p.getInformation().split("_");
+		
+		double totalRevenue = Double.parseDouble(information[0]);
+		double totalExpenditure = Double.parseDouble(information[1]);
+		int totalNumberOfMailDeliveryEvents = Integer.parseInt(information[2]);
+		int totalNumberOfCustomerPriceUpdateEvents = Integer.parseInt(information[3]);
+		int totalNumberOfTransportCostUpdateEvents = Integer.parseInt(information[4]);
+		int totalNumberOfTransportDiscontinuedEvents = Integer.parseInt(information[5]);
 	}
 
 	public void parseMailDeliveryRoutes(Packet p){

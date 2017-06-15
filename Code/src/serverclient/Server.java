@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import io.Codes;
 import io.ServerParser;
+import model.BusinessMonitoring;
 import model.KpsModel;
 
 public class Server {
@@ -144,6 +145,13 @@ public class Server {
 						broadcast(new Packet(Codes.ServerRouteList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getLocations())), this.id);
 						broadcast(new Packet(Codes.ServerCompanyList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getCompanies())), this.id);
 					}
+					
+					if(send.getType().equals(Codes.ConfirmationMailDelivery)){
+						BusinessMonitoring m = this.model.getBusinessMonitor();
+						
+						broadcast(this.parser.broadcastBusinessFigures(m.getRevenue(), m.getExpenditure(),  m.getNumberOfMailDelivery(), m.getNumberOfCustomerPriceUpdate(), m.getNumberOfTransportCostUpdate(), m.getNumberOfTransportDiscontinued()), this.id);
+					}
+					
 					broadcast(send, this.id);
 				}catch(Exception e){
 					e.printStackTrace();

@@ -33,7 +33,6 @@ public class Codes {
 	public static String loginDetails = "LOGIN.DETAILS";
 
 	public static String ServerRouteList = "SERVER.ROUTE.LIST";
-	public static String ServerBusinessFigures = "SERVER.BUSINESS.FIGURES";
 	public static String ServerCompanyList = "SERVER.COMPANY.LIST";
 
 	public static String ServerNewRoute = "SERVER.NEW.ROUTE";
@@ -41,6 +40,9 @@ public class Codes {
 
 	public static String BroadcastSingle = "BROADCAST.SINGLE";
 	public static String BroadcastAll = "BROADCAST.ALL";
+	
+	public static String ServerAccountingFigures = "ACCOUNTING.FIGURES";
+	
 
 
 	public static class Priorities{

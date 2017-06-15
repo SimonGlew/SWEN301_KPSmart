@@ -11,8 +11,8 @@ public class ServerStringBuilder {
 		return to + "_" + from;
 	}
 
-	public static String makeBusinessFigures() {
-		return "";
+	public static String makeBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents, int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents, int totalNumberOfTransportDiscontinuedEvents) {
+		return totalRevenue + "_" + totalExpenditure + "_" + totalNumberOfMailDeliveryEvents + "_" + totalNumberOfCustomerPriceUpdateEvents + "_" + totalNumberOfTransportCostUpdateEvents + "_" + totalNumberOfTransportDiscontinuedEvents;
 	}
 
 	public static String makeMailDeliveryString(double cheapestCost, double cheapestRouteCost, int cheapestTime, double fastestCost,

@@ -16,6 +16,7 @@ public class ClientController {
 	private ArrayList<String> locations;
 	private ArrayList<String> companies;
 	public boolean logged;
+	private boolean manager;
 
 	public ClientController(Client c){
 		this.c = c;
@@ -23,6 +24,7 @@ public class ClientController {
 		this.companies = new ArrayList<String>();
 		this.g = new Gui(this);
 		this.logged = false;
+		this.manager = false;
 		//setup login page
 	}
 
@@ -156,6 +158,7 @@ public class ClientController {
 	public void successfullLogin(boolean manager){
 		this.g.loginSuccess();
 		logged = true;
+		this.manager = manager;
 	}
 
 	public void failedLogin(){
@@ -177,6 +180,10 @@ public class ClientController {
 			array[i] = companies.get(i);
 		}
 		return array;
+	}
+	
+	public boolean getManager(){
+		return this.manager;
 	}
 	
 	public void successfullEvent(String string){

@@ -191,9 +191,9 @@ public class ServerParser {
 	public Packet sendDiscontinueRouteInvalid(){
 		return new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null);
 	}
-
-	public Packet broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfEvents, int totalNumberOfMail, double totalWeightOfMail, double totalVolumeOfMail){
-		return new Packet(Codes.ServerBusinessFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures());
+	
+	public Packet broadcastBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents, int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents, int totalNumberOfTransportDiscontinuedEvents){
+		return new Packet(Codes.ServerAccountingFigures, Codes.BroadcastAll, ServerStringBuilder.makeBusinessFigures(totalRevenue, totalExpenditure, totalNumberOfMailDeliveryEvents, totalNumberOfCustomerPriceUpdateEvents, totalNumberOfTransportCostUpdateEvents, totalNumberOfTransportDiscontinuedEvents));
 	}
 
 	public Packet broadcastRoute(String to, String from){
