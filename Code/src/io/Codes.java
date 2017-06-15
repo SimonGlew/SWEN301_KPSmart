@@ -14,6 +14,8 @@ public class Codes {
 	public static String ServerMailDeliveryRoutes = "SERVER.MAIL.DELIVERY.ROUTES";
 	public static String ServerCheapestRoute = "SERVER.CHEAPEST.ROUTE";
 	public static String ServerFastestRoute = "SERVER.FASTEST.ROUTE";
+	
+	public static String ServerFailedMailDeliveryRoutes = "FAIL.MAIL.DELIVERY.ROUTES";
 
 	public static String ConfirmationUpdateRoute = "CONFIRMATION.UPDATE.ROUTE";
 	public static String ConfirmationMadeRoute = "CONFIRMATION.MADE.ROUTE";

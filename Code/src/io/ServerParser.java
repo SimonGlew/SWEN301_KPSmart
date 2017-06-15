@@ -196,6 +196,10 @@ public class ServerParser {
 		return 4;
 	}
 	
+	public Packet broadcastFailMailRoutes(){
+		return new Packet(Codes.ServerFailedMailDeliveryRoutes, Codes.BroadcastSingle, null);
+	}
+	
 	public Packet broadcastCriticalRoutes(String placeholder){
 		return new Packet(Codes.CriticalRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeCriticalRoutesString(placeholder));
 	}

@@ -47,6 +47,9 @@ public class ClientParser {
 			parseServerMailDeliveryStats(p);
 		}else if(p.getType().equals(Codes.CriticalRoutes)){
 			parseCriticalRoutes(p);
+		}else if(p.getType().equals(Codes.ServerFailedMailDeliveryRoutes)){
+			System.out.println("NO ROUTES FOUND");
+			//No routes found with origin/destination
 		}
 	}
 
