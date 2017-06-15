@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.Codes;
+import model.BusinessMonitoring;
 import model.KpsModel;
 import model.KpsModel.Day;
 import model.Location;
@@ -34,6 +35,10 @@ public class ServerParser {
 			return parseClientGetRoutesMailDelivery(p);
 		}else if(p.getType().equals(Codes.loginDetails)){
 			return parseClientLoginDetails(p);
+		}else if(p.getType().equals(Codes.MailDeliveryStats)){
+			return parseMailDeliveryStats(p);
+		}else if(p.getType().equals(Codes.CriticalRoutes)){
+			return parseCriticalRoutes();
 		}else{
 			return null;
 		}
@@ -96,6 +101,12 @@ public class ServerParser {
 		model.newMailDelivery(username, day, origin, destination, weight, volume, priority, kpsCost, routeCost, hours);
 		return sendConfirmationMailDelivery();
 	}
+	
+	public Packet parseCriticalRoutes(){
+		
+		//THAT NULL IS GONNA BE THE INFORMATION, DONT KNOW WHAT FORM YOU WANT THO
+		return this.broadcastCriticalRoutes(null);
+	}
 
 	public Packet parseTransportPriceUpdate(Packet p){
 		String[] s = p.getInformation().split("_");
@@ -156,6 +167,23 @@ public class ServerParser {
 			return null;
 		}
 	}
+	
+	public Packet parseMailDeliveryStats(Packet p){
+		String[] s = p.getInformation().split("_");
+		
+		String origin = (s[0].equals("All")) ? null : s[0];
+		String destination = (s[1].equals("All")) ? null : s[1];;
+		int priority = (s[2].equals("All")) ? 0 : Integer.parseInt(s[2]);
+		
+		BusinessMonitoring m = this.model.getBusinessMonitor();
+		
+		int numOfItems = m.getNumberOfItems(destination, origin, priority);
+		double totalVolume = m.getTotalVolume(destination, origin, priority);
+		double totalWeight = m.getTotalWeight(destination, origin, priority);
+		double avDeliveryTime = m.getAverageDeliveryTime(destination, origin, priority);
+		
+		return this.broadcastMailDeliveryStats(numOfItems, totalVolume, totalWeight, avDeliveryTime);
+	}
 
 	public int parsePriority(String priority){
 		if(priority.equals(Codes.Priorities.InternationalAir)){
@@ -166,6 +194,10 @@ public class ServerParser {
 			return 3;
 		}
 		return 4;
+	}
+	
+	public Packet broadcastCriticalRoutes(String placeholder){
+		return new Packet(Codes.CriticalRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeCriticalRoutesString(placeholder));
 	}
 
 	public Packet broadcastValidLogin(boolean isManager){
@@ -226,6 +258,10 @@ public class ServerParser {
 
 	public Packet broadcastConfirmationDiscontinueRouteInvalid(){
 		return new Packet(Codes.DiscontinueRouteInvalid, Codes.BroadcastSingle, null);
+	}
+	
+	public Packet broadcastMailDeliveryStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){
+		return new Packet(Codes.MailDeliveryStats, Codes.BroadcastSingle, ServerStringBuilder.makeMailDeliveryStatsString(numOfItems, totalVolume, totalWeight, avDeliveryTime));
 	}
 
 	public String getStringFromArrayList(List<String> list){

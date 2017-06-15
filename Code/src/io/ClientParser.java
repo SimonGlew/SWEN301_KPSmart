@@ -43,6 +43,10 @@ public class ClientParser {
 			//Valid discontinue Route
 		}else if(p.getType().equals(Codes.DiscontinueRouteInvalid)){
 			//Invalid discontinue route
+		}else if(p.getType().equals(Codes.MailDeliveryStats)){
+			parseServerMailDeliveryStats(p);
+		}else if(p.getType().equals(Codes.CriticalRoutes)){
+			parseCriticalRoutes(p);
 		}
 	}
 
@@ -55,6 +59,19 @@ public class ClientParser {
 		int totalNumberOfCustomerPriceUpdateEvents = Integer.parseInt(information[3]);
 		int totalNumberOfTransportCostUpdateEvents = Integer.parseInt(information[4]);
 		int totalNumberOfTransportDiscontinuedEvents = Integer.parseInt(information[5]);
+	}
+	
+	public void parseCriticalRoutes(Packet p){
+		
+	}
+	
+	public void parseServerMailDeliveryStats(Packet p){
+		String[] information = p.getInformation().split("_");
+				
+		int numOfItems = Integer.parseInt(information[0]);
+		double totalVolume = Double.parseDouble(information[1]);
+		double totalWeight = Double.parseDouble(information[2]);
+		double avDeliveryTime = Double.parseDouble(information[3]);
 	}
 
 	public void parseMailDeliveryRoutes(Packet p){

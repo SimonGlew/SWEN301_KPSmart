@@ -42,7 +42,8 @@ public class Codes {
 	public static String BroadcastAll = "BROADCAST.ALL";
 	
 	public static String ServerAccountingFigures = "ACCOUNTING.FIGURES";
-	
+	public static String MailDeliveryStats = "MAIL.STATS";
+	public static String CriticalRoutes = "CRITICAL.ROUTES";
 
 
 	public static class Priorities{

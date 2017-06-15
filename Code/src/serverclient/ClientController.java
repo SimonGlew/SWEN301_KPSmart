@@ -92,7 +92,18 @@ public class ClientController {
 		Packet p = new Packet(Codes.MailCreation, null, ClientStringBuilder.requestMailCreationString(origin, dest, weight, volume, priority, cost, routeCost, day, time));
 		this.c.sendMessage(p);
 	}
+	
+	
+	public void requestMailDeliveryStats(String origin, String destination, String priority){	
+		Packet p = new Packet(Codes.MailDeliveryStats, null, ClientStringBuilder.requestMailDeliveryStats(origin, destination, priority));		
+		this.c.sendMessage(p);
+	}
 
+	
+	public void requestCriticalRoutes(){
+		Packet p = new Packet(Codes.CriticalRoutes, null, null);
+		this.c.sendMessage(p);
+	}
 
 	/**
 	 * Requests a customer price update from the server

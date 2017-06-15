@@ -41,4 +41,12 @@ public class ServerStringBuilder {
 		}
 		return s;
 	}
+	
+	public static String makeCriticalRoutesString(String placeholder){
+		return null;
+	}
+	
+	public static String makeMailDeliveryStatsString(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){
+		return numOfItems + "_" + totalVolume + "_" + totalWeight + "_" + avDeliveryTime;
+	}
 }

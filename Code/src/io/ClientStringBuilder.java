@@ -59,4 +59,8 @@ public class ClientStringBuilder {
 
 		return origin + "_" + destination + "_" + company + "_" + priority;
 	}
+	
+	public static String requestMailDeliveryStats(String origin, String destination, String priority){
+		return origin + "_" + destination + "_" + priority;
+	}
 }
