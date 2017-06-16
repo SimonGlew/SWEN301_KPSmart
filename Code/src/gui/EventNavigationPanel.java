@@ -28,19 +28,19 @@ public class EventNavigationPanel extends JPanel {
 	}
 
 	private void initPanel() {
-		setPreferredSize(new Dimension(450, 476));
+		setPreferredSize(new Dimension(586, 546));
 		setBackground(UIManager.getColor("Panel.background"));
 
 		JLabel titleLabel = new JLabel("Event Navigation");
-		titleLabel.setBounds(10, 11, 430, 40);
+		titleLabel.setBounds(10, 11, 566, 40);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.setBounds(330, 425, 110, 40);
+		btnNext.setBounds(466, 495, 110, 40);
 		
 		JButton button = new JButton("Previous");
-		button.setBounds(10, 425, 110, 40);
+		button.setBounds(10, 495, 110, 40);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -51,17 +51,17 @@ public class EventNavigationPanel extends JPanel {
 		eventDetailsLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		eventDetailsPanel = new JPanel();
-		eventDetailsPanel.setBounds(20, 90, 408, 188);
+		eventDetailsPanel.setBounds(20, 90, 545, 258);
 		
 		JLabel businessFiguresLabel = new JLabel("Business Figures");
-		businessFiguresLabel.setBounds(20, 289, 134, 20);
+		businessFiguresLabel.setBounds(20, 359, 134, 20);
 		businessFiguresLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JPanel busFigsPanel = new JPanel();
-		busFigsPanel.setBounds(20, 315, 408, 99);
+		busFigsPanel.setBounds(20, 385, 545, 99);
 		
 		JLabel eventNumberLabel = new JLabel("0/0");
-		eventNumberLabel.setBounds(207, 438, 40, 14);
+		eventNumberLabel.setBounds(130, 508, 326, 14);
 		eventNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label = new JLabel("Total Revenue");
