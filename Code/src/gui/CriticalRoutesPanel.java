@@ -24,7 +24,7 @@ public class CriticalRoutesPanel extends JPanel {
 	private ArrayList<ArrayList<String>> criticalRoutes;
 	
 	private final String[] header = new String[] {
-			"Origin", "Destination", "Company", "Priority", "Average Difference (Per Item)"
+			"Origin", "Destination", "Priority", "Company", "Average Difference (Per Item)"
 		};
 
 	public CriticalRoutesPanel() {
@@ -80,7 +80,6 @@ public class CriticalRoutesPanel extends JPanel {
 	
 	public void updateCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes) {
 		this.criticalRoutes = criticalRoutes;
-		System.out.println("Critical routes has been given");
 		updateTable();
 	}
 }
