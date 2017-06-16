@@ -15,7 +15,7 @@ public class ClientParser {
 
 	public void parseMessage(Packet p){
 		if(p.getType().equals(Codes.ServerAccountingFigures)){
-			parseBusinessFigures(p);
+			parseBusinessFigures(p);			
 		}else if(p.getType().equals(Codes.ServerMailDeliveryRoutes)){
 			parseMailDeliveryRoutes(p);
 		}else if(p.getType().equals(Codes.ServerNewRoute) || p.getType().equals(Codes.ServerRouteList)){
@@ -80,7 +80,7 @@ public class ClientParser {
 			double weight = Double.parseDouble(eventArray[8]);
 			double kpsCost = Double.parseDouble(eventArray[9]);
 			double routeCost = Double.parseDouble(eventArray[10]);
-			int hours = Integer.parseInt(eventArray[11]);
+			int hours = (int)Double.parseDouble(eventArray[11]);
 			
 			controller.notifyLogMailDelivery(id, username, date, day, from, to, priority, volume, weight, kpsCost, routeCost, hours, expenditure, revenue, numEvents, next, prev);
 			
