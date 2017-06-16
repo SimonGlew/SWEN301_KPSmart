@@ -15,4 +15,8 @@ public class CriticalRoute {
 		this.company = company;
 		this.priceDiff = priceDiff;
 	}
+	
+	public String toString(){
+		return (this.from + "," + this.to + "," + this.priority + "," + this.company + "," + this.priceDiff);
+	}
 }
