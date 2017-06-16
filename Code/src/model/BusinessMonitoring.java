@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import storage.BusinessEvent;
 import storage.KpsDatabase;
 import storage.MailDelivery;
 
@@ -168,6 +169,16 @@ public class BusinessMonitoring {
 		}		
 		System.out.println(criticalRoutes.size());
 		return criticalRoutes;
+	}
+	
+	public NavigationItem getNavigationItem(int eventID){
+		List<BusinessEvent> events = database.getBusinessEvents();
+		for(int i = 0; i < events.size(); i++){
+			if(events.get(i).getId() == eventID){
+				return new NavigationItem(events.get(i), 10, 10, i > 0, i < events.size() - 1, events.size());
+			}
+		}
+		return null;
 	}
 	
 }
