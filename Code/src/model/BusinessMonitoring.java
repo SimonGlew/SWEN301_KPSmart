@@ -173,6 +173,9 @@ public class BusinessMonitoring {
 	
 	public NavigationItem getNavigationItem(int eventID){
 		List<BusinessEvent> events = database.getBusinessEvents();
+		if(eventID == -1){
+			return new NavigationItem(events.get(events.size()-1), 10, 10, events.size() > 1, false, events.size());
+		}
 		for(int i = 0; i < events.size(); i++){
 			if(events.get(i).getId() == eventID){
 				return new NavigationItem(events.get(i), 10, 10, i > 0, i < events.size() - 1, events.size());
