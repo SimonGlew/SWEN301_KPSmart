@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,6 +34,8 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 	private JComboBox<String> destComboBox;
 	private JComboBox<String> prioComboBox;
 	private JTextField weightTextField;
+	private JLabel weightErrorLabel;
+	private JLabel volumeErrorLabel;
 	private JTextField volumeTextField;
 	private Gui gui;
 	private JRadioButton cheap;
@@ -41,6 +45,7 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 	private String priority;
 	private double fastCost, fastRouteCost, fastTime;
 	private double cheapCost, cheapRouteCost, cheapTime;
+	private JLabel submitErrorLabel;
 
 	public MailCreationPanel(ClientController controller, Gui gui) {
 		this.controller = controller;
@@ -84,7 +89,7 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		JLabel priorityLabel = new JLabel("Priority");
 		priorityLabel.setForeground(Color.DARK_GRAY);
 		priorityLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		priorityLabel.setBounds(30, 164, 82, 26);
+		priorityLabel.setBounds(30, 170, 82, 26);
 		add(priorityLabel);
 
 		prioComboBox = new JComboBox<String>();
@@ -92,34 +97,74 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 				new String[] { Codes.Priorities.InternationalAir , Codes.Priorities.InternationalStandard, Codes.Priorities.DomesticAir, Codes.Priorities.DomesticStandard }));
 		prioComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		prioComboBox.setEditable(false);
-		prioComboBox.setBounds(150, 164, 170, 26);
+		prioComboBox.setBounds(150, 170, 170, 26);
 		add(prioComboBox);
 
 		JLabel weightLabel = new JLabel("Weight");
 		weightLabel.setForeground(Color.DARK_GRAY);
 		weightLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		weightLabel.setBounds(30, 211, 82, 26);
+		weightLabel.setBounds(30, 222, 82, 26);
 		add(weightLabel);
 
 		weightTextField = new JTextField();
+		weightTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				 checkWeight();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});;
 		weightTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		weightTextField.setBounds(150, 211, 170, 26);
+		weightTextField.setBounds(150, 222, 170, 26);
 		add(weightTextField);
 
 		JLabel volumeLabel = new JLabel("Volume");
 		volumeLabel.setForeground(Color.DARK_GRAY);
 		volumeLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeLabel.setBounds(30, 255, 82, 26);
+		volumeLabel.setBounds(30, 273, 82, 26);
 		add(volumeLabel);
 
 		volumeTextField = new JTextField();
+		volumeTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				 checkVolume();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeTextField.setBounds(150, 255, 170, 26);
+		volumeTextField.setBounds(150, 273, 170, 26);
 		add(volumeTextField);
 
 		JButton submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		submitButton.setBounds(150, 300, 108, 31);
+		submitButton.setBounds(150, 322, 108, 31);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -139,6 +184,24 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
+		
+		weightErrorLabel = new JLabel("");
+		weightErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		weightErrorLabel.setForeground(Color.RED);
+		weightErrorLabel.setBounds(150, 248, 170, 14);
+		add(weightErrorLabel);
+		
+		volumeErrorLabel = new JLabel("");
+		volumeErrorLabel.setForeground(Color.RED);
+		volumeErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		volumeErrorLabel.setBounds(150, 299, 170, 14);
+		add(volumeErrorLabel);
+		
+		submitErrorLabel = new JLabel("");
+		submitErrorLabel.setForeground(Color.RED);
+		submitErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		submitErrorLabel.setBounds(150, 352, 170, 14);
+		add(submitErrorLabel);
 	}
 
 	public void showDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {
@@ -163,17 +226,17 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		header.setForeground(Color.DARK_GRAY);
 		header.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		header.setBounds(180, 10, 300, 20);
-		option.add(header);
+		option.getContentPane().add(header);
 
 		JLabel cheapD = new JLabel("Cost ($)");
 		cheapD.setForeground(Color.DARK_GRAY);
 		cheapD.setBounds(250, 45, 100, 20);
-		option.add(cheapD);
+		option.getContentPane().add(cheapD);
 
 		JLabel time = new JLabel("Time (hrs)");
 		time.setForeground(Color.DARK_GRAY);
 		time.setBounds(380, 45, 100, 20);
-		option.add(time);
+		option.getContentPane().add(time);
 
 
 		JPanel option1 = new JPanel();
@@ -198,7 +261,7 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		cheap.addActionListener(this);
 		option1.add(cheap);
 
-		option.add(option1);
+		option.getContentPane().add(option1);
 
 		JPanel option2 = new JPanel();
 		option2.setBounds(15, 120, 590, 40);
@@ -222,12 +285,12 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		fast.addActionListener(this);
 		option2.add(fast);
 
-		option.add(option2);
+		option.getContentPane().add(option2);
 
 		submitOption = new JButton("Submit");
 		submitOption.setBounds(260, 180, 100, 30);
 		submitOption.addActionListener(this);
-		option.add(submitOption);
+		option.getContentPane().add(submitOption);
 
 		option.setVisible(true);
 	}
@@ -261,6 +324,20 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 			}
 		}
 	}
-
-
+	
+	private void checkWeight() {
+		if (isValidNumber(weightTextField.getText())) {
+			weightErrorLabel.setText("");
+		} else {
+			weightErrorLabel.setText("Invalid weight");
+		}
+	}
+	
+	private void checkVolume() {
+		if (isValidNumber(volumeTextField.getText())) {
+			volumeErrorLabel.setText("");
+		} else {
+			volumeErrorLabel.setText("Invalid volume");
+		}
+	}
 }
