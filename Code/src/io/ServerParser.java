@@ -200,7 +200,7 @@ public class ServerParser {
 		
 		String origin = (s[0].equals("All")) ? null : s[0];
 		String destination = (s[1].equals("All")) ? null : s[1];;
-		int priority = (s[2].equals("All")) ? 0 : Integer.parseInt(s[2]);
+		int priority = (s[2].equals("All")) ? 0 : parsePriority(s[2]);
 		
 		BusinessMonitoring m = this.model.getBusinessMonitor();
 		
