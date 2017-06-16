@@ -98,6 +98,11 @@ public class ClientController {
 		Packet p = new Packet(Codes.MailDeliveryStats, null, ClientStringBuilder.requestMailDeliveryStats(origin, destination, priority));		
 		this.c.sendMessage(p);
 	}
+	
+	public void requestEventLog(int number){
+		Packet p = new Packet(Codes.EventLog, null, String.valueOf(number));
+		this.c.sendMessage(p);	
+	}
 
 	
 	public void requestCriticalRoutes(){

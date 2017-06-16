@@ -46,6 +46,8 @@ public class Codes {
 	public static String ServerAccountingFigures = "ACCOUNTING.FIGURES";
 	public static String MailDeliveryStats = "MAIL.STATS";
 	public static String CriticalRoutes = "CRITICAL.ROUTES";
+	
+	public static String EventLog = "GET.EVENT.LOG";
 
 	
 	public static String GUIMailDelivery = "Mail Delivery";
@@ -57,6 +59,7 @@ public class Codes {
 	public static String GUIConfirmationMadeCustomerRoute = "Made new Route through customer update";
 	public static String GUIServerFailedMailDeliveryRoutes = "No routes were found";
 	public static String GUIDiscontinueRouteInvalid = "No route was found to discontinue";
+	public static String GUIInvalidLogin = "Invalid Login";
 	
 	public static class Priorities{
 		public static String InternationalAir = "International Air";
