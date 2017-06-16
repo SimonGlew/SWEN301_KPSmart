@@ -340,4 +340,9 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 			return false;
 		}
 	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

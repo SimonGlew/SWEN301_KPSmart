@@ -31,7 +31,7 @@ public class HomePanel extends JPanel {
 	private ArrayList<JPanel> panels;
 
 	public MailCreationPanel mail;
-	public TransportCostPanel tansportCost;
+	public TransportCostPanel transportCost;
 	public TransportDiscontinuePanel transportDisc;
 	public CustomerPricePanel customerPrice;
 
@@ -43,7 +43,7 @@ public class HomePanel extends JPanel {
 
 	public void update(){
 		mail.update();
-		tansportCost.update();
+		transportCost.update();
 		transportDisc.update();
 		customerPrice.update();
 	}
@@ -209,7 +209,7 @@ public class HomePanel extends JPanel {
 		panelBody = new JPanel(layoutPanelBody);
 
 		mail = new MailCreationPanel(this.controller, gui);
-		tansportCost = new TransportCostPanel(this.controller);
+		transportCost = new TransportCostPanel(this.controller);
 		transportDisc = new TransportDiscontinuePanel(this.controller);
 		customerPrice = new CustomerPricePanel(this.controller);
 
@@ -217,7 +217,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");
 		panelBody.add(customerPrice, "CUSTOMER_PRICE");
-		panelBody.add(tansportCost, "TRANSPORT_COST");
+		panelBody.add(transportCost, "TRANSPORT_COST");
 		panelBody.add(transportDisc, "TRANSPORT_DISC");
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
 		panelBody.add(new MailStatisticsPanel(), "MAIL_STATISTICS");

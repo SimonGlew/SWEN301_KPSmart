@@ -251,4 +251,9 @@ public class CustomerPricePanel extends EventCreationPanel{
 			return false;
 		}
 	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

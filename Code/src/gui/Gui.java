@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import io.Codes;
 import serverclient.ClientController;
 
 /**
@@ -75,6 +76,18 @@ public class Gui{
 	
 	public void eventSuccessfull(String string){
 		JOptionPane.showMessageDialog(frame, "Event: " + string + " successfully logged");
+		if(string.equals(Codes.GUICustomerPriceUpdate) 
+				|| string.equals(Codes.GUIUpdatedCustomerRoute) 
+				|| string.equals(Codes.GUIConfirmationMadeCustomerRoute)){
+			homePanel.customerPrice.clear();			
+		}else if(string.equals(Codes.GUIUpdatedRoute) ||
+				string.equals(Codes.GUIConfirmationMadeRoute)){
+				homePanel.transportCost.clear();
+		}else if(string.equals(Codes.GUIMailDelivery)){
+			homePanel.mail.clear();
+		}else if(string.equals(Codes.GUIDiscontinueRoute)){
+			homePanel.transportDisc.clear();
+		}
 	}
 	
 	public void eventFailed(String string){

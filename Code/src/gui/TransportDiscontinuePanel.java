@@ -109,4 +109,9 @@ public class TransportDiscontinuePanel extends EventCreationPanel{
 		titleLabel.setBounds(100, 11, 405, 31);
 		add(titleLabel);
 	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

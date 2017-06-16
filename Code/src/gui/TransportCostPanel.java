@@ -232,4 +232,10 @@ public class TransportCostPanel extends EventCreationPanel{
 		add(titleLabel);
 	}
 
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
