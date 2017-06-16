@@ -173,7 +173,7 @@ public class EventNavigationPanel extends JPanel {
 	public void updateBusinessFigures(double revenue, double expenditure, int id, String user, int numEvents, boolean next, boolean prev, String d){
 		currentIndex = id;
 		username.setText("User Logged: " + user);
-		eventNumberLabel.setText(id-1 + "/" + numEvents);
+		eventNumberLabel.setText(id + "/" + numEvents);
 		revLabel.setText(revenue + "");
 		expLabel.setText(expenditure + "");
 		date.setText("Date Logged: " + parseDate(d));

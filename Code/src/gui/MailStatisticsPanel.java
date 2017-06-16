@@ -110,7 +110,7 @@ public class MailStatisticsPanel extends JPanel {
 		JLabel volumeTitleLabel = new JLabel("Total Volume:");
 		volumeTitleLabel.setForeground(Color.DARK_GRAY);
 		volumeTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeTitleLabel.setBounds(71, 299, 93, 26);
+		volumeTitleLabel.setBounds(71, 350, 93, 26);
 		add(volumeTitleLabel);
 
 		volumeLabel = new JLabel("0.00");
