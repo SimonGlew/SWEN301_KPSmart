@@ -34,6 +34,7 @@ public class HomePanel extends JPanel {
 	public TransportCostPanel transportCost;
 	public TransportDiscontinuePanel transportDisc;
 	public CustomerPricePanel customerPrice;
+	public JScrollPane scrollPaneManager;
 	
 	public JButton criticalRoutesButton;
 	public JButton eventNavButton;
@@ -134,8 +135,9 @@ public class HomePanel extends JPanel {
 		mailStatsButton.addActionListener(e -> showPanel("MAIL_STATISTICS"));
 		panelKeyFigures.add(mailStatsButton);
 
-		JScrollPane scrollPaneManager = new JScrollPane();
+		scrollPaneManager = new JScrollPane();
 		scrollPaneManager.setBorder(new TitledBorder(null, "Managers Panel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		scrollPaneManager.setVisible(false);
 		
 		JPanel panelManager = new JPanel();
 		scrollPaneManager.setViewportView(panelManager);
@@ -176,7 +178,7 @@ public class HomePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				username.setText("Not Logged");
-				gui.loginFail();
+				gui.logout();
 			}
 		});
 
@@ -227,7 +229,6 @@ public class HomePanel extends JPanel {
 		transportDisc = new TransportDiscontinuePanel(this.controller);
 		customerPrice = new CustomerPricePanel(this.controller);
 
-
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");
 		panelBody.add(customerPrice, "CUSTOMER_PRICE");
@@ -243,7 +244,7 @@ public class HomePanel extends JPanel {
 	 * Switch the body panel
 	 * @param name
 	 */
-	private void showPanel(String name) {
+	public void showPanel(String name) {
 		layoutPanelBody.show(panelBody, name);
 	}
 }

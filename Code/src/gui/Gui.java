@@ -40,11 +40,9 @@ public class Gui{
 		String manager = "";
 		if(controller.getManager()){
 			manager = "(Manger) ";
-			homePanel.criticalRoutesButton.setEnabled(true);
-			homePanel.eventNavButton.setEnabled(true);
+			homePanel.scrollPaneManager.setVisible(true);
 		}else{
-			homePanel.criticalRoutesButton.setEnabled(false);
-			homePanel.eventNavButton.setEnabled(false);
+			homePanel.scrollPaneManager.setVisible(false);
 		}
 		homePanel.username.setText("Logged In: " + manager + passwordDialog.usernameField.getText());
 		passwordDialog.loginBox.dispose();
@@ -57,7 +55,13 @@ public class Gui{
 	}
 
 	public void logout(){
-		passwordDialog = new LoginDialog(this);
+		homePanel.scrollPaneManager.setVisible(false);
+		homePanel.showPanel("PLACE_HOLDER");
+		homePanel.customerPrice.clear();	
+		homePanel.transportCost.clear();
+		homePanel.mail.clear();
+		homePanel.transportDisc.clear();
+		passwordDialog.reset();
 	}
 
 	private void frameSetup(){
