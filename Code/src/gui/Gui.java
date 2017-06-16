@@ -42,6 +42,7 @@ public class Gui{
 	}
 
 	public void loginFail(){
+		JOptionPane.showMessageDialog(frame, "Failed Login: Try Again");
 		passwordDialog.reset();
 	}
 
