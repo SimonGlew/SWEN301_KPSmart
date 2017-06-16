@@ -52,7 +52,7 @@ public class ServerStringBuilder {
 	
 	public static String makeEventLogString(NavigationItem event){
 		String finalString = "";
-		String businessEvent = event.event.getId() + "," + event.event.getUsername() + "," + event.event.getDateyymmddhhmmss();
+		String businessEvent = event.event.getId() + "," + event.event.getUsername() + "," + event.event.getDateyymmddhhmmss() + ",";
 		if(event.event instanceof MailDelivery){
 			MailDelivery e = (MailDelivery)event.event;
 			businessEvent += (e.getDay() + "," + e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getVolume() + "," + e.getWeight() + "," + e.getKpsCost() + "," + e.getRouteCost() + "," + e.getHours());
@@ -71,7 +71,7 @@ public class ServerStringBuilder {
 					days += "%";
 				}
 			}
-			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getWeightCost() + "," + e.getVolumeCost() + "," + e.getMaxWeight() + "," + e.getMaxVolume() + "," + e.getDuration() + "," + e.getFrequency() + "," + days);
+			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getWeightCost() + "," + e.getVolumeCost() + "," + e.getMaxWeight() + "," + e.getMaxVolume() + "," + (int)e.getDuration() + "," + e.getFrequency() + "," + days);
 			finalString = Codes.LogTransportUpdate + "_" + businessEvent;
 			
 
@@ -81,7 +81,7 @@ public class ServerStringBuilder {
 			finalString = Codes.LogTransportDiscontinue + "_" + businessEvent;
 		}
 		
-		finalString += (String.valueOf(event.expenditure) + String.valueOf(event.revenue) + String.valueOf(event.numEvents) + String.valueOf(event.next) + String.valueOf(event.prev));
+		finalString += "_" + (String.valueOf(event.expenditure) + "_" + String.valueOf(event.revenue) + "_" + String.valueOf(event.numEvents) + "_" + String.valueOf(event.next) + "_" + String.valueOf(event.prev));
 		
 		return finalString;
 	}
