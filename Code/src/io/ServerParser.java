@@ -10,6 +10,7 @@ import java.util.Map;
 
 import io.Codes;
 import model.BusinessMonitoring;
+import model.CriticalRoute;
 import model.KpsModel;
 import model.KpsModel.Day;
 import model.Location;
@@ -108,9 +109,20 @@ public class ServerParser {
 	}
 	
 	public Packet parseCriticalRoutes(){
+		
+		BusinessMonitoring m = this.model.getBusinessMonitor();
+
+		List<CriticalRoute> routes = m.getCriticalRoutes();
+		String s = "";
+		for(int i = 0; i < routes.size(); i++){
+			s += routes.get(i).toString();
+			if(i != routes.size() - 1){
+				s+= "_";
+			}
+		}
 
 		//THAT NULL IS GONNA BE THE INFORMATION, DONT KNOW WHAT FORM YOU WANT THO
-		return this.broadcastCriticalRoutes(null);
+		return this.broadcastCriticalRoutes(s);
 	}
 
 	public Packet parseTransportPriceUpdate(Packet p){
@@ -206,7 +218,7 @@ public class ServerParser {
 	}
 	
 	public Packet broadcastCriticalRoutes(String placeholder){
-		return new Packet(Codes.CriticalRoutes, Codes.BroadcastSingle, ServerStringBuilder.makeCriticalRoutesString(placeholder));
+		return new Packet(Codes.CriticalRoutes, Codes.BroadcastSingle, placeholder);
 	}
 
 	public Packet broadcastValidLogin(boolean isManager){

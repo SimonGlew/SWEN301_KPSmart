@@ -1,5 +1,8 @@
 package io;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import serverclient.ClientController;
 import serverclient.Packet;
 
@@ -65,7 +68,17 @@ public class ClientParser {
 	}
 	
 	public void parseCriticalRoutes(Packet p){
+		String[] information = p.getInformation().split("_");
+		ArrayList<ArrayList<String>> criticalRoutes = new ArrayList<ArrayList<String>>();
 		
+		for(int i = 0; i < information.length; i++){
+			criticalRoutes.add(new ArrayList<String>());
+			String[] info = information[i].split(",");
+			for(int z = 0; z < info.length; z++){
+				String in = info[z];
+				criticalRoutes.get(i).add(in);
+			}
+		}
 	}
 	
 	public void parseServerMailDeliveryStats(Packet p){
