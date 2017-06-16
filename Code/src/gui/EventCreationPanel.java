@@ -21,4 +21,13 @@ public abstract class EventCreationPanel extends JPanel {
 			return false;
 		}
 	}
+	
+	/**
+	 * Returns true if str is a valid string input
+	 * @param str
+	 * @return
+	 */
+	protected boolean isValidString(String str) {
+		return false;
+	}
 }
