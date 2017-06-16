@@ -95,7 +95,7 @@ public class MailStatisticsPanel extends JPanel {
 		});
 		add(query);
 
-		JLabel noItemsTitleLabel = new JLabel("Number of Items");
+		JLabel noItemsTitleLabel = new JLabel("Number of Items:");
 		noItemsTitleLabel.setForeground(Color.DARK_GRAY);
 		noItemsTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		noItemsTitleLabel.setBounds(71, 255, 121, 26);
@@ -107,7 +107,7 @@ public class MailStatisticsPanel extends JPanel {
 		noItemsLabel.setBounds(204, 255, 82, 26);
 		add(noItemsLabel);
 
-		JLabel volumeTitleLabel = new JLabel("Total Volume");
+		JLabel volumeTitleLabel = new JLabel("Total Volume:");
 		volumeTitleLabel.setForeground(Color.DARK_GRAY);
 		volumeTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeTitleLabel.setBounds(71, 299, 93, 26);
@@ -119,7 +119,7 @@ public class MailStatisticsPanel extends JPanel {
 		volumeLabel.setBounds(204, 299, 82, 26);
 		add(volumeLabel);
 
-		JLabel weightTitleLabel = new JLabel("Total Weight");
+		JLabel weightTitleLabel = new JLabel("Total Weight:");
 		weightTitleLabel.setForeground(Color.DARK_GRAY);
 		weightTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		weightTitleLabel.setBounds(71, 346, 121, 26);
@@ -131,7 +131,7 @@ public class MailStatisticsPanel extends JPanel {
 		weightLabel.setBounds(204, 346, 82, 26);
 		add(weightLabel);
 
-		JLabel avgTimeTitleLabel = new JLabel("Average Delivery Time");
+		JLabel avgTimeTitleLabel = new JLabel("Average Delivery Time:");
 		avgTimeTitleLabel.setForeground(Color.DARK_GRAY);
 		avgTimeTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		avgTimeTitleLabel.setBounds(71, 393, 170, 26);

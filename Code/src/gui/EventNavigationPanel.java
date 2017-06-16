@@ -32,6 +32,7 @@ public class EventNavigationPanel extends JPanel {
 	public NavTransportDiscontinuePanel transportDisc;
 	public NavCustomerPricePanel customerCost;
 	
+	JLabel eventDetailsLabel;
 	public JLabel revLabel;
 	public JLabel expLabel;
 	public JLabel username;
@@ -70,8 +71,8 @@ public class EventNavigationPanel extends JPanel {
 		date.setBounds(400, 60, 200, 20);
 		add(date);
 
-		JLabel eventDetailsLabel = new JLabel("Event Details");
-		eventDetailsLabel.setBounds(20, 90, 134, 14);
+		eventDetailsLabel = new JLabel("Event Details:");
+		eventDetailsLabel.setBounds(20, 85, 500, 20);
 		eventDetailsLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 
 		JLabel businessFiguresLabel = new JLabel("Business Figures");
@@ -184,23 +185,28 @@ public class EventNavigationPanel extends JPanel {
 	
 	public void updateLogMailDelivery(int id, String username, String date, String day, String from, String to, String priority, double volume, double weight, double kpsCost, double routeCost, int hours, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
 		updateBusinessFigures(revenue, expenditure, id, username, numEvents, next, prev, date);
+		eventDetailsLabel.setText("Event Details: Mail Delivery");
 		mailCreation.update(day, from, to, priority, volume, weight, kpsCost, routeCost, hours);
 		showPanel("MAIL_CREATION");
 	}
 	
 	public void updateLogCustomerUpdate(int id, String username, String date, String from, String to, String priority, double volumeCost, double weightCost, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
+		eventDetailsLabel.setText("Event Details: Customer Price Update");
 		updateBusinessFigures(revenue, expenditure, id, username, numEvents, next, prev, date);
 		customerCost.update(from, to, priority, volumeCost, weightCost);
 		showPanel("CUSTOMER_PRICE");
 	}
 	
 	public void updateLogTransportUpdate(int id, String username, String date, String company, String to, String from, String priority, double weight, double volume, double maxWeight, double maxVolume, int duration, int frequency, List<String> days, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
+		eventDetailsLabel.setText("Event Details: Transport Cost Update");
 		updateBusinessFigures(revenue, expenditure, id, username, numEvents, next, prev, date);
 		transportCost.update(company, to, from, priority, weight, volume, maxWeight, maxVolume, duration, frequency, days);
+		System.out.println("YES");
 		showPanel("TRANSPORT_COST");
 	}
 	
 	public void updateLogTransport(int id, String username, String date, String company, String to, String from, String priority, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
+		eventDetailsLabel.setText("Event Details: Transport Discontinue");
 		updateBusinessFigures(revenue, expenditure, id, username, numEvents, next, prev, date);
 		transportDisc.update(company, to, from, priority);
 		showPanel("TRANSPORT_DISCONTINUE");
