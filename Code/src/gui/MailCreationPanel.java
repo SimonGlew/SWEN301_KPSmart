@@ -139,24 +139,14 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 
 		volumeTextField = new JTextField();
 		volumeTextField.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				 checkVolume();
 			}
-
 			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void keyPressed(KeyEvent arg0) {}
+			@Override
+			public void keyTyped(KeyEvent arg0) {}
 		});
 		volumeTextField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		volumeTextField.setBounds(150, 273, 170, 26);
@@ -192,20 +182,20 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		add(titleLabel);
 		
 		weightErrorLabel = new JLabel("");
-		weightErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		weightErrorLabel.setForeground(Color.RED);
+		weightErrorLabel.setFont(errorFont);
+		weightErrorLabel.setForeground(errorColor);
 		weightErrorLabel.setBounds(150, 248, 170, 14);
 		add(weightErrorLabel);
 		
 		volumeErrorLabel = new JLabel("");
-		volumeErrorLabel.setForeground(Color.RED);
-		volumeErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		volumeErrorLabel.setForeground(errorColor);
+		volumeErrorLabel.setFont(errorFont);
 		volumeErrorLabel.setBounds(150, 299, 170, 14);
 		add(volumeErrorLabel);
 		
 		submitErrorLabel = new JLabel("");
-		submitErrorLabel.setForeground(Color.RED);
-		submitErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		submitErrorLabel.setForeground(errorColor);
+		submitErrorLabel.setFont(errorFont);
 		submitErrorLabel.setBounds(150, 352, 290, 14);
 		add(submitErrorLabel);
 	}

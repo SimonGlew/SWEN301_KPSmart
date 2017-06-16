@@ -1,8 +1,14 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JPanel;
 
 public abstract class EventCreationPanel extends JPanel {
+	
+	protected Font errorFont = new Font("Tahoma", Font.ITALIC, 13);
+	protected Color errorColor = Color.RED;
 
 	// Input validation methods
 	/**
@@ -28,6 +34,10 @@ public abstract class EventCreationPanel extends JPanel {
 	 * @return
 	 */
 	protected boolean isValidString(String str) {
-		return false;
+		if (str.isEmpty()) {
+			return false;
+		} else {
+			return str.matches("[a-zA-Z0-9 ]+");
+		}
 	}
 }
