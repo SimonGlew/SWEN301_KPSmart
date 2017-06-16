@@ -232,7 +232,7 @@ public class ClientController {
 	}
 	
 	public void notifyMailDeliveryStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){
-		
+		g.updateMailStats(numOfItems, totalVolume, totalWeight, avDeliveryTime);
 	}
 	
 	public void notifyCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes){

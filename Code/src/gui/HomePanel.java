@@ -232,7 +232,7 @@ public class HomePanel extends JPanel {
 		transportDisc = new TransportDiscontinuePanel(this.controller);
 		customerPrice = new CustomerPricePanel(this.controller);
 		accounting = new AccountingPanel();
-		mailStatistics = new MailStatisticsPanel();
+		mailStatistics = new MailStatisticsPanel(gui);
 		criticalRoutesPanel = new CriticalRoutesPanel();
 	
 		panelBody.add(new JPanel(), "PLACE_HOLDER");

@@ -124,4 +124,8 @@ public class Gui{
 		homePanel.accounting.updateBusiness(totalRevenue, totalExpenditure, totalNumberOfMailDeliveryEvents, totalNumberOfCustomerPriceUpdateEvents, totalNumberOfTransportCostUpdateEvents, totalNumberOfTransportDiscontinuedEvents);
 		
 	}
+
+	public void updateMailStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime) {
+		homePanel.mailStatistics.update(numOfItems, totalVolume, totalWeight, avDeliveryTime);
+	}
  }
