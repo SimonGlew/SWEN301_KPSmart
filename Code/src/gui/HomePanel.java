@@ -33,6 +33,7 @@ public class HomePanel extends JPanel {
 	public MailCreationPanel mail;
 	public TransportCostPanel transportCost;
 	public TransportDiscontinuePanel transportDisc;
+	public CriticalRoutesPanel criticalRoutesPanel;
 	public CustomerPricePanel customerPrice;
 	public MailStatisticsPanel mailStatistics;
 	public AccountingPanel accounting;
@@ -232,6 +233,7 @@ public class HomePanel extends JPanel {
 		customerPrice = new CustomerPricePanel(this.controller);
 		accounting = new AccountingPanel();
 		mailStatistics = new MailStatisticsPanel();
+		criticalRoutesPanel = new CriticalRoutesPanel();
 	
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");
@@ -240,7 +242,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(transportDisc, "TRANSPORT_DISC");
 		panelBody.add(accounting, "ACCOUNTING");
 		panelBody.add(mailStatistics, "MAIL_STATISTICS");
-		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
+		panelBody.add(criticalRoutesPanel, "CRITICAL_ROUTES");
 		panelBody.add(new EventNavigationPanel(), "EVENT_NAV");
 	}
 
@@ -249,6 +251,10 @@ public class HomePanel extends JPanel {
 	 * @param name
 	 */
 	public void showPanel(String name) {
+		if (name.equals("CRITICAL_ROUTES")) {
+			this.controller.requestCriticalRoutes();
+		}
+		
 		layoutPanelBody.show(panelBody, name);
 	}
 }

@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.UIManager;
 import serverclient.ClientController;
@@ -20,6 +21,11 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class CriticalRoutesPanel extends JPanel {
 	private JTable table;
+	private ArrayList<ArrayList<String>> criticalRoutes;
+	
+	private final String[] header = new String[] {
+			"Origin", "Destination", "Company", "Priority", "Average Difference (Per Item)"
+		};
 
 	public CriticalRoutesPanel() {
 		initPanel();
@@ -49,7 +55,7 @@ public class CriticalRoutesPanel extends JPanel {
 					}
 				) {
 					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, Object.class, String.class
+						String.class, String.class, String.class, String.class, String.class
 					};
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
@@ -58,5 +64,23 @@ public class CriticalRoutesPanel extends JPanel {
 				table.getColumnModel().getColumn(4).setPreferredWidth(154);
 				table.setBounds(10, 73, 629, 149);
 				add(table);
+	}
+	
+	private void updateTable() {
+		DefaultTableModel tableModel = new DefaultTableModel(0,0);
+		tableModel.setColumnIdentifiers(header);
+		table.setModel(tableModel);
+		
+		tableModel.addRow(header);
+		for (ArrayList<String> criticalRoute : criticalRoutes) {
+			String[] row = criticalRoute.toArray(new String[0]);
+			tableModel.addRow(row);
+		}
+	}
+	
+	public void updateCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes) {
+		this.criticalRoutes = criticalRoutes;
+		System.out.println("Critical routes has been given");
+		updateTable();
 	}
 }

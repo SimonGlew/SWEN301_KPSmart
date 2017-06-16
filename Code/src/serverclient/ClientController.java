@@ -236,7 +236,7 @@ public class ClientController {
 	}
 	
 	public void notifyCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes){
-		
+		g.updateCriticalRoutes(criticalRoutes);
 	}
 	
 	public void notifyBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents, int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents, int totalNumberOfTransportDiscontinuedEvents){

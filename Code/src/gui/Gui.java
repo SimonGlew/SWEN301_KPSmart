@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -111,6 +112,10 @@ public class Gui{
 
 	public void giveDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {
 		homePanel.mail.showDeliveryOption(cheapCost, cheapRouteCost, cheapTime, fastestCost, fastestRouteCost, fastestTime);
+	}
+	
+	public void updateCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes) {
+		homePanel.criticalRoutesPanel.updateCriticalRoutes(criticalRoutes);
 	}
 
 	public void updateBusiness(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents,
