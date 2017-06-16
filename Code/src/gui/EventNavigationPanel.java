@@ -50,6 +50,11 @@ public class EventNavigationPanel extends JPanel {
 		setPreferredSize(new Dimension(586, 546));
 		setBackground(UIManager.getColor("Panel.background"));
 
+		eventDetailsPanel = new JPanel();
+		eventDetailsPanel.setBorder(BorderFactory.createEtchedBorder());
+		eventDetailsPanel.setBounds(20, 110, 545, 258);
+		eventDetailsPanel.setLayout(new CardLayout(0, 0));
+		
 		initEventDetails();
 
 		JLabel titleLabel = new JLabel("Event Navigation");
@@ -70,11 +75,7 @@ public class EventNavigationPanel extends JPanel {
 		JLabel eventDetailsLabel = new JLabel("Event Details");
 		eventDetailsLabel.setBounds(20, 90, 134, 14);
 		eventDetailsLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
-		eventDetailsPanel = new JPanel();
-		eventDetailsPanel.setBorder(BorderFactory.createEtchedBorder());
-		eventDetailsPanel.setBounds(20, 110, 545, 258);
-		
+
 		JLabel businessFiguresLabel = new JLabel("Business Figures");
 		businessFiguresLabel.setBounds(20, 380, 134, 20);
 		businessFiguresLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -118,7 +119,6 @@ public class EventNavigationPanel extends JPanel {
 		busFigsPanel.add(expenditureLabel);
 		busFigsPanel.add(expLabel);
 		
-		eventDetailsPanel.setLayout(new CardLayout(0, 0));
 		
 		setLayout(null);
 		add(eventNumberLabel);
