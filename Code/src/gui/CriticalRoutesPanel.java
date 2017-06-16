@@ -24,7 +24,7 @@ public class CriticalRoutesPanel extends JPanel {
 	private ArrayList<ArrayList<String>> criticalRoutes;
 	
 	private final String[] header = new String[] {
-			"Origin", "Destination", "Priority", "Company", "Average Difference (Per Item)"
+			"Origin", "Destination", "Priority", "Company", "Avg Difference"
 		};
 
 	public CriticalRoutesPanel() {
@@ -51,7 +51,7 @@ public class CriticalRoutesPanel extends JPanel {
 						{null, null, null, null, null},
 					},
 					new String[] {
-						"Origin", "Destination", "Company", "New column", "Average Difference (Per Item)"
+						"Origin", "Destination", "Company", "New column", "Avg Difference (Per Item)"
 					}
 				) {
 					Class[] columnTypes = new Class[] {
