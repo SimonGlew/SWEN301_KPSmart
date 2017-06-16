@@ -104,7 +104,8 @@ public class EventNavigationPanel extends JPanel {
 		expLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
 		eventNumberLabel = new JLabel("0/0");
-		eventNumberLabel.setBounds(270, 508, 30, 20);
+		eventNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		eventNumberLabel.setBounds(130, 508, 326, 20);
 
 		btnNext = new JButton("Next");
 		btnNext.setBounds(466, 495, 110, 40);
