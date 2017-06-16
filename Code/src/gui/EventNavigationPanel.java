@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class EventNavigationPanel extends JPanel {
@@ -67,13 +68,15 @@ public class EventNavigationPanel extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(20)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(busFigsPanel, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE)
-						.addComponent(businessFiguresLabel, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-							.addGap(1))
-						.addComponent(eventDetailsLabel, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE))
-					.addGap(22))
+							.addComponent(eventDetailsLabel, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+							.addGap(22))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(eventDetailsPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(busFigsPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+								.addComponent(businessFiguresLabel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap())))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -83,17 +86,42 @@ public class EventNavigationPanel extends JPanel {
 					.addGap(19)
 					.addComponent(eventDetailsLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+					.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(businessFiguresLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(busFigsPanel, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-					.addGap(14)
+					.addComponent(busFigsPanel, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
+		busFigsPanel.setLayout(null);
+		
+		JLabel label = new JLabel("Total Revenue");
+		label.setForeground(Color.DARK_GRAY);
+		label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		label.setBounds(111, 11, 108, 26);
+		busFigsPanel.add(label);
+		
+		JLabel label_1 = new JLabel("Total Expenditure");
+		label_1.setForeground(Color.DARK_GRAY);
+		label_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		label_1.setBounds(111, 58, 121, 26);
+		busFigsPanel.add(label_1);
+		
+		JLabel label_2 = new JLabel("$0.00");
+		label_2.setForeground(Color.BLACK);
+		label_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		label_2.setBounds(243, 58, 45, 26);
+		busFigsPanel.add(label_2);
+		
+		JLabel label_3 = new JLabel("$0.00");
+		label_3.setForeground(Color.BLACK);
+		label_3.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		label_3.setBounds(243, 11, 45, 26);
+		busFigsPanel.add(label_3);
 		eventDetailsPanel.setLayout(new CardLayout(0, 0));
 		setLayout(groupLayout);
 	}

@@ -31,7 +31,6 @@ public class Gui{
 
 	public Gui(ClientController controller){
 		this.controller = controller;
-		this.homePanel = new HomePanel(this, this.controller);
 		frameSetup();
 		passwordDialog = new LoginDialog(this);
 	}
@@ -77,6 +76,8 @@ public class Gui{
 		    } catch (Exception ex) { }
 		}
 
+		this.homePanel = new HomePanel(this, this.controller);
+		
 		frame = new JFrame("KPSmart");
 		frame.setSize(1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
