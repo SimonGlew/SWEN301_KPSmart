@@ -142,8 +142,11 @@ public class Server {
 					}
 
 					if(send.getType().equals(Codes.loginValid)){
+						BusinessMonitoring m = this.model.getBusinessMonitor();
+
 						broadcast(new Packet(Codes.ServerRouteList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getLocations())), this.id);
 						broadcast(new Packet(Codes.ServerCompanyList, Codes.BroadcastSingle, this.parser.getStringFromArrayList(this.model.getCompanies())), this.id);
+						broadcast(this.parser.broadcastBusinessFigures(m.getRevenue(), m.getExpenditure(),  m.getNumberOfMailDelivery(), m.getNumberOfCustomerPriceUpdate(), m.getNumberOfTransportCostUpdate(), m.getNumberOfTransportDiscontinued()), this.id);
 					}
 					
 					if(send.getType().equals(Codes.ConfirmationMailDelivery)){
