@@ -49,10 +49,7 @@ public class EventNavigationPanel extends JPanel {
 	private void initPanel() {
 		setPreferredSize(new Dimension(586, 546));
 		setBackground(UIManager.getColor("Panel.background"));
-		
-		JPanel panelHeader = new JPanel();
-		JPanel panelSide = new JPanel();
-		
+
 		initEventDetails();
 
 		JLabel titleLabel = new JLabel("Event Navigation");
