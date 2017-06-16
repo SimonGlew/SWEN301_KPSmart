@@ -14,6 +14,7 @@ import model.CriticalRoute;
 import model.KpsModel;
 import model.KpsModel.Day;
 import model.Location;
+import model.NavigationItem;
 import model.Route;
 
 public class ServerParser {
@@ -80,7 +81,8 @@ public class ServerParser {
 	public Packet parseEventLog(Packet p){
 		int eventID = Integer.parseInt(p.getInformation());
 		
-		return this.broadcastEventLog(null);
+		NavigationItem item = this.model.getBusinessMonitor().getNavigationItem(eventID);
+		return this.broadcastEventLog(item);
 	}
 
 	public Packet parseClientGetRoutesMailDelivery(Packet p){
@@ -221,7 +223,7 @@ public class ServerParser {
 		return 4;
 	}
 	
-	public Packet broadcastEventLog(Object event){
+	public Packet broadcastEventLog(NavigationItem event){
 		return new Packet(Codes.EventLog, Codes.BroadcastSingle, ServerStringBuilder.makeEventLogString(event));
 	}
 	

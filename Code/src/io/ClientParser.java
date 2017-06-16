@@ -54,7 +54,73 @@ public class ClientParser {
 	}
 	
 	public void parseEventLog(Packet p){
+		String[] s = p.getInformation().split("_");
 		
+		String eventType = s[0];
+		String event = s[1];
+		double expenditure = Double.parseDouble(s[2]);
+		double revenue = Double.parseDouble(s[3]);
+		int numEvents = Integer.parseInt(s[4]);
+		boolean next = Boolean.parseBoolean(s[5]);
+		boolean prev = Boolean.parseBoolean(s[6]);
+				
+		String[] eventArray = event.split(",");
+		
+		int id = Integer.parseInt(eventArray[0]);
+		String username = eventArray[1];
+		String date = eventArray[2];
+		
+		if(eventType.equals(Codes.LogMailDelivery)){			
+			String day = eventArray[3];
+			String from = eventArray[4];
+			String to = eventArray[5];
+			String priority = eventArray[6];
+			double volume = Double.parseDouble(eventArray[7]);
+			double weight = Double.parseDouble(eventArray[8]);
+			double kpsCost = Double.parseDouble(eventArray[9]);
+			double routeCost = Double.parseDouble(eventArray[10]);
+			int hours = Integer.parseInt(eventArray[11]);
+			
+			controller.notifyLogMailDelivery(id, username, date, day, from, to, priority, volume, weight, kpsCost, routeCost, hours, expenditure, revenue, numEvents, next, prev);
+			
+		}else if(eventType.equals(Codes.LogCustomerUpdate)){
+			String from = eventArray[3];
+			String to = eventArray[4];
+			String priority = eventArray[5];
+			double volumeCost = Double.parseDouble(eventArray[6]);
+			double weightCost = Double.parseDouble(eventArray[7]);
+			
+			controller.notifyLogCustomerUpdate(id, username, date, from, to, priority, volumeCost, weightCost, expenditure, revenue, numEvents, next, prev);
+			
+		}else if(eventType.equals(Codes.LogTransportUpdate)){			
+			String company = eventArray[3];
+			String to = eventArray[4];
+			String from = eventArray[5];
+			String priority = eventArray[6];
+			double weight = Double.parseDouble(eventArray[7]);
+			double volume = Double.parseDouble(eventArray[8]);
+			double maxWeight = Double.parseDouble(eventArray[9]);
+			double maxVolume = Double.parseDouble(eventArray[10]);
+			int duration = Integer.parseInt(eventArray[11]);
+			int frequency = Integer.parseInt(eventArray[12]);
+			
+			List<String> days = new ArrayList<String>();
+			String[] d = eventArray[13].split("%");
+			for(int i = 0; i < d.length; i++){
+				days.add(d[i]);
+			}
+			
+			controller.notifyLogTransportUpdate(id, username, date, company, to, from, priority, weight, volume, maxWeight, maxVolume, duration, frequency, days, expenditure, revenue, numEvents, next, prev);
+			
+		}else if(eventType.equals(Codes.LogTransportDiscontinue)){			
+			String company = eventArray[3];
+			String to = eventArray[4];
+			String from = eventArray[5];
+			String priority = eventArray[6];
+			
+			controller.notifyLogTransport(id, username, date, company, to, from, priority, expenditure, revenue, numEvents, next, prev);
+		}
+			
 	}
 
 	public void parseBusinessFigures(Packet p){

@@ -4,12 +4,12 @@ import storage.BusinessEvent;
 
 public class NavigationItem {
 	
-	BusinessEvent event;
-	double revenue;
-	double expenditure;
-	boolean prev;
-	boolean next;
-	int numEvents;
+	public BusinessEvent event;
+	public double revenue;
+	public double expenditure;
+	public boolean prev;
+	public boolean next;
+	public int numEvents;
 	
 	public NavigationItem(BusinessEvent event, double revenue, double expenditure, boolean prev, boolean next, int numEvents){
 		this.event = event;

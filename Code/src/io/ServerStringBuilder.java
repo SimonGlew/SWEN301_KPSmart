@@ -3,7 +3,14 @@ package io;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.CustomerPricePanel;
+import model.KpsModel;
 import model.Location;
+import model.NavigationItem;
+import storage.CustomerPriceUpdate;
+import storage.MailDelivery;
+import storage.TransportCostUpdate;
+import storage.TransportDiscontinued;
 
 public class ServerStringBuilder {
 
@@ -42,8 +49,51 @@ public class ServerStringBuilder {
 		return s;
 	}
 	
-	public static String makeEventLogString(Object event){
-		return "";
+	public static String getPriorityFromInt(int priority){
+		if(priority == 1){
+			return Codes.Priorities.InternationalAir;
+		}else if(priority == 2){
+			return Codes.Priorities.InternationalStandard;
+		}else if(priority == 3){
+			return Codes.Priorities.DomesticStandard;
+		}
+		return Codes.Priorities.DomesticAir;
+	}
+	
+	public static String makeEventLogString(NavigationItem event){
+		String finalString = "";
+		String businessEvent = event.event.getId() + "," + event.event.getUsername() + "," + event.event.getDateyymmddhhmmss();
+		if(event.event instanceof MailDelivery){
+			MailDelivery e = (MailDelivery)event.event;
+			businessEvent += (e.getDay() + "," + e.getFrom() + "," + e.getTo() + "," + getPriorityFromInt(e.getPriority()) + "," + e.getVolume() + "," + e.getWeight() + "," + e.getKpsCost() + "," + e.getRouteCost() + "," + e.getHours());
+			finalString = Codes.LogMailDelivery + "_" + businessEvent;
+			 
+		}else if(event.event instanceof CustomerPriceUpdate){
+			CustomerPriceUpdate e = (CustomerPriceUpdate)event.event;
+			businessEvent += (e.getFrom() + "," + e.getTo() + "," + getPriorityFromInt(e.getPriority()) + e.getVolumeCost() + "," + e.getWeightCost());
+			finalString = Codes.LogCustomerUpdate + "_" + businessEvent;
+		}else if(event.event instanceof TransportCostUpdate){
+			TransportCostUpdate e = (TransportCostUpdate)event.event;
+			String days = "";
+			for(int i = 0; i < e.getDays().size(); i ++){
+				days += e.getDays().get(i);
+				if(i != e.getDays().size() - 1){
+					days += "%";
+				}
+			}
+			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + getPriorityFromInt(e.getPriority()) + "," + e.getWeightCost() + "," + e.getVolumeCost() + "," + e.getMaxWeight() + "," + e.getMaxVolume() + "," + e.getDuration() + "," + e.getFrequency() + "," + days);
+			finalString = Codes.LogTransportUpdate + "_" + businessEvent;
+			
+
+		}else if(event.event instanceof TransportDiscontinued){
+			TransportDiscontinued e = (TransportDiscontinued)event.event;
+			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + getPriorityFromInt(e.getPriority()));
+			finalString = Codes.LogTransportDiscontinue + "_" + businessEvent;
+		}
+		
+		finalString += (String.valueOf(event.expenditure) + String.valueOf(event.revenue) + String.valueOf(event.numEvents) + String.valueOf(event.next) + String.valueOf(event.prev));
+		
+		return finalString;
 	}
 	
 	public static String makeMailDeliveryStatsString(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){

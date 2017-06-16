@@ -215,7 +215,6 @@ public class ClientController {
 		g.giveDeliveryOption(cheapCost, cheapRouteCost, cheapTime, fastestCost, fastestRouteCost, fastestTime);
 	}
 	
-
 	public void notifyLogMailDelivery(int id, String username, String date, String day, String from, String to, String priority, double volume, double weight, double kpsCost, double routeCost, int hours, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
 		
 	}
