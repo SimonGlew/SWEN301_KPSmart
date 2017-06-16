@@ -6,12 +6,14 @@ public class NavTransportDiscontinuePanel extends EventCreationPanel{
 		initPanel();
 	}
 	
-	public void update(){
+	public void update(String company, String to, String from, String priority){
 		
 	}
 
 	private void initPanel() {
 		setBounds(0, 0, 525, 268);
+		
+		
 		
 	}
 }

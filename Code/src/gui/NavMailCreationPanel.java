@@ -6,7 +6,7 @@ public class NavMailCreationPanel extends EventCreationPanel{
 		initPanel();
 	}
 	
-	public void update(){
+	public void update(String date, String day, String from, String to, double volume, double weight, double kpsCost, double routeCost, int hours){
 		
 	}
 

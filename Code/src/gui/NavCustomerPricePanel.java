@@ -6,7 +6,7 @@ public class NavCustomerPricePanel extends EventCreationPanel{
 		initPanel();
 	}
 	
-	public void update(){
+	public void update(String from, String to, String priority, double volumeCost, double weightCost){
 		
 	}
 

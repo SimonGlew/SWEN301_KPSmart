@@ -244,7 +244,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(accounting, "ACCOUNTING");
 		panelBody.add(mailStatistics, "MAIL_STATISTICS");
 		panelBody.add(criticalRoutesPanel, "CRITICAL_ROUTES");
-		panelBody.add(new EventNavigationPanel(), "EVENT_NAV");
+		panelBody.add(eventNavigation, "EVENT_NAV");
 	}
 
 	/**
