@@ -6,9 +6,9 @@ public class test {
 
 	public test(){
 		JFrame frame = new JFrame();
-		frame.setSize(1000, 800);
+		frame.setSize(525, 268);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new NavTransportDiscontinuePanel());
+		frame.add(new NavMailCreationPanel());
 		frame.setVisible(true);
 	}
 	
