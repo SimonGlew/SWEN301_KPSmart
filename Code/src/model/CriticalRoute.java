@@ -1,5 +1,7 @@
 package model;
 
+import io.ServerParser;
+
 public class CriticalRoute {
 
 	String from;
@@ -17,6 +19,6 @@ public class CriticalRoute {
 	}
 	
 	public String toString(){
-		return (this.from + "," + this.to + "," + this.priority + "," + this.company + "," + this.priceDiff);
+		return (this.from + "," + this.to + "," + ServerParser.getPriorityFromInt(this.priority) + "," + this.company + "," + this.priceDiff);
 	}
 }

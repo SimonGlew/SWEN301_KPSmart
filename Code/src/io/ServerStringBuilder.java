@@ -49,28 +49,18 @@ public class ServerStringBuilder {
 		return s;
 	}
 	
-	public static String getPriorityFromInt(int priority){
-		if(priority == 1){
-			return Codes.Priorities.InternationalAir;
-		}else if(priority == 2){
-			return Codes.Priorities.InternationalStandard;
-		}else if(priority == 3){
-			return Codes.Priorities.DomesticStandard;
-		}
-		return Codes.Priorities.DomesticAir;
-	}
 	
 	public static String makeEventLogString(NavigationItem event){
 		String finalString = "";
 		String businessEvent = event.event.getId() + "," + event.event.getUsername() + "," + event.event.getDateyymmddhhmmss();
 		if(event.event instanceof MailDelivery){
 			MailDelivery e = (MailDelivery)event.event;
-			businessEvent += (e.getDay() + "," + e.getFrom() + "," + e.getTo() + "," + getPriorityFromInt(e.getPriority()) + "," + e.getVolume() + "," + e.getWeight() + "," + e.getKpsCost() + "," + e.getRouteCost() + "," + e.getHours());
+			businessEvent += (e.getDay() + "," + e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getVolume() + "," + e.getWeight() + "," + e.getKpsCost() + "," + e.getRouteCost() + "," + e.getHours());
 			finalString = Codes.LogMailDelivery + "_" + businessEvent;
 			 
 		}else if(event.event instanceof CustomerPriceUpdate){
 			CustomerPriceUpdate e = (CustomerPriceUpdate)event.event;
-			businessEvent += (e.getFrom() + "," + e.getTo() + "," + getPriorityFromInt(e.getPriority()) + e.getVolumeCost() + "," + e.getWeightCost());
+			businessEvent += (e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + e.getVolumeCost() + "," + e.getWeightCost());
 			finalString = Codes.LogCustomerUpdate + "_" + businessEvent;
 		}else if(event.event instanceof TransportCostUpdate){
 			TransportCostUpdate e = (TransportCostUpdate)event.event;
@@ -81,13 +71,13 @@ public class ServerStringBuilder {
 					days += "%";
 				}
 			}
-			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + getPriorityFromInt(e.getPriority()) + "," + e.getWeightCost() + "," + e.getVolumeCost() + "," + e.getMaxWeight() + "," + e.getMaxVolume() + "," + e.getDuration() + "," + e.getFrequency() + "," + days);
+			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getWeightCost() + "," + e.getVolumeCost() + "," + e.getMaxWeight() + "," + e.getMaxVolume() + "," + e.getDuration() + "," + e.getFrequency() + "," + days);
 			finalString = Codes.LogTransportUpdate + "_" + businessEvent;
 			
 
 		}else if(event.event instanceof TransportDiscontinued){
 			TransportDiscontinued e = (TransportDiscontinued)event.event;
-			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + getPriorityFromInt(e.getPriority()));
+			businessEvent += (e.getCompany() + "," + e.getTo() + "," + e.getFrom() + "," + ServerParser.getPriorityFromInt(e.getPriority()));
 			finalString = Codes.LogTransportDiscontinue + "_" + businessEvent;
 		}
 		

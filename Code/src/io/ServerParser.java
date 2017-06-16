@@ -223,6 +223,17 @@ public class ServerParser {
 		return 4;
 	}
 	
+	public static String getPriorityFromInt(int priority){
+		if(priority == 1){
+			return Codes.Priorities.InternationalAir;
+		}else if(priority == 2){
+			return Codes.Priorities.InternationalStandard;
+		}else if(priority == 3){
+			return Codes.Priorities.DomesticStandard;
+		}
+		return Codes.Priorities.DomesticAir;
+	}
+	
 	public Packet broadcastEventLog(NavigationItem event){
 		return new Packet(Codes.EventLog, Codes.BroadcastSingle, ServerStringBuilder.makeEventLogString(event));
 	}
