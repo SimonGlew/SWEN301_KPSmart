@@ -37,7 +37,17 @@ public class Gui{
 	}
 
 	public void loginSuccess(){
-		homePanel.username.setText("Logged In: " + passwordDialog.usernameField.getText());
+		System.out.println(controller.getManager());
+		String manager = "";
+		if(controller.getManager()){
+			manager = "(Manger) ";
+			homePanel.criticalRoutesButton.setEnabled(true);
+			homePanel.eventNavButton.setEnabled(true);
+		}else{
+			homePanel.criticalRoutesButton.setEnabled(false);
+			homePanel.eventNavButton.setEnabled(false);
+		}
+		homePanel.username.setText("Logged In: " + manager + passwordDialog.usernameField.getText());
 		passwordDialog.loginBox.dispose();
 		homePanel.update();
 	}

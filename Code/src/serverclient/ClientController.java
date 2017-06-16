@@ -172,9 +172,9 @@ public class ClientController {
 	}
 
 	public void successfullLogin(boolean manager){
-		this.g.loginSuccess();
 		logged = true;
 		this.manager = manager;
+		this.g.loginSuccess();
 	}
 
 	public void failedLogin(){

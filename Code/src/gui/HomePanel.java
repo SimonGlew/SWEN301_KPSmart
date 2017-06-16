@@ -34,6 +34,9 @@ public class HomePanel extends JPanel {
 	public TransportCostPanel transportCost;
 	public TransportDiscontinuePanel transportDisc;
 	public CustomerPricePanel customerPrice;
+	
+	public JButton criticalRoutesButton;
+	public JButton eventNavButton;
 
 	public HomePanel(Gui g,ClientController controller) {
 		this.gui = g;
@@ -138,11 +141,11 @@ public class HomePanel extends JPanel {
 		scrollPaneManager.setViewportView(panelManager);
 		panelManager.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JButton criticalRoutesButton = new JButton("Critical Routes");
+		criticalRoutesButton = new JButton("Critical Routes");
 		criticalRoutesButton.addActionListener(e -> showPanel("CRITICAL_ROUTES"));
 		panelManager.add(criticalRoutesButton);
 		
-		JButton eventNavButton = new JButton("Event Navigation");
+		eventNavButton = new JButton("Event Navigation");
 		eventNavButton.addActionListener(e -> showPanel("EVENT_NAV"));
 		panelManager.add(eventNavButton);
 		
