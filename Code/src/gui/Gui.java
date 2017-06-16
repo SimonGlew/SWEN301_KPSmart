@@ -109,6 +109,15 @@ public class Gui{
 	
 	public void eventFailed(String string){
 		JOptionPane.showMessageDialog(frame, "Event Failed: " + string);
+		if(string.equals(Codes.GUISameRouteCustomerPrice)){
+			homePanel.customerPrice.clear();			
+		}else if(string.equals(Codes.GUISameRouteTransportCost)){
+				homePanel.transportCost.clear();
+		}else if(string.equals(Codes.GUISameRouteMailDelivery)){
+			homePanel.mail.clear();
+		}else if(string.equals(Codes.GUISameRouteTransportDisc)){
+			homePanel.transportDisc.clear();
+		}
 	}
 
 	public void giveDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {

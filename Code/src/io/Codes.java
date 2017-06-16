@@ -65,6 +65,11 @@ public class Codes {
 	public static String GUIDiscontinueRouteInvalid = "No route was found to discontinue";
 	public static String GUIInvalidLogin = "Invalid Login";
 	
+	public static String GUISameRouteMailDelivery = "Select Different Origin/Destination in Mail Delivery";
+	public static String GUISameRouteCustomerPrice = "Select Different Origin/Destination in Customer Price Update";
+	public static String GUISameRouteTransportCost = "Select Different Origin/Destination in Transport Price Update";
+	public static String GUISameRouteTransportDisc = "Select Different Origin/Destination in Transport Discontinue";
+	
 	public static class Priorities{
 		public static String InternationalAir = "International Air";
 		public static String InternationalStandard = "International Standard";
