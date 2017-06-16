@@ -80,11 +80,11 @@ public class HomePanel extends JPanel {
 					.addContainerGap()
 					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 422, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
 						.addComponent(panelBody, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -121,7 +121,7 @@ public class HomePanel extends JPanel {
 		panelCreateEvent.add(transportDiscontinuedButton);
 
 		scrollPaneKeyFigures.setViewportView(panelKeyFigures);
-		panelKeyFigures.setLayout(new GridLayout(3, 1, 0, 0));
+		panelKeyFigures.setLayout(new GridLayout(2, 1, 0, 0));
 
 		JButton accountingButton = new JButton("Accounting Figures");
 		accountingButton.addActionListener(e -> showPanel("ACCOUNTING"));
@@ -131,18 +131,27 @@ public class HomePanel extends JPanel {
 		mailStatsButton.addActionListener(e -> showPanel("MAIL_STATISTICS"));
 		panelKeyFigures.add(mailStatsButton);
 
+		JScrollPane scrollPaneManager = new JScrollPane();
+		scrollPaneManager.setBorder(new TitledBorder(null, "Managers Panel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		
+		JPanel panelManager = new JPanel();
+		scrollPaneManager.setViewportView(panelManager);
+		panelManager.setLayout(new GridLayout(2, 1, 0, 0));
+		
 		JButton criticalRoutesButton = new JButton("Critical Routes");
 		criticalRoutesButton.addActionListener(e -> showPanel("CRITICAL_ROUTES"));
-		panelKeyFigures.add(criticalRoutesButton);
-
+		panelManager.add(criticalRoutesButton);
+		
+		JButton eventNavButton = new JButton("Event Navigation");
+		eventNavButton.addActionListener(e -> showPanel("EVENT_NAV"));
+		panelManager.add(eventNavButton);
+		
 		GroupLayout gl_panelSide = new GroupLayout(panelSide);
 		gl_panelSide.setHorizontalGroup(
-			gl_panelSide.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelSide.createSequentialGroup()
-					.addGroup(gl_panelSide.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPaneKeyFigures, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-						.addComponent(scrollPaneCreateEvents, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-					.addGap(0))
+			gl_panelSide.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollPaneCreateEvents, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+				.addComponent(scrollPaneKeyFigures, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+				.addComponent(scrollPaneManager, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
 		);
 		gl_panelSide.setVerticalGroup(
 			gl_panelSide.createParallelGroup(Alignment.LEADING)
@@ -150,8 +159,10 @@ public class HomePanel extends JPanel {
 					.addContainerGap()
 					.addComponent(scrollPaneCreateEvents, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(43, Short.MAX_VALUE))
+					.addComponent(scrollPaneKeyFigures, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPaneManager, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(12, Short.MAX_VALUE))
 		);
 		panelSide.setLayout(gl_panelSide);
 
@@ -222,6 +233,7 @@ public class HomePanel extends JPanel {
 		panelBody.add(new AccountingPanel(), "ACCOUNTING");
 		panelBody.add(new MailStatisticsPanel(), "MAIL_STATISTICS");
 		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
+		//panelBody.add(new EventNavigationPanel(), "EVENT_NAV");
 	}
 
 	/**
