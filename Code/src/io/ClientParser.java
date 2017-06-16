@@ -54,6 +54,7 @@ public class ClientParser {
 	}
 	
 	public void parseEventLog(Packet p){
+		System.out.println(p.getInformation());
 		String[] s = p.getInformation().split("_");
 		
 		String eventType = s[0];

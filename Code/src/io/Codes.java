@@ -49,7 +49,7 @@ public class Codes {
 	
 	public static String EventLog = "GET.EVENT.LOG";
 	public static String LogMailDelivery = "LOG.MAIL.DELIVERY";
-	public static String LogCustomerUpdate = "LOG.MAIL.DELIVERY";
+	public static String LogCustomerUpdate = "LOG.CUSTOMER.U";
 	public static String LogTransportUpdate = "LOG.TRANSPORT.UPDATE";
 	public static String LogTransportDiscontinue = "LOG.TRANSPORT.DISCONTINUE";
 

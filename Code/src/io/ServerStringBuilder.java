@@ -57,10 +57,9 @@ public class ServerStringBuilder {
 			MailDelivery e = (MailDelivery)event.event;
 			businessEvent += (e.getDay() + "," + e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getVolume() + "," + e.getWeight() + "," + e.getKpsCost() + "," + e.getRouteCost() + "," + e.getHours());
 			finalString = Codes.LogMailDelivery + "_" + businessEvent;
-			 
 		}else if(event.event instanceof CustomerPriceUpdate){
 			CustomerPriceUpdate e = (CustomerPriceUpdate)event.event;
-			businessEvent += (e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + e.getVolumeCost() + "," + e.getWeightCost());
+			businessEvent += (e.getFrom() + "," + e.getTo() + "," + ServerParser.getPriorityFromInt(e.getPriority()) + "," + e.getVolumeCost() + "," + e.getWeightCost());
 			finalString = Codes.LogCustomerUpdate + "_" + businessEvent;
 		}else if(event.event instanceof TransportCostUpdate){
 			TransportCostUpdate e = (TransportCostUpdate)event.event;
