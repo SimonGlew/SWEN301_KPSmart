@@ -28,15 +28,15 @@ public class NavTransportDiscontinuePanel extends EventCreationPanel{
 		setBounds(0, 0, 525, 268);
 		setLayout(null);
 		
-		JLabel companyLabel = new JLabel("Company: ");
-		companyLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		companyLabel.setBounds(10, 10, 200, 20);
-		add(companyLabel);
+		JLabel priorityLabel = new JLabel("Priority: ");
+		priorityLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		priorityLabel.setBounds(10, 10, 200, 20);
+		add(priorityLabel);
 		
-		company = new JLabel("N/A");
-		company.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		company.setBounds(150, 10, 200, 20);
-		add(company);
+		priority = new JLabel("N/A");
+		priority.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		priority.setBounds(150, 10, 200, 20);
+		add(priority);
 		
 		JLabel toLabel = new JLabel("To: ");
 		toLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -58,14 +58,15 @@ public class NavTransportDiscontinuePanel extends EventCreationPanel{
 		from.setBounds(150, 90, 200, 20);
 		add(from);
 		
-		JLabel priorityLabel = new JLabel("Priority: ");
-		priorityLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		priorityLabel.setBounds(10, 130, 200, 20);
-		add(priorityLabel);
+		JLabel companyLabel = new JLabel("Company: ");
+		companyLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		companyLabel.setBounds(10, 130, 200, 20);
+		add(companyLabel);
 		
-		priority = new JLabel("N/A");
-		priority.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		priority.setBounds(150, 130, 200, 20);
-		add(priority);
+		company = new JLabel("N/A");
+		company.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		company.setBounds(150, 130, 200, 20);
+		add(company);
+
 	}
 }
