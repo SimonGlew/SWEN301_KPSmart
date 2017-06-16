@@ -253,7 +253,7 @@ public class CustomerPricePanel extends EventCreationPanel{
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		gramTextField.setText("");
+		volumeTextField.setText("");
 	}
 }

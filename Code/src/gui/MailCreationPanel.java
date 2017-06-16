@@ -342,7 +342,7 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		volumeTextField.setText("");
+		weightTextField.setText("");
 	}
 }
