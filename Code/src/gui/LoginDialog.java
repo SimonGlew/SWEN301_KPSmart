@@ -18,6 +18,7 @@ public class LoginDialog implements ActionListener{
 	JPasswordField passwordField;
 	JTextField usernameField;
 	JButton submit;
+	JButton close;
 	Gui gui;
 
 	public LoginDialog(Gui g){
@@ -29,8 +30,9 @@ public class LoginDialog implements ActionListener{
 		loginBox = new JDialog(gui.frame, "Login");
 		loginBox.setModal(true);
 		loginBox.setResizable(false);
-		loginBox.setSize(new Dimension(420,150));
-		loginBox.setPreferredSize(new Dimension(420,150));
+		loginBox.setUndecorated(true);
+		loginBox.setSize(new Dimension(420,130));
+		loginBox.setPreferredSize(new Dimension(420,110));
 		loginBox.setLocation((gui.frame.getWidth()/2)-(loginBox.getWidth()/2), (gui.frame.getHeight()/2)-(loginBox.getHeight()/2));
 		loginBox.getContentPane().setLayout(new FlowLayout());
 		loginBox.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -53,6 +55,10 @@ public class LoginDialog implements ActionListener{
 		loginBox.getContentPane().add(submit);
 		submit.addActionListener(this);
 
+		close = new JButton("Close");
+		loginBox.getContentPane().add(close);
+		close.addActionListener(this);
+
 		loginBox.pack();
 		loginBox.setVisible(true);
 	}
@@ -66,13 +72,17 @@ public class LoginDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
-			loginBox.setVisible(false);
-			gui.loginFail();
-			
-		}else{
-			gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
-			loginBox.setVisible(false);
+		if(arg0.getSource().equals(submit)){
+			if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
+				loginBox.setVisible(false);
+				gui.loginFail();
+
+			}else{
+				gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
+				loginBox.setVisible(false);
+			}
+		}else if(arg0.getSource().equals(close)){
+			System.exit(0);
 		}
 	}
 
