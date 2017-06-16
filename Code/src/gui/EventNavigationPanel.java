@@ -40,8 +40,6 @@ public class EventNavigationPanel extends JPanel {
 	public JButton btnPrevious;
 	public JButton btnNext;
 	
-
-	
 	private int currentIndex;
 
 	public EventNavigationPanel() {
@@ -56,38 +54,6 @@ public class EventNavigationPanel extends JPanel {
 		JPanel panelSide = new JPanel();
 		
 		initEventDetails();
-		
-		JPanel panel = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelHeader, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 422, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-						.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		panel.setLayout(new GridLayout(1, 1, 0, 0));
 
 		JLabel titleLabel = new JLabel("Event Navigation");
 		titleLabel.setBounds(10, 11, 566, 40);

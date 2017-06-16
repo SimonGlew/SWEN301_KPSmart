@@ -101,6 +101,7 @@ public class ClientController {
 	}
 	
 	public void requestEventLog(int number){
+		System.out.println("woot");
 		Packet p = new Packet(Codes.EventLog, null, String.valueOf(number));
 		this.c.sendMessage(p);	
 	}
@@ -229,6 +230,7 @@ public class ClientController {
 	
 	public void notifyLogTransport(int id, String username, String date, String company, String to, String from, String priority, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
 		g.homePanel.eventNavigation.updateLogTransport(id, username, date, company, to, from, priority, expenditure, revenue, numEvents, next, prev);
+		System.out.println("yaya");
 	}
 	
 	public void notifyMailDeliveryStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){

@@ -30,5 +30,25 @@ public class NavTransportDiscontinuePanel extends EventCreationPanel{
 		company = new JPanel();
 		company.setBounds(200, 10, 200, 20);
 		
+		JLabel toLabel = new JLabel("To: ");
+		toLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		toLabel.setBounds(10, 10, 200, 20);
+		
+		company = new JPanel();
+		company.setBounds(200, 10, 200, 20);
+		
+		JLabel fromLabel = new JLabel("From: ");
+		fromLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		fromLabel.setBounds(10, 10, 200, 20);
+		
+		company = new JPanel();
+		company.setBounds(200, 10, 200, 20);
+		
+		JLabel priorityLabel = new JLabel("Company: ");
+		priorityLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		priorityLabel.setBounds(10, 10, 200, 20);
+		
+		company = new JPanel();
+		company.setBounds(200, 10, 200, 20);
 	}
 }
