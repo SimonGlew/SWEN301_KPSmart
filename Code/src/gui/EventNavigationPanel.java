@@ -89,7 +89,7 @@ public class EventNavigationPanel extends JPanel {
 		revenueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
 		revLabel = new JLabel("$0.00");
-		revLabel.setBounds(150, 10, 45, 20);
+		revLabel.setBounds(150, 10, 300, 20);
 		revLabel.setForeground(Color.BLACK);
 		revLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
@@ -99,7 +99,7 @@ public class EventNavigationPanel extends JPanel {
 		expenditureLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
 		expLabel = new JLabel("$0.00");
-		expLabel.setBounds(150, 35, 45, 20);
+		expLabel.setBounds(150, 35, 300, 20);
 		expLabel.setForeground(Color.BLACK);
 		expLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 

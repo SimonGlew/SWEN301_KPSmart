@@ -44,13 +44,13 @@ public class AccountingPanel extends JPanel {
 		JLabel revenueTitleLabel = new JLabel("Total Revenue");
 		revenueTitleLabel.setForeground(Color.DARK_GRAY);
 		revenueTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		revenueTitleLabel.setBounds(100, 69, 108, 26);
+		revenueTitleLabel.setBounds(100, 69, 300, 26);
 		add(revenueTitleLabel);
 
 		revenueLabel = new JLabel("$0.00");
 		revenueLabel.setForeground(Color.BLACK);
 		revenueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		revenueLabel.setBounds(300, 69, 45, 26);
+		revenueLabel.setBounds(300, 69, 300, 26);
 		add(revenueLabel);
 
 		JLabel expenditureTitleLabel = new JLabel("Total Expenditure");
@@ -62,7 +62,7 @@ public class AccountingPanel extends JPanel {
 		expenditureLabel = new JLabel("$0.00");
 		expenditureLabel.setForeground(Color.BLACK);
 		expenditureLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		expenditureLabel.setBounds(300, 116, 45, 26);
+		expenditureLabel.setBounds(300, 116, 300, 26);
 		add(expenditureLabel);
 
 		JLabel noEventsTitleLabel = new JLabel("Number of Events");
