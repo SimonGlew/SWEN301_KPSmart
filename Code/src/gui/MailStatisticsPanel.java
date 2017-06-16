@@ -110,7 +110,7 @@ public class MailStatisticsPanel extends JPanel {
 		JLabel volumeTitleLabel = new JLabel("Total Volume:");
 		volumeTitleLabel.setForeground(Color.DARK_GRAY);
 		volumeTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		volumeTitleLabel.setBounds(71, 350, 93, 26);
+		volumeTitleLabel.setBounds(71, 299, 150, 26);
 		add(volumeTitleLabel);
 
 		volumeLabel = new JLabel("0.00");
@@ -134,7 +134,7 @@ public class MailStatisticsPanel extends JPanel {
 		JLabel avgTimeTitleLabel = new JLabel("Average Delivery Time:");
 		avgTimeTitleLabel.setForeground(Color.DARK_GRAY);
 		avgTimeTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		avgTimeTitleLabel.setBounds(71, 393, 170, 26);
+		avgTimeTitleLabel.setBounds(71, 393, 300, 26);
 		add(avgTimeTitleLabel);
 
 		avgTimeLabel = new JLabel("0 hours");
