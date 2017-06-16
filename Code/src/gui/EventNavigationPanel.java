@@ -3,6 +3,8 @@ package gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.UIManager;
 
 import javax.swing.SwingConstants;
@@ -50,7 +52,42 @@ public class EventNavigationPanel extends JPanel {
 		setPreferredSize(new Dimension(586, 546));
 		setBackground(UIManager.getColor("Panel.background"));
 		
+		JPanel panelHeader = new JPanel();
+		JPanel panelSide = new JPanel();
+		
 		initEventDetails();
+		
+		JPanel panel = new JPanel();
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelHeader, GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelHeader, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panelSide, GroupLayout.PREFERRED_SIZE, 422, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+						.addComponent(eventDetailsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		panel.setLayout(new GridLayout(1, 1, 0, 0));
 
 		JLabel titleLabel = new JLabel("Event Navigation");
 		titleLabel.setBounds(10, 11, 566, 40);
@@ -62,10 +99,9 @@ public class EventNavigationPanel extends JPanel {
 		username.setBounds(20, 60, 300, 20);
 		add(username);
 		
-		date = new JLabel("Date Logged: ");
+		date = new JLabel("Date Logged: 00/00/00");
 		date.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		date.setBounds(20, 60, 100, 20);
-		date.setHorizontalAlignment(SwingConstants.RIGHT);
+		date.setBounds(400, 60, 100, 20);
 		add(date);
 
 		JLabel eventDetailsLabel = new JLabel("Event Details");
@@ -104,9 +140,8 @@ public class EventNavigationPanel extends JPanel {
 		expLabel.setForeground(Color.BLACK);
 		expLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		
-		eventNumberLabel = new JLabel("0");
-		eventNumberLabel.setBounds(130, 508, 30, 20);
-		eventNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		eventNumberLabel = new JLabel("0/0");
+		eventNumberLabel.setBounds(270, 508, 30, 20);
 		
 		btnNext = new JButton("Next");
 		btnNext.setBounds(466, 495, 110, 40);

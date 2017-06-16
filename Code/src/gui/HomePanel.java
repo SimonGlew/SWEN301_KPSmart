@@ -60,7 +60,6 @@ public class HomePanel extends JPanel {
 		setPreferredSize(new Dimension(1000, 800));
 
 		JPanel panelHeader = new JPanel();
-
 		JPanel panelSide = new JPanel();
 
 		initPanelBody();
