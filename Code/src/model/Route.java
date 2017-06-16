@@ -53,12 +53,11 @@ public class Route {
 		double transportEnd = 0;
 		boolean waiting = true;
 		boolean inTransit = false;
-		TransportOption nextOption = options.get(0);
 		while(currentLocation != destination){
 			if(waiting){
-				if(nextOption.containsDayInt(day)){
-					if(hour%nextOption.getFrequency()==0){
-						transportEnd = hour + nextOption.getDuration();
+				if(options.get(optionIndex).containsDayInt(day)){
+					if(hour%options.get(optionIndex).getFrequency()==0){
+						transportEnd = hour + options.get(optionIndex).getDuration();
 						inTransit = true;
 						waiting = false;
 					}
@@ -67,13 +66,8 @@ public class Route {
 				if(hour >= transportEnd){
 					inTransit = false;
 					waiting = true;
-					currentLocation = nextOption.getSegment().getDestination();
+					currentLocation = options.get(optionIndex).getSegment().getDestination();
 					optionIndex++;
-					if(optionIndex<options.size()){
-						nextOption = options.get(optionIndex);
-					}else{
-						break;
-					}
 				}
 			}
 			hour++;
