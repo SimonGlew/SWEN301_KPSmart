@@ -41,11 +41,11 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 	private JRadioButton cheap;
 	private JRadioButton fast;
 	private JButton submitOption;
+	private JLabel submitErrorLabel;
 	private JDialog option;
 	private String priority;
 	private double fastCost, fastRouteCost, fastTime;
 	private double cheapCost, cheapRouteCost, cheapTime;
-	private JLabel submitErrorLabel;
 
 	public MailCreationPanel(ClientController controller, Gui gui) {
 		this.controller = controller;
@@ -168,6 +168,12 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				if (!checkWeight() || !checkVolume()) {
+					submitErrorLabel.setText("Please enter correct weight and volume");
+					return;
+				} else {
+					submitErrorLabel.setText("");
+				}
 				priority = (String)prioComboBox.getSelectedItem();
 				controller.requestMailCreationRoutes((String)originComboBox.getSelectedItem(),
 						(String)destComboBox.getSelectedItem(),
@@ -200,7 +206,7 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		submitErrorLabel = new JLabel("");
 		submitErrorLabel.setForeground(Color.RED);
 		submitErrorLabel.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		submitErrorLabel.setBounds(150, 352, 170, 14);
+		submitErrorLabel.setBounds(150, 352, 290, 14);
 		add(submitErrorLabel);
 	}
 
@@ -325,19 +331,23 @@ public class MailCreationPanel extends EventCreationPanel implements ActionListe
 		}
 	}
 	
-	private void checkWeight() {
+	private boolean checkWeight() {
 		if (isValidNumber(weightTextField.getText())) {
 			weightErrorLabel.setText("");
+			return true;
 		} else {
 			weightErrorLabel.setText("Invalid weight");
+			return false;
 		}
 	}
 	
-	private void checkVolume() {
+	private boolean checkVolume() {
 		if (isValidNumber(volumeTextField.getText())) {
 			volumeErrorLabel.setText("");
+			return true;
 		} else {
 			volumeErrorLabel.setText("Invalid volume");
+			return false;
 		}
 	}
 }
