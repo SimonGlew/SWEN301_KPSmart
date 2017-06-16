@@ -33,35 +33,30 @@ public class CriticalRoutesPanel extends JPanel {
 				titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				titleLabel.setVerticalAlignment(SwingConstants.TOP);
 				titleLabel.setFont(new Font("SansSerif", Font.BOLD, 31));
-				titleLabel.setBounds(10, 11, 430, 47);
+				titleLabel.setBounds(10, 11, 629, 47);
 				add(titleLabel);
 				
 				table = new JTable();
+				table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				table.setEnabled(false);
 				table.setModel(new DefaultTableModel(
 					new Object[][] {
-						{"Origin", "Destination", "Average Difference (Per Item)"},
-						{null, null, null},
+						{"Origin", "Destination", "Company", "Priority", "Average Difference (Per Item)"},
+						{null, null, null, null, null},
 					},
 					new String[] {
-						"Origin", "Destination", "Average Difference (Per Item)"
+						"Origin", "Destination", "Company", "New column", "Average Difference (Per Item)"
 					}
 				) {
 					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class
+						String.class, String.class, String.class, Object.class, String.class
 					};
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
 					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
 				});
-				table.getColumnModel().getColumn(2).setPreferredWidth(154);
-				table.setBounds(10, 73, 430, 149);
+				table.getColumnModel().getColumn(4).setPreferredWidth(154);
+				table.setBounds(10, 73, 629, 149);
 				add(table);
 	}
 }
