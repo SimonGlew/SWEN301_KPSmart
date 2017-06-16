@@ -198,7 +198,7 @@ public class TransportCostPanel extends EventCreationPanel{
 
 		JButton submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		submitButton.setBounds(150, 550, 108, 31);
+		submitButton.setBounds(150, 530, 108, 31);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -234,8 +234,12 @@ public class TransportCostPanel extends EventCreationPanel{
 
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		gramTextField.setText("");
+		volumeTextField.setText("");
+		maxVolumeTextField.setText("");
+		maxWeightTextField.setText("");
+		periodTextField.setText("");
+		durationTextField.setText("");
 	}
 
 }

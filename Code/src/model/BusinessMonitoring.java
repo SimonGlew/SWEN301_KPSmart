@@ -18,17 +18,31 @@ public class BusinessMonitoring {
 	}
 	
 	public double getRevenue(){
+		return getRevenue(database.getBusinessEvents());
+	}
+	
+	public double getRevenue(List<BusinessEvent> events){
 		double revenue = 0;
-		for(MailDelivery mail: database.getAllMailDelivery()){
-			revenue += mail.getKpsCost();
+		for(BusinessEvent event: events){
+			if(event instanceof MailDelivery){
+				MailDelivery mail = (MailDelivery)event;
+				revenue += mail.getKpsCost();
+			}
 		}
 		return revenue;
 	}
 	
 	public double getExpenditure(){
+		return getExpenditure(database.getBusinessEvents());
+	}
+	
+	public double getExpenditure(List<BusinessEvent> events){
 		double expenditure = 0;
-		for(MailDelivery mail: database.getAllMailDelivery()){
-			expenditure += mail.getRouteCost();
+		for(BusinessEvent event: events){
+			if(event instanceof MailDelivery){
+				MailDelivery mail = (MailDelivery)event;
+				expenditure += mail.getRouteCost();
+			}
 		}
 		return expenditure;
 	}
@@ -174,11 +188,15 @@ public class BusinessMonitoring {
 	public NavigationItem getNavigationItem(int eventID){
 		List<BusinessEvent> events = database.getBusinessEvents();
 		if(eventID == -1){
-			return new NavigationItem(events.get(events.size()-1), 10, 10, events.size() > 1, false, events.size());
+			return new NavigationItem(events.get(events.size()-1), getRevenue(), getExpenditure(), events.size() > 1, false, events.size());
 		}
+		List<BusinessEvent> eventSoFar = new ArrayList<BusinessEvent>();
 		for(int i = 0; i < events.size(); i++){
+			eventSoFar.add(events.get(i));
 			if(events.get(i).getId() == eventID){
-				return new NavigationItem(events.get(i), 10, 10, i > 0, i < events.size() - 1, events.size());
+				double revenue = getRevenue(eventSoFar);
+				double expenditure = getExpenditure(eventSoFar);
+				return new NavigationItem(events.get(i), revenue, expenditure, i > 0, i < events.size() - 1, events.size());
 			}
 		}
 		return null;
