@@ -31,7 +31,7 @@ public class NavMailCreationPanel extends EventCreationPanel{
 	}
 
 	private void initPanel() {
-		setBounds(0, 0, 525, 268);
+		setBounds(0, 0, 556, 268);
 		setLayout(null);
 		
 		JLabel priorityLabel = new JLabel("Priority: ");
@@ -39,7 +39,7 @@ public class NavMailCreationPanel extends EventCreationPanel{
 		priorityLabel.setBounds(10, 10, 200, 20);
 		add(priorityLabel);
 		
-		priority = new JLabel("N/A");
+		priority = new JLabel("International Standard");
 		priority.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		priority.setBounds(150, 10, 200, 20);
 		add(priority);	
@@ -86,32 +86,32 @@ public class NavMailCreationPanel extends EventCreationPanel{
 		
 		JLabel kpsLabel = new JLabel("KPS Cost: ");
 		kpsLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		kpsLabel.setBounds(230, 10, 200, 20);
+		kpsLabel.setBounds(317, 10, 200, 20);
 		add(kpsLabel);
 		
 		kpsCost = new JLabel("N/A");
 		kpsCost.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		kpsCost.setBounds(390, 10, 200, 20);
+		kpsCost.setBounds(477, 10, 200, 20);
 		add(kpsCost);	
 		
 		JLabel routeLabel = new JLabel("Route Cost: ");
 		routeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		routeLabel.setBounds(230, 50, 200, 20);
+		routeLabel.setBounds(317, 50, 200, 20);
 		add(routeLabel);
 		
 		routeCost = new JLabel("N/A");
 		routeCost.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		routeCost.setBounds(390, 50, 200, 20);
+		routeCost.setBounds(477, 50, 200, 20);
 		add(routeCost);
 		
 		JLabel hoursLabel = new JLabel("Delivery Time (hrs): ");
 		hoursLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		hoursLabel.setBounds(230, 90, 250, 20);
+		hoursLabel.setBounds(317, 90, 250, 20);
 		add(hoursLabel);
 		
 		hours = new JLabel("N/A");
 		hours.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		hours.setBounds(390, 90, 200, 20);
+		hours.setBounds(477, 90, 200, 20);
 		add(hours);
 
 	}
