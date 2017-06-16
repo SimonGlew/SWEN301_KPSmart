@@ -47,7 +47,17 @@ public class Codes {
 	public static String MailDeliveryStats = "MAIL.STATS";
 	public static String CriticalRoutes = "CRITICAL.ROUTES";
 
-
+	
+	public static String GUIMailDelivery = "Mail Delivery";
+	public static String GUICustomerPriceUpdate = "Customer Price Update";
+	public static String GUIDiscontinueRoute = "Discontinue Route";
+	public static String GUIUpdatedRoute = "Updated Route through transport update";
+	public static String GUIUpdatedCustomerRoute = "Updated Route through customer update";
+	public static String GUIConfirmationMadeRoute = "Made new Route through transport update";
+	public static String GUIConfirmationMadeCustomerRoute = "Made new Route through customer update";
+	public static String GUIServerFailedMailDeliveryRoutes = "No routes were found";
+	public static String GUIDiscontinueRouteInvalid = "No route was found to discontinue";
+	
 	public static class Priorities{
 		public static String InternationalAir = "International Air";
 		public static String InternationalStandard = "International Standard";

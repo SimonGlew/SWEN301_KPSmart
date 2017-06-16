@@ -197,6 +197,10 @@ public class ClientController {
 		return this.manager;
 	}
 	
+	public void failedEvent(String string){
+		g.eventFailed(string);
+	}
+	
 	public void successfullEvent(String string){
 		g.eventSuccessfull(string);
 	}

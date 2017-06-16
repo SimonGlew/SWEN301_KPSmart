@@ -49,12 +49,12 @@ public class LoginDialog implements ActionListener{
 		loginBox.getContentPane().add(password);
 		loginBox.getContentPane().add(passwordField);
 
-	    submit = new JButton("Submit");
-	    loginBox.getContentPane().add(submit);
-	    submit.addActionListener(this);
+		submit = new JButton("Submit");
+		loginBox.getContentPane().add(submit);
+		submit.addActionListener(this);
 
-	    loginBox.pack();
-	    loginBox.setVisible(true);
+		loginBox.pack();
+		loginBox.setVisible(true);
 	}
 
 	public void reset(){
@@ -66,8 +66,14 @@ public class LoginDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
-		loginBox.setVisible(false);
+		if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
+			loginBox.setVisible(false);
+			gui.loginFail();
+			
+		}else{
+			gui.controller.LoginRequest(usernameField.getText(), passwordField.getText());
+			loginBox.setVisible(false);
+		}
 	}
-	
+
 }

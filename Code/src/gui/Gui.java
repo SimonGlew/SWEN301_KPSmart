@@ -42,6 +42,7 @@ public class Gui{
 	}
 
 	public void loginFail(){
+		JOptionPane.showMessageDialog(frame, "Failed Login: Try Again");
 		passwordDialog.reset();
 	}
 
@@ -74,6 +75,10 @@ public class Gui{
 	
 	public void eventSuccessfull(String string){
 		JOptionPane.showMessageDialog(frame, "Event: " + string + " successfully logged");
+	}
+	
+	public void eventFailed(String string){
+		JOptionPane.showMessageDialog(frame, "Event Failed: " + string);
 	}
 
 	public void giveDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {

@@ -27,32 +27,28 @@ public class ClientParser {
 		}else if(p.getType().equals(Codes.loginValid)){
 			controller.successfullLogin(Boolean.parseBoolean(p.getInformation()));
 		}else if(p.getType().equals(Codes.ConfirmationMailDelivery)){
-			controller.successfullEvent("Mail Delivery");
+			controller.successfullEvent(Codes.GUIMailDelivery);
 		}else if(p.getType().equals(Codes.ConfirmationCustomerPriceUpdate)){
-			controller.successfullEvent("Customer Price Update");
+			controller.successfullEvent(Codes.GUICustomerPriceUpdate);
 		}else if(p.getType().equals(Codes.DiscontinueRouteValid)){
-			//Discontinued Route Valid
+			controller.successfullEvent(Codes.GUIDiscontinueRoute);
 		}else if(p.getType().equals(Codes.DiscontinueRouteInvalid)){
-			//Discontinued Route invalid
+			controller.failedEvent(Codes.GUIDiscontinueRouteInvalid);
 		}else if(p.getType().equals(Codes.ConfirmationUpdateRoute)){
-			//Updated route with transport price Update
+			controller.successfullEvent(Codes.GUIUpdatedRoute);
 		}else if(p.getType().equals(Codes.ConfirmationMadeRoute)){
-			//Made new Route with transport price Update
+			controller.successfullEvent(Codes.GUIConfirmationMadeRoute);
 		}else if(p.getType().equals(Codes.ConfirmationMadeCustomerRoute)){
-			//Made new Route with Customer Price Update
+			controller.successfullEvent(Codes.GUIConfirmationMadeCustomerRoute);
 		}else if(p.getType().equals(Codes.ConfirmationUpdateCustomerRoute)){
-			//Updated route with customer price update
-		}else if(p.getType().equals(Codes.DiscontinueRouteValid)){
-			//Valid discontinue Route
-		}else if(p.getType().equals(Codes.DiscontinueRouteInvalid)){
-			//Invalid discontinue route
+			controller.successfullEvent(Codes.GUIUpdatedCustomerRoute);
 		}else if(p.getType().equals(Codes.MailDeliveryStats)){
 			parseServerMailDeliveryStats(p);
 		}else if(p.getType().equals(Codes.CriticalRoutes)){
 			parseCriticalRoutes(p);
 		}else if(p.getType().equals(Codes.ServerFailedMailDeliveryRoutes)){
-			System.out.println("NO ROUTES FOUND");
-			//No routes found with origin/destination
+			controller.failedEvent(Codes.GUIServerFailedMailDeliveryRoutes);
+
 		}
 	}
 
