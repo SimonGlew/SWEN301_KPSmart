@@ -112,4 +112,11 @@ public class Gui{
 	public void giveDeliveryOption(double cheapCost, double cheapRouteCost, double cheapTime, double fastestCost, double fastestRouteCost, double fastestTime) {
 		homePanel.mail.showDeliveryOption(cheapCost, cheapRouteCost, cheapTime, fastestCost, fastestRouteCost, fastestTime);
 	}
+
+	public void updateBusiness(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents,
+			int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents,
+			int totalNumberOfTransportDiscontinuedEvents) {
+		homePanel.accounting.updateBusiness(totalRevenue, totalExpenditure, totalNumberOfMailDeliveryEvents, totalNumberOfCustomerPriceUpdateEvents, totalNumberOfTransportCostUpdateEvents, totalNumberOfTransportDiscontinuedEvents);
+		
+	}
  }

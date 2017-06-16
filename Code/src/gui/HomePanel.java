@@ -34,6 +34,8 @@ public class HomePanel extends JPanel {
 	public TransportCostPanel transportCost;
 	public TransportDiscontinuePanel transportDisc;
 	public CustomerPricePanel customerPrice;
+	public MailStatisticsPanel mailStatistics;
+	public AccountingPanel accounting;
 	public JScrollPane scrollPaneManager;
 	
 	public JButton criticalRoutesButton;
@@ -228,14 +230,16 @@ public class HomePanel extends JPanel {
 		transportCost = new TransportCostPanel(this.controller);
 		transportDisc = new TransportDiscontinuePanel(this.controller);
 		customerPrice = new CustomerPricePanel(this.controller);
-
+		accounting = new AccountingPanel();
+		mailStatistics = new MailStatisticsPanel();
+	
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");
 		panelBody.add(customerPrice, "CUSTOMER_PRICE");
 		panelBody.add(transportCost, "TRANSPORT_COST");
 		panelBody.add(transportDisc, "TRANSPORT_DISC");
-		panelBody.add(new AccountingPanel(), "ACCOUNTING");
-		panelBody.add(new MailStatisticsPanel(), "MAIL_STATISTICS");
+		panelBody.add(accounting, "ACCOUNTING");
+		panelBody.add(mailStatistics, "MAIL_STATISTICS");
 		panelBody.add(new CriticalRoutesPanel(), "CRITICAL_ROUTES");
 		panelBody.add(new EventNavigationPanel(), "EVENT_NAV");
 	}

@@ -17,6 +17,14 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class AccountingPanel extends JPanel {
+	
+	public JLabel noEventsLabel;
+	public JLabel expenditureLabel;
+	public JLabel revenueLabel;
+	public JLabel mailDelivery;
+	public JLabel customerCost;
+	public JLabel transportCost;
+	public JLabel transportDisc;
 
 	public AccountingPanel() {
 		initPanel();
@@ -39,7 +47,7 @@ public class AccountingPanel extends JPanel {
 		revenueTitleLabel.setBounds(127, 69, 108, 26);
 		add(revenueTitleLabel);
 
-		JLabel revenueLabel = new JLabel("$0.00");
+		revenueLabel = new JLabel("$0.00");
 		revenueLabel.setForeground(Color.BLACK);
 		revenueLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		revenueLabel.setBounds(259, 69, 45, 26);
@@ -51,7 +59,7 @@ public class AccountingPanel extends JPanel {
 		expenditureTitleLabel.setBounds(127, 116, 121, 26);
 		add(expenditureTitleLabel);
 
-		JLabel expenditureLabel = new JLabel("$0.00");
+		expenditureLabel = new JLabel("$0.00");
 		expenditureLabel.setForeground(Color.BLACK);
 		expenditureLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		expenditureLabel.setBounds(259, 116, 45, 26);
@@ -63,10 +71,22 @@ public class AccountingPanel extends JPanel {
 		noEventsTitleLabel.setBounds(127, 164, 123, 26);
 		add(noEventsTitleLabel);
 
-		JLabel noEventsLabel = new JLabel("0");
+		noEventsLabel = new JLabel("0");
 		noEventsLabel.setForeground(Color.BLACK);
 		noEventsLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		noEventsLabel.setBounds(259, 164, 45, 26);
 		add(noEventsLabel);
+	}
+
+	public void updateBusiness(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents,
+			int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents,
+			int totalNumberOfTransportDiscontinuedEvents) {
+		this.revenueLabel.setText(totalRevenue + "");
+		this.expenditureLabel.setText(totalExpenditure + "");
+		this.mailDelivery.setText(totalNumberOfMailDeliveryEvents + "");
+		this.customerCost.setText(totalNumberOfCustomerPriceUpdateEvents + "");
+		this.transportCost.setText(totalNumberOfTransportCostUpdateEvents + "");
+		this.transportDisc.setText(totalNumberOfTransportDiscontinuedEvents + "");
+		
 	}
 }
