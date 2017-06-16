@@ -39,10 +39,12 @@ public class EventNavigationPanel extends JPanel {
 	public JLabel eventNumberLabel;
 	public JButton btnPrevious;
 	public JButton btnNext;
+	public Gui g;
 	
 	private int currentIndex;
 
-	public EventNavigationPanel() {
+	public EventNavigationPanel(Gui g) {
+		this.g = g;
 		initPanel();
 	}
 
@@ -69,7 +71,7 @@ public class EventNavigationPanel extends JPanel {
 		
 		date = new JLabel("Date Logged: 00/00/00");
 		date.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		date.setBounds(400, 60, 100, 20);
+		date.setBounds(400, 60, 200, 20);
 		add(date);
 
 		JLabel eventDetailsLabel = new JLabel("Event Details");
@@ -109,9 +111,25 @@ public class EventNavigationPanel extends JPanel {
 		
 		btnNext = new JButton("Next");
 		btnNext.setBounds(466, 495, 110, 40);
+		btnNext.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.controller.requestEventLog(currentIndex+1);
+			}
+			
+		});
 		
 		btnPrevious = new JButton("Previous");
 		btnPrevious.setBounds(10, 495, 110, 40);
+		btnPrevious.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				g.controller.requestEventLog(currentIndex-1);
+			}
+			
+		});
 
 		busFigsPanel.setLayout(null);
 		busFigsPanel.add(revenueLabel);
@@ -154,7 +172,7 @@ public class EventNavigationPanel extends JPanel {
 	public void updateBusinessFigures(double revenue, double expenditure, int id, String user, int numEvents, boolean next, boolean prev, String d){
 		currentIndex = id;
 		username.setText("User Logged: " + user);
-		eventNumberLabel.setText(id + "/" + numEvents);
+		eventNumberLabel.setText(id-1 + "/" + numEvents);
 		revLabel.setText(revenue + "");
 		expLabel.setText(expenditure + "");
 		date.setText("Date Logged: " + d);

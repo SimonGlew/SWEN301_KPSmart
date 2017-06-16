@@ -1,11 +1,10 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class NavCustomerPricePanel extends EventCreationPanel{
 
 	public JLabel to ;

@@ -233,7 +233,7 @@ public class HomePanel extends JPanel {
 		accounting = new AccountingPanel();
 		mailStatistics = new MailStatisticsPanel(gui);
 		criticalRoutesPanel = new CriticalRoutesPanel();
-		eventNavigation = new EventNavigationPanel();
+		eventNavigation = new EventNavigationPanel(gui);
 	
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");
