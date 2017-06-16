@@ -132,6 +132,8 @@ public class ClientParser {
 		int totalNumberOfCustomerPriceUpdateEvents = Integer.parseInt(information[3]);
 		int totalNumberOfTransportCostUpdateEvents = Integer.parseInt(information[4]);
 		int totalNumberOfTransportDiscontinuedEvents = Integer.parseInt(information[5]);
+		
+		controller.notifyBusinessFigures(totalRevenue, totalExpenditure, totalNumberOfMailDeliveryEvents, totalNumberOfCustomerPriceUpdateEvents, totalNumberOfTransportCostUpdateEvents, totalNumberOfTransportDiscontinuedEvents);
 	}
 	
 	public void parseCriticalRoutes(Packet p){
@@ -146,6 +148,8 @@ public class ClientParser {
 				criticalRoutes.get(i).add(in);
 			}
 		}
+		
+		controller.notifyCriticalRoutes(criticalRoutes);
 	}
 	
 	public void parseServerMailDeliveryStats(Packet p){
@@ -155,6 +159,8 @@ public class ClientParser {
 		double totalVolume = Double.parseDouble(information[1]);
 		double totalWeight = Double.parseDouble(information[2]);
 		double avDeliveryTime = Double.parseDouble(information[3]);
+		
+		controller.notifyMailDeliveryStats(numOfItems, totalVolume, totalWeight, avDeliveryTime);
 	}
 
 	public void parseMailDeliveryRoutes(Packet p){

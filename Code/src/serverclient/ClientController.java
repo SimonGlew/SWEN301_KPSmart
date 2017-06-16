@@ -230,4 +230,16 @@ public class ClientController {
 	public void notifyLogTransport(int id, String username, String date, String company, String to, String from, String priority, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
 		
 	}
+	
+	public void notifyMailDeliveryStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){
+		
+	}
+	
+	public void notifyCriticalRoutes(ArrayList<ArrayList<String>> criticalRoutes){
+		
+	}
+	
+	public void notifyBusinessFigures(double totalRevenue, double totalExpenditure, int totalNumberOfMailDeliveryEvents, int totalNumberOfCustomerPriceUpdateEvents, int totalNumberOfTransportCostUpdateEvents, int totalNumberOfTransportDiscontinuedEvents){
+		
+	}
 }
