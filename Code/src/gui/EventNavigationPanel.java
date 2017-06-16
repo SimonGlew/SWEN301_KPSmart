@@ -52,10 +52,6 @@ public class EventNavigationPanel extends JPanel {
 		setPreferredSize(new Dimension(586, 546));
 		setBackground(UIManager.getColor("Panel.background"));
 
-		eventDetailsPanel = new JPanel();
-		eventDetailsPanel.setBorder(BorderFactory.createEtchedBorder());
-		eventDetailsPanel.setBounds(20, 110, 545, 258);
-		eventDetailsPanel.setLayout(new CardLayout(0, 0));
 		
 		initEventDetails();
 
@@ -155,7 +151,10 @@ public class EventNavigationPanel extends JPanel {
 	public void initEventDetails() {
 		// Create the body using a card layout
 		eventDetailsLayout = new CardLayout();
+		
 		eventDetailsPanel = new JPanel(eventDetailsLayout);
+		eventDetailsPanel.setBorder(BorderFactory.createEtchedBorder());
+		eventDetailsPanel.setBounds(20, 110, 545, 258);
 		
 		mailCreation = new NavMailCreationPanel();
 		customerCost = new NavCustomerPricePanel();
@@ -197,8 +196,8 @@ public class EventNavigationPanel extends JPanel {
 	
 	public void updateLogTransportUpdate(int id, String username, String date, String company, String to, String from, String priority, double weight, double volume, double maxWeight, double maxVolume, int duration, int frequency, List<String> days, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
 		updateBusinessFigures(revenue, expenditure, id, username, numEvents, next, prev, date);
-		transportCost.update(company, to, from, priority, weight, volume, maxWeight, maxVolume, duration, frequency, days)
-;		showPanel("TRANSPORT_COST");
+		transportCost.update(company, to, from, priority, weight, volume, maxWeight, maxVolume, duration, frequency, days);
+		showPanel("TRANSPORT_COST");
 	}
 	
 	public void updateLogTransport(int id, String username, String date, String company, String to, String from, String priority, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
