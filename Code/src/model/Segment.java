@@ -26,8 +26,8 @@ public class Segment {
 		weightCosts = new HashMap<Integer, Double>();
 		volCosts = new HashMap<Integer, Double>();
 		for(int i = 1; i <= 4; i++){
-			weightCosts.put(i, 1d);
-			volCosts.put(i, 1d);
+			weightCosts.put(i, 0.1);
+			volCosts.put(i, 0.1*i);
 		}
 	}
 

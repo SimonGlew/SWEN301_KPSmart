@@ -172,8 +172,10 @@ public class RouteMap {
 				for (Segment segment : node.loc.getSegsOut()) {
 					if (!visited.contains(segment.getDestination())) {
 						for (TransportOption option : segment.getTransportOptions().values()) {
-							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && priority == option.getPriority()){
-								fringe.offer(new SearchNode(segment.getDestination(), node.loc, option,
+							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && 
+									(priority == option.getPriority() || (priority == 4 && option.getPriority() == 3)
+									|| priority == 1 && (option.getPriority() == 3 || option.getPriority() == 4)
+									|| priority == 2 && option.getPriority() == 3)){								fringe.offer(new SearchNode(segment.getDestination(), node.loc, option,
 									node.costSoFar + (weight * segment.getWeightCost(priority)) + (vol * segment.getVolCost(priority))));
 							}
 						}
@@ -219,7 +221,11 @@ public class RouteMap {
 				for (Segment segment : node.loc.getSegsOut()) {
 					if (!visited.contains(segment.getDestination())) {
 						for (TransportOption option : segment.getTransportOptions().values()) {
-							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && priority == option.getPriority()){
+							if (weight <= option.getMaxWeight() && vol <= option.getMaxVol() && 
+									(priority == option.getPriority() || (priority == 4 && option.getPriority() == 3)
+									|| priority == 1 && (option.getPriority() == 3 || option.getPriority() == 4)
+									|| priority == 2 && option.getPriority() == 3)){
+						
 								
 								List<TransportOption> options = new ArrayList<TransportOption>();
 								options.add(0, option);
