@@ -149,7 +149,7 @@ public class Server {
 						broadcast(this.parser.broadcastBusinessFigures(m.getRevenue(), m.getExpenditure(),  m.getNumberOfMailDelivery(), m.getNumberOfCustomerPriceUpdate(), m.getNumberOfTransportCostUpdate(), m.getNumberOfTransportDiscontinued()), this.id);
 					}
 					
-					if(send.getType().equals(Codes.ConfirmationMailDelivery)){
+					if(send.getType().equals(Codes.ConfirmationMailDelivery) || send.getType().equals(Codes.ConfirmationCustomerPriceUpdate) || send.getType().equals(Codes.DiscontinueRouteValid) || send.getType().equals(Codes.ConfirmationUpdateRoute)){
 						BusinessMonitoring m = this.model.getBusinessMonitor();
 						
 						broadcast(this.parser.broadcastBusinessFigures(m.getRevenue(), m.getExpenditure(),  m.getNumberOfMailDelivery(), m.getNumberOfCustomerPriceUpdate(), m.getNumberOfTransportCostUpdate(), m.getNumberOfTransportDiscontinued()), this.id);
