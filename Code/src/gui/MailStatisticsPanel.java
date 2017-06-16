@@ -33,6 +33,11 @@ public class MailStatisticsPanel extends JPanel {
 		this.gui = g;
 		initPanel();
 	}
+	
+	public void update(){
+		originComboBox.setModel(new DefaultComboBoxModel<String>(gui.controller.getLocations()));
+		destComboBox.setModel(new DefaultComboBoxModel<String>(gui.controller.getLocations()));
+	}
 
 	private void initPanel() {
 		setBackground(UIManager.getColor("Panel.background"));
@@ -51,8 +56,6 @@ public class MailStatisticsPanel extends JPanel {
 		add(originLabel);
 
 		originComboBox = new JComboBox<String>();
-		originComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "All", "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		originComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		originComboBox.setBounds(191, 66, 170, 26);
 		add(originComboBox);
@@ -64,8 +67,6 @@ public class MailStatisticsPanel extends JPanel {
 		add(destLabel);
 
 		destComboBox = new JComboBox<String>();
-		destComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "All", "Wellington", "Auckland", "Christchurch", "Dunedin", "Palmerston North", "Hamilton" }));
 		destComboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		destComboBox.setBounds(191, 113, 170, 26);
 		add(destComboBox);

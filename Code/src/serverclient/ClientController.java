@@ -216,19 +216,19 @@ public class ClientController {
 	}
 	
 	public void notifyLogMailDelivery(int id, String username, String date, String day, String from, String to, String priority, double volume, double weight, double kpsCost, double routeCost, int hours, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
-		
+		g.homePanel.eventNavigation.updateLogMailDelivery(id, username, date, day, from, to, priority, volume, weight, kpsCost, routeCost, hours, expenditure, revenue, numEvents, next, prev);
 	}
 	
 	public void notifyLogCustomerUpdate(int id, String username, String date, String from, String to, String priority, double volumeCost, double weightCost, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
-		
+		g.homePanel.eventNavigation.updateLogCustomerUpdate(id, username, date, from, to, priority, volumeCost, weightCost, expenditure, revenue, numEvents, next, prev);
 	}
 	
 	public void notifyLogTransportUpdate(int id, String username, String date, String company, String to, String from, String priority, double weight, double volume, double maxWeight, double maxVolume, int duration, int frequency, List<String> days, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
-		
+		g.homePanel.eventNavigation.updateLogTransportUpdate(id, username, date, company, to, from, priority, weight, volume, maxWeight, maxVolume, duration, frequency, days, expenditure, revenue, numEvents, next, prev);
 	}
 	
 	public void notifyLogTransport(int id, String username, String date, String company, String to, String from, String priority, double expenditure, double revenue, int numEvents, boolean next, boolean prev){
-		
+		g.homePanel.eventNavigation.updateLogTransport(id, username, date, company, to, from, priority, expenditure, revenue, numEvents, next, prev);
 	}
 	
 	public void notifyMailDeliveryStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime){

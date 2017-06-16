@@ -15,7 +15,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.border.TitledBorder;
 
@@ -28,7 +27,6 @@ public class HomePanel extends JPanel {
 	private CardLayout layoutPanelBody;
 	public JLabel username;
 	private Gui gui;
-	private ArrayList<JPanel> panels;
 
 	public MailCreationPanel mail;
 	public TransportCostPanel transportCost;
@@ -38,6 +36,7 @@ public class HomePanel extends JPanel {
 	public MailStatisticsPanel mailStatistics;
 	public AccountingPanel accounting;
 	public JScrollPane scrollPaneManager;
+	public EventNavigationPanel eventNavigation;
 	
 	public JButton criticalRoutesButton;
 	public JButton eventNavButton;
@@ -53,6 +52,7 @@ public class HomePanel extends JPanel {
 		transportCost.update();
 		transportDisc.update();
 		customerPrice.update();
+		mailStatistics.update();
 	}
 
 	public void initPanel() {
@@ -234,6 +234,7 @@ public class HomePanel extends JPanel {
 		accounting = new AccountingPanel();
 		mailStatistics = new MailStatisticsPanel(gui);
 		criticalRoutesPanel = new CriticalRoutesPanel();
+		eventNavigation = new EventNavigationPanel();
 	
 		panelBody.add(new JPanel(), "PLACE_HOLDER");
 		panelBody.add(mail, "MAIL_CREATION");

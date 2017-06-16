@@ -40,7 +40,7 @@ public class Gui{
 		System.out.println(controller.getManager());
 		String manager = "";
 		if(controller.getManager()){
-			manager = "(Manger) ";
+			manager = "(Manager) ";
 			homePanel.scrollPaneManager.setVisible(true);
 		}else{
 			homePanel.scrollPaneManager.setVisible(false);
@@ -48,6 +48,7 @@ public class Gui{
 		homePanel.username.setText("Logged In: " + manager + passwordDialog.usernameField.getText());
 		passwordDialog.loginBox.dispose();
 		homePanel.update();
+		controller.requestEventLog(-1);
 	}
 
 	public void loginFail(){
@@ -124,6 +125,8 @@ public class Gui{
 		homePanel.accounting.updateBusiness(totalRevenue, totalExpenditure, totalNumberOfMailDeliveryEvents, totalNumberOfCustomerPriceUpdateEvents, totalNumberOfTransportCostUpdateEvents, totalNumberOfTransportDiscontinuedEvents);
 		
 	}
+	
+	
 
 	public void updateMailStats(int numOfItems, double totalVolume, double totalWeight, double avDeliveryTime) {
 		homePanel.mailStatistics.update(numOfItems, totalVolume, totalWeight, avDeliveryTime);
