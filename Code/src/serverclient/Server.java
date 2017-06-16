@@ -100,7 +100,7 @@ public class Server {
 			KpsModel m = new KpsModel();
 			Server server = new Server(p, m);
 			server.start();
-		}catch(Exception e){
+		}catch(IOException e){
 			System.out.println("Exception: Reading in config file: " + e);
 		}
 	}

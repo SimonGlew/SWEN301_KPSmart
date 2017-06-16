@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -277,6 +278,20 @@ public class RouteMap {
 		KpsModel.println(String.format("Discontinued transport route from %s to %s with company %s and priority %d",
 				segments.get(segmentId).getOrigin().getName(), segments.get(segmentId).getDestination().getName(),
 				company, priority));
+	}
+	
+	public void printMap(){
+		System.out.println("Entire Map:");
+		for(Entry<Integer, Location> entry: locations.entrySet()){
+			System.out.printf("  Location %d: %s\n", entry.getKey(), entry.getValue().getName());
+			for(Segment seg: entry.getValue().getSegsOut()){
+				System.out.printf("  - Segment %d to %s\n", seg.getId(), seg.getDestination().getName());
+			}
+		}
+	}
+
+	public Collection<Segment> getSegments() {
+		return segments.values();
 	}
 
 }

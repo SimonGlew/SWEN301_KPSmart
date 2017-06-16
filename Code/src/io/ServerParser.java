@@ -6,6 +6,7 @@ import users.StaffMember;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.Codes;
 import model.BusinessMonitoring;
@@ -74,8 +75,9 @@ public class ServerParser {
 	}
 
 	public Packet parseClientGetRoutesMailDelivery(Packet p){
-		String[] information = p.getInformation().split("_");
+		model.printMap();
 
+		String[] information = p.getInformation().split("_");
 		String from = information[0];
 		String to = information[1];
 		int priority = parsePriority(information[2]);
@@ -83,6 +85,9 @@ public class ServerParser {
 		double volume = Double.parseDouble(information[4]);
 		Route cheapest = model.getCheapestRoute(from, to, priority, weight, volume);
 		Route fastest = model.getFastestRoute(from, to, priority, weight, volume);
+		if(cheapest == null){
+			return broadcastFailMailRoutes();
+		}
 		return broadcastRoutesMailDelivery(cheapest.getCost(), cheapest.getRouteCost(), (int)cheapest.getTime(), fastest.getCost(), fastest.getRouteCost(), (int)fastest.getTime());
 	}
 
@@ -103,7 +108,7 @@ public class ServerParser {
 	}
 	
 	public Packet parseCriticalRoutes(){
-		
+
 		//THAT NULL IS GONNA BE THE INFORMATION, DONT KNOW WHAT FORM YOU WANT THO
 		return this.broadcastCriticalRoutes(null);
 	}

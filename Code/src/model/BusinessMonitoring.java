@@ -1,14 +1,19 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import storage.KpsDatabase;
 import storage.MailDelivery;
 
 public class BusinessMonitoring {
 
 	KpsDatabase database;
+	RouteMap routeMap;
 	
-	public BusinessMonitoring(KpsDatabase database){
+	public BusinessMonitoring(KpsDatabase database, RouteMap routeMap){
 		this.database = database;
+		this.routeMap = routeMap;
 	}
 	
 	public double getRevenue(){
@@ -144,5 +149,25 @@ public class BusinessMonitoring {
 		return totalTime/numItems++;
 	}
 	
+	public List<CriticalRoute> getCriticalRoutes(){
+		double numItems = getNumberOfItems(null, null, 0);
+		double averageWeight = getTotalWeight(null, null, 0)/numItems;
+		double averageVolume = getTotalVolume(null, null, 0)/numItems;
+		List<CriticalRoute> criticalRoutes = new ArrayList<CriticalRoute>();
+		for(Segment segment: routeMap.getSegments()){
+			for(TransportOption option: segment.getTransportOptions().values()){
+				double averageKpsCost = segment.getWeightCost(option.getPriority())*averageWeight 
+						+ segment.getVolCost(option.getPriority())*averageVolume;
+				double averageRouteCost = option.getWeightCost()*averageWeight
+						+ option.getVolCost()*averageVolume;
+				if(averageRouteCost > averageKpsCost){
+					criticalRoutes.add(new CriticalRoute(segment.getOrigin().getName(), segment.getDestination().getName(), 
+							option.getPriority(), option.getTransportFirm(), averageRouteCost - averageKpsCost));
+				}
+			}
+		}		
+		System.out.println(criticalRoutes.size());
+		return criticalRoutes;
+	}
 	
 }

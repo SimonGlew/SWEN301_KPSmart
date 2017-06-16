@@ -30,11 +30,13 @@ public class KpsModel {
 		routeMap = new RouteMap();
 		database = new KpsDatabase();
 		userDatabase = new UserDatabase();
-		businessMonitor = new BusinessMonitoring(database);
+		businessMonitor = new BusinessMonitoring(database, routeMap);
 
 		for(BusinessEvent event: database.getBusinessEvents()){
 			processEvent(event);
 		}
+		
+		businessMonitor.getCriticalRoutes();
 	}
 	
 	public BusinessMonitoring getBusinessMonitor(){
@@ -145,6 +147,7 @@ public class KpsModel {
 			routeMap.updateTransportOption(segmentId, company, priority, pricePerGram, pricePerCube, maxWeight, maxVol, frequency, duration, days);
 		}
 		database.addTransportCostUpdate(getDateTimeNow(), username, company, origin, destination, priority, pricePerGram, pricePerCube, maxWeight, maxVol, duration, frequency, days);
+		businessMonitor.getCriticalRoutes();
 
 		if(newRoute){
 			return Codes.ConfirmationMadeRoute;
@@ -267,6 +270,10 @@ public class KpsModel {
 		int day = c.get(Calendar.DAY_OF_WEEK)-1;
 		int hour = c.get(Calendar.HOUR_OF_DAY);
 		return routeMap.findFastestRoute(originId, destinationId, weight, volume, priority, parseDay(day), hour);
+	}
+	
+	public void printMap(){
+		routeMap.printMap();
 	}
 
 	public StaffMember validateLogin(String username, String password) {
