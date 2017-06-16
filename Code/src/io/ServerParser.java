@@ -41,6 +41,8 @@ public class ServerParser {
 			return parseMailDeliveryStats(p);
 		}else if(p.getType().equals(Codes.CriticalRoutes)){
 			return parseCriticalRoutes();
+		}else if(p.getType().equals(Codes.EventLog)){
+			return parseEventLog(p);
 		}else{
 			return null;
 		}
@@ -73,6 +75,12 @@ public class ServerParser {
 		}
 		this.username = username;
 		return this.broadcastValidLogin(staff.isManager());
+	}
+	
+	public Packet parseEventLog(Packet p){
+		int eventID = Integer.parseInt(p.getInformation());
+		
+		return this.broadcastEventLog(null);
 	}
 
 	public Packet parseClientGetRoutesMailDelivery(Packet p){
@@ -211,6 +219,10 @@ public class ServerParser {
 			return 3;
 		}
 		return 4;
+	}
+	
+	public Packet broadcastEventLog(Object event){
+		return new Packet(Codes.EventLog, Codes.BroadcastSingle, ServerStringBuilder.makeEventLogString(event));
 	}
 	
 	public Packet broadcastFailMailRoutes(){

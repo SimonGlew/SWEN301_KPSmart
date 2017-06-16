@@ -48,8 +48,13 @@ public class ClientParser {
 			parseCriticalRoutes(p);
 		}else if(p.getType().equals(Codes.ServerFailedMailDeliveryRoutes)){
 			controller.failedEvent(Codes.GUIServerFailedMailDeliveryRoutes);
-
+		}else if(p.getType().equals(Codes.EventLog)){
+			parseEventLog(p);
 		}
+	}
+	
+	public void parseEventLog(Packet p){
+		
 	}
 
 	public void parseBusinessFigures(Packet p){
